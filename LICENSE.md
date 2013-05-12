@@ -1,2 +1,1 @@
-???
-no idea, any ideas someone?
+This software is published under terms of AGPLv3 as stated in COPYING.
