@@ -1,0 +1,42 @@
+{% extends "pastebin/base.html" %}
+
+
+{% block meta_title %}
+    User settings | {{ block.super }}
+{% endblock %}
+
+
+{% block main %}
+<div class="well">
+    <h2>User Settings</h2>
+
+    {% if settings_saved %}
+    <p class="label label-success">
+        Your preferences were successfully saved.
+    </p>
+    {% endif %}
+
+    <form class="form-horizontal" method="post" action="{% url 'snippet_userprefs' %}">
+    {% csrf_token %}
+    {% for field in settings_form %}
+        <div>
+            <div class="control-group">
+                {{ field.label_tag }}
+                <div class="controls">
+                    {{ field }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" value="Save settings" class="btn"/>
+        </div>
+    </div>
+    </form>
+
+    <p class="label label-info">
+        Remember: Your data is stored in a cookie.
+    </p>
+</div>
+{% endblock %}

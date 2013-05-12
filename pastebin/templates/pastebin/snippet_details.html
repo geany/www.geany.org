@@ -1,0 +1,105 @@
+{% extends "pastebin/base.html" %}
+{% load pastebin_tags %}
+
+{% block meta_title %}
+    Snippet #{{ snippet.pk }} | {{ block.super }}
+{% endblock %}
+
+
+{% block main %}
+<div class="well">
+
+<div id="diff" style="display:none;">diff</div>
+
+<h2>
+    Snippet #{{ snippet.pk }}
+</h2>
+
+<div class="snippet-options">
+    <abbr title="Time to life">TTL:</abbr> {{ snippet.expires|timeuntil  }}
+    &mdash;
+    {% if snippet.pk|in_list:request.session.snippet_list %}
+    <a onclick="return confirm('Really delete this snippet?')" href="{% url 'snippet_delete' snippet.secret_id %}">Delete now!</a>
+    &mdash;
+    {% endif %}
+    {% if snippet.parent_id %}
+        (Copy of <a href="{{ snippet.parent.get_absolute_url }}">snippet #{{ snippet.parent.id }}</a>)
+        &mdash;
+    {% endif %}
+    <a id="toggleWordwrap" href="#">Wordwrap</a>
+    &mdash;
+    <a href="{% url 'snippet_details_raw' snippet.secret_id %}">View raw</a>
+</div>
+<p>on <span class="date">{{ snippet.published|date:"Y/m/d G:i:s" }} (UTC)</span> by {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %}</p>
+
+<div class="snippet">
+<table>
+    <tr>
+        <th><pre class="code">{% for l in lines %}<a href="#l{{ forloop.counter }}" id="l{{ forloop.counter }}">{{ forloop.counter }}</a>{% endfor %}</pre></th>
+        <td><pre class="code">{% for line in snippet|highlight %}<div class="line" id="l{{ forloop.counter }}">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</div>{% endfor %}</pre></td>
+    </tr>
+</table>
+</div>
+
+<hr/>
+
+{% include "pastebin/snippet_list_embedded.html" %}
+
+</div>
+{% endblock %}
+
+
+
+{% block footer_js %}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    curLine = document.location.hash;
+    if(curLine.substring(0,2) == '#l'){
+        $('div.snippet div.line'+curLine).addClass('marked');
+    }
+
+    /**
+    * Wordwrap
+    */
+    $('#toggleWordwrap').toggle(
+        function(){
+            $('div.snippet pre.code').css('white-space', 'pre-wrap');
+            return false;
+        },
+        function(){
+            $('div.snippet pre.code').css('white-space', 'pre');
+            return false;
+        }
+    );
+
+    /**
+    * Line Highlighting
+    */
+    $('div.snippet th a').each(function(i){
+        $(this).click(function(){
+            var j = $(this).text();
+            $('div.snippet div.line.marked').removeClass('marked');
+            $('div.snippet div.line#l'+j).toggleClass('marked');
+        });
+    });
+
+    {% if request.session.userprefs.display_all_lexer %}
+    /**
+    * Lexer Guessing
+    */
+    $('#guess_lexer_btn').click(function(){
+        $.getJSON('{% url 'snippet_guess_lexer' %}',
+            {'codestring': $('#id_content').val()},
+            function(data){
+                if(data.lexer == "unknown"){
+                    $('#guess_lexer_btn').css('color', 'red');
+                }else{
+                    $('#id_lexer').val(data.lexer);
+                    $('#guess_lexer_btn').css('color', 'inherit');
+                }
+            });
+    });
+    {% endif %}
+});
+</script>
+{% endblock %}

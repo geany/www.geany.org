@@ -1,0 +1,10 @@
+
+{% if snippet_list %}
+<div id="snippet_list">
+    <ul>
+    {% for snippet in snippet_list %}
+        <li><span class="badge"><a href="{{ snippet.get_absolute_url }}">#{{ snippet.pk }} by {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %} ({{ snippet.age }})</a></span></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}

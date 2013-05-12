@@ -1,0 +1,41 @@
+{% extends "skel.html" %}
+
+{% block meta_title %}Pastebin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/pastebin.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/pygments.css">
+{% endblock %}
+
+{% block top_menu %}
+
+{% url 'home' as url_home %}
+{% url 'about' as url_about %}
+{% url 'api' as url_api %}
+{% url 'snippet_list' as url_snippet_list %}
+{% url 'snippet_userprefs' as url_snippet_userprefs %}
+
+<div class="row">
+    <div class="navbar">
+        <div class="well">
+            <ul class="nav nav-pills">
+                <li class="{% if request.path = url_home %} active{% endif %}">
+                    <a href="{{ url_home }}">New snippet</a>
+                </li>
+                <li class="{% if request.path = url_about %} active{% endif %}">
+                    <a href="{{ url_about }}">About</a>
+                </li>
+                <li class="{% if request.path = url_api %} active{% endif %}">
+                    <a href="{{ url_api }}">API</a>
+                </li>
+                <li class="{% if request.path = url_snippet_list %} active{% endif %}">
+                    <a href="{{ url_snippet_list }}">Recent snippets</a>
+                </li>
+                <li class="{% if request.path = url_snippet_userprefs %} active{% endif %}">
+                    <a href="{{ url_snippet_userprefs }}">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

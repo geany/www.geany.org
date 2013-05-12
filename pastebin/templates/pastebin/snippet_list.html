@@ -1,0 +1,27 @@
+{% extends "pastebin/base.html" %}
+{% load pastebin_tags %}
+
+{% block meta_title %}
+    Recent snippets | {{ block.super }}
+{% endblock %}
+
+{% block main %}
+<div class="well">
+    <h2>Latest {{ snippets_max }} snippets</h2>
+
+    {% if snippet_list %}
+    {% for snippet in snippet_list %}
+    <h4>
+        <a href="{{ snippet.get_absolute_url }}">Snippet #{{ snippet.pk }}</a>
+        <span>{% if snippet.author %} by {{ snippet.author }}{% endif %}</span>
+        ~ {{ snippet.published|date:"Y/m/d G:i:s" }}
+    </h4>
+    <div class="snippet">
+        <pre class="code">{% for line in snippet|highlight:5 %}<div class="line" id="l{{ forloop.counter }}">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</div>{% endfor %}</pre>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No snippets available.</p>
+    {% endif %}
+</div>
+{% endblock %}

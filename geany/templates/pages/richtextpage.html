@@ -1,0 +1,21 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags pages_tags geany_tags %}
+
+{% block main %}{{ block.super }}
+
+<div class="well">
+
+{% block richtext_content %}
+
+{# render the content as template, e.g. to replace {{ geany_latest_version }} #}
+{% evaluate page.richtextpage.content as evaluated_content %}
+
+{# display #}
+{{ evaluated_content|richtext_filter|safe }}
+
+{% endblock %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "pages/richtextpage.html" %}
+
+{% load mezzanine_tags pages_tags %}
+
+{% block richtext_content %}
+
+<h2>Geany {{ selected_release.version }} ({{ selected_release.release_date }})</h2>
+
+<pre>
+{{ selected_release.release_notes }}
+</pre>
+
+<h3>Older Releases</h3>
+<ul>
+{% for release in releases %}
+    {% if release.version != selected_release.version %}
+        <li><a href="{% url 'releasenotes_for_release' release.version %}">Geany {{ release.version }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+[
+  {
+    "model": "latest_version.latestversion",
+    "pk": 1,
+    "fields": {
+      "version": "1.23",
+      "github_link": "/commits/1.23.0"
+    }
+  }
+]
+
+

@@ -1,0 +1,112 @@
+.new-snippet-form textarea {
+    font-family: monospace;
+    width: 100%;
+}
+
+.new-snippet-form .label {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    display: block;
+}
+
+/*
+ * Snippet
+ */
+div.snippet-options{
+    float: right;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+div.snippet{
+    overflow: auto;
+}
+
+div.snippet table{
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+}
+
+div.snippet table td{
+    margin: 0;
+    padding: 0 4px;
+    vertical-align: top;
+}
+
+div.snippet table th{
+    border-right: 1px solid #ccc;
+    vertical-align: top;
+}
+
+div.snippet table th a{
+    display: block;
+    text-decoration: none;
+    color: #888;
+    text-align: right;
+    padding: 0 4px 0 18px;
+}
+/*
+ * Snippet
+ */
+
+
+/*
+ * Embedded snippet list
+ */
+
+div #snippet_list {
+    margin-top: 25px;
+}
+
+div #snippet_list ul {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+div #snippet_list li {
+    display: inline-block;
+    list-style: none;
+    white-space: nowrap;
+    padding: 3px;
+}
+
+div #snippet_list span.badge {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+div #snippet_list a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/*
+ * Embedded snippet list
+ */
+
+
+/*
+ * Code
+ */
+pre.code {
+    font-family: "Bitstream Vera Sans Mono", monospace;
+    font-size: 12px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    bordeR: none;
+}
+
+pre.code div.line:hover{
+    background-color: #FFFFE6;
+}
+
+pre.code div.line.marked,
+pre.code div.line.marked *{
+    background-color: #BAE688 !important;
+}
+/*
+ * Code
+ */

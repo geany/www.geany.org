@@ -1,0 +1,87 @@
+{% load pages_tags mezzanine_tags i18n compress %}
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<meta name="generator" content="Geany / Django / Mezzanine" />
+<meta name="viewport" content="width=device-width"/>
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}"/>
+<meta name="description" content="{% block meta_description %}{% endblock %}"/>
+<meta name="author" content="Geany development team & Росен Стоянов aka F1r3Fl3x"/>
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico"/>
+
+{% compress css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/mezzanine.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/geany.css"/>
+{% block extra_css %}{% endblock %}
+{% endcompress %}
+
+{% compress js %}
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.middleinput:text, textarea').addClass('xlarge');
+    $('.control-group label').addClass('control-label');
+});
+</script>
+
+{% block extra_js %}{% endblock %}
+{% endcompress %}
+
+{% block extra_head %}{% endblock %}
+
+</head>
+<body id="{% block body_id %}body{% endblock %}">
+
+<div class="container">
+    <div class="row">
+        <div class="hero-unit">
+            <div id="main-header">
+                <div class="text-right">
+                    {% block top_search %}
+                    {% endblock %}
+                </div>
+                <h1>Geany</h1>
+                <p>A fast and lightweight IDE</p>
+            </div>
+        </div>
+    </div>
+    {% block top_menu %}
+    {% endblock %}
+    <div class="row">
+        <div id="content-main">
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+    <div class="row">
+        <div id="footer">
+            <div class="well">
+                <p>
+                    Contents Copyright 2006-{% now "Y" %} Enrico Tröger, Matthew Brush,
+                    Colomban Wendling, Frank Lanitz, Nick Treleaven and Dominic Hopf
+                </p>
+                <p>
+                    {% ifinstalled mezzanine.mobile %}
+                    <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
+                    <span class="separator">|</span>
+                    {% endifinstalled %}
+                    Powered by <a href="https://www.djangoproject.com/">Django</a>,
+                    <a href="http://mezzanine.jupo.org/">Mezzanine</a> and of course
+                    <a href="http://www.geany.org/">Geany</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include "includes/footer_scripts.html" %}
+
+{% block footer_js %}{% endblock %}
+
+</body>
+</html>

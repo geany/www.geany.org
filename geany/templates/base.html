@@ -1,0 +1,15 @@
+{% extends "skel.html" %}
+{% load pages_tags mezzanine_tags i18n compress %}
+
+
+{% block top_search %}
+    {% include "includes/search_form.html" %}
+{% endblock %}
+
+{% block top_menu %}
+<div class="row">
+    <div class="navbar">
+        {% page_menu "pages/menus/dropdown.html" %}
+    </div>
+</div>
+{% endblock %}

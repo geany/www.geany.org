@@ -1,0 +1,16 @@
+Mezzanine
+MySQL-python
+South
+django-compressor
+django-extensions
+django-honeypot
+django-hosts
+django-memcache-status
+gunicorn
+pygments
+pylibmc
+pytz
+setproctitle
+
+# for development
+django-debug-toolbar

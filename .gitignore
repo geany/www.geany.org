@@ -1,0 +1,6 @@
+*.pyc
+*.pyo
+*.db
+local_settings.py
+venv
+geany/media
