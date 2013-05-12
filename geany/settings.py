@@ -3,12 +3,12 @@
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -135,7 +135,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SITE_ID = 1
 
-ALLOWED_HOSTS = ('127.0.0.1', 'geany.org', 'www.geany.org', 'pastebin.geany.org', 'nightly.geany.org')
+ALLOWED_HOSTS = ('127.0.0.1',
+                 'geany.org',
+                 'www.geany.org',
+                 'pastebin.geany.org',
+                 'geany.nightlybuilds.org',
+                 'nightly.geany.org')
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
