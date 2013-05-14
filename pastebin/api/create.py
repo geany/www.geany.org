@@ -3,16 +3,17 @@
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils.timezone import now
 from pastebin.forms import SnippetForm
 from pastebin.highlight import LEXER_LIST_ALL, LEXER_DEFAULT
 from pastebin.models import Snippet
@@ -131,7 +132,7 @@ class CreateSnippetApiController(object):
     def _create_snippet(self):
         cleaned_data = self._snippet_form.cleaned_data
         expire_options = int(cleaned_data.get('expire_options', 3600))
-        expires = datetime.now() + timedelta(seconds=expire_options)
+        expires = now() + timedelta(seconds=expire_options)
 
         self._snippet = Snippet.objects.create(
             content=cleaned_data['content'],
