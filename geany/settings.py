@@ -395,7 +395,7 @@ PIWIK_STATS_URL = 'http://demo.piwik.org'
 PIWIK_STATS_TOKEN = 'anonymous'
 PIWIK_STATS_SITE_ID = 1
 
-NIGHTLYBUILDS_BASE_DIR = '/srv/www/nightly.geany.org'
+NIGHTLYBUILDS_BASE_DIR = '/path/to/nightly/builds'
 
 
 
@@ -438,11 +438,6 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-        'django.db.backends': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
         },
     }
 }
