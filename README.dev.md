@@ -149,7 +149,7 @@ Now, finally, it's time to start your development server:
 
 This will start a simple HTTP server on *localhost* port 8000.
 You can open the resulting site in your browser by pointing it
-to *http://localhost:8000*.
+to http://localhost:8000 .
 
 Basically now you are done and you can start improving the website.
 A little detail you might notice: once you change any .py file
@@ -168,8 +168,8 @@ a special DNS record on the geany.org zone: ***.local.geany.org**.
 
 This record and all subdomains will resolve to *127.0.0.1* (aka *localhost*).
 
-In your browser you can use http://pastebin.local.geany.org/ and
-http://nightly.local.geany.org/ to use this subsites with your
+In your browser you can use http://pastebin.local.geany.org:8000/ and
+http://nightly.local.geany.org:8000/ to use these subsites with your
 local development server.
 All other domains not recognized as a known subsite will fallback to
 the main website.
