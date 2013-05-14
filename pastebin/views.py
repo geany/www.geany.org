@@ -3,12 +3,12 @@
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -234,6 +234,14 @@ def guess_lexer(request):
 
 
 #----------------------------------------------------------------------
+def _get_site(request):
+    if hasattr(request, 'site'):
+        return request.site
+    else:
+        return Site.objects.get_current()
+
+
+#----------------------------------------------------------------------
 @require_POST
 @csrf_exempt
 def api_create(request):
@@ -246,7 +254,7 @@ def api_create(request):
     except SnippetValidationError, e:
         return HttpResponseBadRequest(unicode(e), content_type=u'text/plain')
 
-    site = Site.objects.get_current()
+    site = _get_site(request)
     absolute_url = snippet.get_absolute_url()
-    result = u'http://%s%s' % (site.domain, absolute_url)
+    result = u'http://%s%s/' % (site.domain, absolute_url)
     return HttpResponse(result, content_type=u'text/plain')
