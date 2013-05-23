@@ -363,7 +363,7 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 
 # caching & sessions
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 DASHBOARD_TAGS = (
     ("mezzanine_tags.app_list",),
