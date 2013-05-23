@@ -3,12 +3,12 @@
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -19,8 +19,7 @@ from pygments import highlight
 from pygments.lexers import (
     PythonLexer,
     get_all_lexers,
-    get_lexer_by_name,
-    guess_lexer)
+    get_lexer_by_name)
 
 
 LEXER_LIST_ALL = sorted([(i[1][0], i[0]) for i in get_all_lexers()])
@@ -65,22 +64,11 @@ def pygmentize(code_string, lexer_name=LEXER_DEFAULT):
         if lexer_name:
             lexer = get_lexer_by_name(lexer_name)
         else:
-            raise Exception
+            raise Exception(u'Unknown lexer')
     except:
-        try:
-            lexer = guess_lexer(code_string)
-        except:
-            lexer = PythonLexer()
+        lexer = PythonLexer()
 
     try:
         return highlight(code_string, lexer, NakedHtmlFormatter())
     except:
         return escape(code_string)
-
-
-#----------------------------------------------------------------------
-def guess_code_lexer(code_string, default_lexer='unknown'):
-    try:
-        return guess_lexer(code_string).name
-    except ValueError:
-        return default_lexer

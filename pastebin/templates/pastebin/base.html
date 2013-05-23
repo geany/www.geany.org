@@ -13,7 +13,6 @@
 {% url 'about' as url_about %}
 {% url 'api' as url_api %}
 {% url 'snippet_list' as url_snippet_list %}
-{% url 'snippet_userprefs' as url_snippet_userprefs %}
 
 <div class="row">
     <div class="navbar">
@@ -30,9 +29,6 @@
                 </li>
                 <li class="{% if request.path = url_snippet_list %} active{% endif %}">
                     <a href="{{ url_snippet_list }}">Recent snippets</a>
-                </li>
-                <li class="{% if request.path = url_snippet_userprefs %} active{% endif %}">
-                    <a href="{{ url_snippet_userprefs }}">Settings</a>
                 </li>
             </ul>
         </div>

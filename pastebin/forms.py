@@ -12,10 +12,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from pastebin.highlight import LEXER_LIST_ALL, LEXER_LIST, LEXER_DEFAULT
+from pastebin.highlight import LEXER_LIST, LEXER_DEFAULT
 from pastebin.models import Snippet, Spamword
 import datetime
 
@@ -54,13 +53,7 @@ class SnippetForm(forms.ModelForm):
     def __init__(self, request, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
         self.request = request
-
-        try:
-            if self.request.session['userprefs'].get('display_all_lexer', False):
-                self.fields['lexer'].choices = LEXER_LIST_ALL
-        except KeyError:
-            pass
-
+        # set author
         self.fields['author'].initial = self.request.session.get('author', '')
 
     #----------------------------------------------------------------------
@@ -74,7 +67,6 @@ class SnippetForm(forms.ModelForm):
 
     #----------------------------------------------------------------------
     def save(self, parent=None, *args, **kwargs):
-
         # Set parent snippet
         if parent:
             self.instance.parent = parent
@@ -104,15 +96,3 @@ class SnippetForm(forms.ModelForm):
             'title',
             'author',
             'lexer',)
-
-
-########################################################################
-class UserSettingsForm(forms.Form):
-
-    default_name = forms.CharField(label=_(u'Default Name'), required=False)
-    display_all_lexer = forms.BooleanField(
-        label=_(u'Display all lexers'),
-        required=False,
-        widget=forms.CheckboxInput,
-        help_text=_(u'This also enables the super secret \'guess lexer\' function.'),
-    )

@@ -82,24 +82,6 @@ jQuery(document).ready(function(){
             $('div.snippet div.line#l'+j).toggleClass('marked');
         });
     });
-
-    {% if request.session.userprefs.display_all_lexer %}
-    /**
-    * Lexer Guessing
-    */
-    $('#guess_lexer_btn').click(function(){
-        $.getJSON('{% url 'snippet_guess_lexer' %}',
-            {'codestring': $('#id_content').val()},
-            function(data){
-                if(data.lexer == "unknown"){
-                    $('#guess_lexer_btn').css('color', 'red');
-                }else{
-                    $('#id_lexer').val(data.lexer);
-                    $('#guess_lexer_btn').css('color', 'inherit');
-                }
-            });
-    });
-    {% endif %}
 });
 </script>
 {% endblock %}

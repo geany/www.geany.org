@@ -21,16 +21,12 @@ from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest, \
     HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from django.utils import simplejson
-from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from honeypot.decorators import check_honeypot
 from pastebin.api.create import CreateSnippetApiController, SnippetValidationError
-from pastebin.forms import SnippetForm, UserSettingsForm
-from pastebin.highlight import pygmentize, guess_code_lexer
+from pastebin.forms import SnippetForm
 from pastebin.models import Snippet
-import difflib
 
 
 #----------------------------------------------------------------------
@@ -163,74 +159,6 @@ def snippet_list(request, template_name='pastebin/snippet_list.html'):
         template_context,
         RequestContext(request)
     )
-
-
-#----------------------------------------------------------------------
-def userprefs(request, template_name='pastebin/userprefs.html'):
-
-    if request.method == 'POST':
-        settings_form = UserSettingsForm(request.POST, initial=request.session.get('userprefs', None))
-        if settings_form.is_valid():
-            request.session['userprefs'] = settings_form.cleaned_data
-            settings_saved = True
-    else:
-        settings_form = UserSettingsForm(initial=request.session.get('userprefs', None))
-        settings_saved = False
-
-    template_context = {
-        'settings_form': settings_form,
-        'settings_saved': settings_saved,
-    }
-
-    return render_to_response(
-        template_name,
-        template_context,
-        RequestContext(request))
-
-
-#----------------------------------------------------------------------
-def snippet_diff(request, template_name='pastebin/snippet_diff.html'):
-
-    if request.GET.get('a') and request.GET.get('a').isdigit() \
-                    and request.GET.get('b') and request.GET.get('b').isdigit():
-        try:
-            fileA = Snippet.objects.get(pk=int(request.GET.get('a')))
-            fileB = Snippet.objects.get(pk=int(request.GET.get('b')))
-        except ObjectDoesNotExist:
-            return HttpResponseBadRequest(u'Selected file(s) does not exist.')
-    else:
-        return HttpResponseBadRequest(u'You must select two snippets.')
-
-    if fileA.content != fileB.content:
-        d = difflib.unified_diff(
-            fileA.content.splitlines(),
-            fileB.content.splitlines(),
-            'Original',
-            'Current',
-            lineterm=''
-        )
-        difftext = '\n'.join(d)
-        difftext = pygmentize(difftext, 'diff')
-    else:
-        difftext = _(u'No changes were made between this two files.')
-
-    template_context = {
-        'difftext': difftext,
-        'fileA': fileA,
-        'fileB': fileB,
-    }
-
-    return render_to_response(
-        template_name,
-        template_context,
-        RequestContext(request))
-
-
-#----------------------------------------------------------------------
-def guess_lexer(request):
-    code_string = request.GET.get('codestring', False)
-    response = simplejson.dumps({'lexer': guess_code_lexer(code_string)})
-    return HttpResponse(response)
 
 
 #----------------------------------------------------------------------
