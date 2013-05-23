@@ -61,10 +61,7 @@ class SnippetForm(forms.ModelForm):
         except KeyError:
             pass
 
-        try:
-            self.fields['author'].initial = self.request.session['userprefs'].get('default_name', '')
-        except KeyError:
-            pass
+        self.fields['author'].initial = self.request.session.get('author', '')
 
     #----------------------------------------------------------------------
     def clean_content(self):
@@ -93,6 +90,9 @@ class SnippetForm(forms.ModelForm):
         if not self.request.session.get('snippet_list', False):
             self.request.session['snippet_list'] = []
         self.request.session['snippet_list'].append(self.instance.pk)
+
+        # Remember author
+        self.request.session['author'] = self.instance.author
 
         return self.request, self.instance
 
