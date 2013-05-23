@@ -19,7 +19,7 @@
     <abbr title="Time to life">TTL:</abbr> {{ snippet.expires|timeuntil  }}
     &mdash;
     {% if snippet.pk|in_list:request.session.snippet_list %}
-    <a onclick="return confirm('Really delete this snippet?')" href="{% url 'snippet_delete' snippet.secret_id %}">Delete now!</a>
+    <a onclick="return confirm('Really delete this snippet?')" href="{% url 'snippet_delete' snippet.secret_id %}">Delete</a>
     &mdash;
     {% endif %}
     {% if snippet.parent_id %}

@@ -89,6 +89,11 @@ class SnippetForm(forms.ModelForm):
         # Save snippet in the db
         forms.ModelForm.save(self, *args, **kwargs)
 
+        # Add snippet to the user's session
+        if not self.request.session.get('snippet_list', False):
+            self.request.session['snippet_list'] = []
+        self.request.session['snippet_list'].append(self.instance.pk)
+
         return self.request, self.instance
 
     ########################################################################
