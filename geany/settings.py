@@ -130,8 +130,6 @@ LANGUAGE_CODE = "en"
 # production. Best set to ``True`` in local_settings.py
 DEBUG = False
 
-# Whether a user's session cookie expires when the Web browser is closed.
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SITE_ID = 1
 
@@ -365,6 +363,7 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 
 # caching & sessions
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 DASHBOARD_TAGS = (
     ("mezzanine_tags.app_list",),
@@ -382,6 +381,7 @@ FORMS_USE_HTML5 = True
 
 INLINE_EDITING_ENABLED = False
 
+COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
 
 # django-hosts
 ROOT_HOSTCONF = 'geany.hosts'
