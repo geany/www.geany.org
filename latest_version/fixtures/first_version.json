@@ -3,10 +3,10 @@
     "model": "latest_version.latestversion",
     "pk": 1,
     "fields": {
-      "version": "1.23",
-      "github_link": "/commits/1.23.0"
+      "version": "1.23.1",
+      "github_link": "/commits/1.23.1",
+      "release_date": "2013-05-19T13:59:00Z"
     }
   }
 ]
-
 
