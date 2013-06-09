@@ -13,8 +13,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from django.conf.urls import url, patterns, include
+from django.conf.urls import url, patterns
 from django.views.generic.base import TemplateView
+from geany.sitemaps import StaticSitemap
 
 
 urlpatterns = patterns('',
@@ -31,4 +32,11 @@ urlpatterns = patterns('',
     url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/$', 'pastebin.views.snippet_details', name='snippet_details'),
     url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/delete/$', 'pastebin.views.snippet_delete', name='snippet_delete'),
     url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$', 'pastebin.views.snippet_details', {'template_name': 'pastebin/snippet_details_raw.html', 'is_raw': True}, name='snippet_details_raw'),
+)
+
+# Sitemap framework
+sitemaps = {"sitemaps": {"all": StaticSitemap('pastebin.geany.org', urlpatterns)}}
+urlpatterns += patterns('',
+    # use our custom sitemap implementation
+    url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps)
 )
