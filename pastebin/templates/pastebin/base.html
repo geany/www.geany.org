@@ -8,16 +8,18 @@
 {% endblock %}
 
 {% block top_menu %}
-
 {% url 'home' as url_home %}
 {% url 'about' as url_about %}
 {% url 'api' as url_api %}
 {% url 'snippet_list' as url_snippet_list %}
 
-<div class="row">
-    <div class="navbar">
-        <div class="well">
-            <ul class="nav nav-pills">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <img src="{{ STATIC_URL }}img/geany-36x36.png" class="brand">
+            <a class="brand" href="http://www.geany.org/">Geany</a>
+
+            <ul class="nav">
                 <li class="{% if request.path = url_home %} active{% endif %}">
                     <a href="{{ url_home }}">New snippet</a>
                 </li>
@@ -34,4 +36,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

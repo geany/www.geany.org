@@ -3,17 +3,18 @@
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic.base import TemplateView
 
 from mezzanine.conf import settings
 from geany.sitemaps import GeanyDisplayableSitemap
@@ -32,7 +33,8 @@ urlpatterns = patterns("",
     # use our custom sitemap implementation
     url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
 
-    url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
+    # news (for now implemented using the Mezzanine blog app)
+    url("^news/$", "mezzanine.blog.views.blog_post_list", name="news"),
 
     # TODO, NEWS, etc.
     url(r"^", include("static_docs.urls")),
@@ -42,6 +44,9 @@ urlpatterns = patterns("",
 
     # /service/version.php (for the UpdateChecker plugin)
     url(r"^", include("latest_version.urls")),
+
+    # home page
+    url(r"^$", TemplateView.as_view(template_name='home.html'), name='home'),
 
     # everything else
     url(r"^", include("mezzanine.urls")),

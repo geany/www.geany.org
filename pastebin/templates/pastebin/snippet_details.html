@@ -9,8 +9,6 @@
 {% block main %}
 <div class="well">
 
-<div id="diff" style="display:none;">diff</div>
-
 <h2>
     Snippet #{{ snippet.pk }}
 </h2>
@@ -26,19 +24,23 @@
         (Copy of <a href="{{ snippet.parent.get_absolute_url }}">snippet #{{ snippet.parent.id }}</a>)
         &mdash;
     {% endif %}
-    <a id="toggleWordwrap" href="#">Wordwrap</a>
+    <a id="word_wrap_toggle" href="#">Wordwrap</a>
     &mdash;
     <a href="{% url 'snippet_details_raw' snippet.secret_id %}">View raw</a>
 </div>
-<p>on <span class="date">{{ snippet.published|date:"Y/m/d G:i:s" }} (UTC)</span> by {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %}</p>
+<p>on <span class="date">{{ snippet.published|date:"Y/m/d G:i:s" }} (UTC)</span> by
+                         {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %}
+                         as {{ snippet.lexer|title }}</p>
 
 <div class="snippet">
-<table>
-    <tr>
-        <th><pre class="code">{% for l in lines %}<a href="#l{{ forloop.counter }}" id="l{{ forloop.counter }}">{{ forloop.counter }}</a>{% endfor %}</pre></th>
-        <td><pre class="code">{% for line in snippet|highlight %}<div class="line" id="l{{ forloop.counter }}">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</div>{% endfor %}</pre></td>
-    </tr>
-</table>
+<ol>
+    {% for line in snippet|highlight %}
+        <li id="l{{ forloop.counter }}">
+            <div class="line"><pre class="code">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</pre></div>
+        </li>
+    {% endfor %}
+</ol>
+
 </div>
 
 <hr/>
@@ -58,16 +60,43 @@ jQuery(document).ready(function(){
         $('div.snippet div.line'+curLine).addClass('marked');
     }
 
+    /* JQuery 1.9 removed toggle-event, this is the migrate/replacement code */
+    jQuery.fn.toggle = function( fn, fn2 ) {
+      // Don't mess with animation or css toggles
+      if ( !jQuery.isFunction( fn ) || !jQuery.isFunction( fn2 ) ) {
+        return oldToggle.apply( this, arguments );
+      }
+      // Save reference to arguments for access in closure
+      var args = arguments,
+      guid = fn.guid || jQuery.guid++,
+      i = 0,
+      toggler = function( event ) {
+        // Figure out which function to execute
+        var lastToggle = ( jQuery._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+        jQuery._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+        // Make sure that clicks stop
+        event.preventDefault();
+        // and execute the function
+        return args[ lastToggle ].apply( this, arguments ) || false;
+      };
+      // link all the functions, so any of them can unbind this click handler
+      toggler.guid = guid;
+      while ( i < args.length ) {
+        args[ i++ ].guid = guid;
+      }
+      return this.click( toggler );
+    };
+
     /**
     * Wordwrap
     */
-    $('#toggleWordwrap').toggle(
+    $('#word_wrap_toggle').toggle(
         function(){
-            $('div.snippet pre.code').css('white-space', 'pre-wrap');
+            $('div.snippet pre.code').css('white-space', 'pre');
             return false;
         },
         function(){
-            $('div.snippet pre.code').css('white-space', 'pre');
+            $('div.snippet pre.code').css('white-space', 'pre-wrap');
             return false;
         }
     );

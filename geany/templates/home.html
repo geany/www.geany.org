@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load mezzanine_tags %}
+
+{% block meta_title %}
+Home
+{% endblock %}
+
+{% block forkmeongithub %}
+<a href="https://github.com/geany" class="forkmeongithub"><img src="{{ STATIC_URL }}img/forkme_right_darkblue.png" alt="Fork me on GitHub"></a>
+{% endblock %}
+
+{% block bodyblock %}
+
+	<!-- Main hero unit for a primary marketing message or call to action -->
+	<div class="hero-unit">
+		<h1>The Flyweight IDE</h1>
+
+		<div id="GeanyScreenshots" class="carousel slide">
+		  <ol class="carousel-indicators">
+			<li data-target="#GeanyScreenshots" data-slide-to="0" class="active"></li>
+			<li data-target="#GeanyScreenshots" data-slide-to="1"></li>
+			<li data-target="#GeanyScreenshots" data-slide-to="2"></li>
+			<li data-target="#GeanyScreenshots" data-slide-to="3"></li>
+			<li data-target="#GeanyScreenshots" data-slide-to="4"></li>
+		  </ol>
+		  <div class="carousel-inner">
+			<div class="active item">
+				<a href="{% url "page" "documentation/screenshots" %}">
+				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_main.png" 700 350 %}" alt="Main screen">
+				</a>
+			</div>
+			<div class="item">
+				<a href="{% url "page" "documentation/screenshots" %}">
+				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_prefs.png" 700 350 %}" alt="Preferences dialog">
+				</a>
+			</div>
+			<div class="item">
+				<a href="{% url "page" "documentation/screenshots" %}">
+				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_build.png" 700 350 %}" alt="Build process">
+				</a>
+			</div>
+			<div class="item">
+				<a href="{% url "page" "documentation/screenshots" %}">
+				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_vte.jpg" 700 350 %}" alt="Virtual terminal emulation">
+				</a>
+			</div>
+			<div class="item">
+				<a href="{% url "page" "documentation/screenshots" %}">
+				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_plugins.png" 700 350 %}" alt="Plugin manager">
+				</a>
+			</div>
+		  </div>
+		</div>
+
+		<p>Geany is a powerful, stable and lightweight programmer's text editor
+		that provides tons of useful features without bogging down your
+		workflow. It runs on Windows, MacOS and Linux, is translated into
+		over 40 languages, and has built-in support for more than 50 programming
+		languages.
+		<a href="{% url 'page' 'download/releases' %}" class="btn btn-primary">Download Geany {{ geany_latest_version.version }} &raquo;</a></p>
+	</div>
+
+	<div class="row">
+		<div class="span4">
+			<h2>Fast &amp; Small</h2>
+			<p>One the primary reasons for Geany's existence is that there
+			is a need for a decent, GUI, lightweight, cross-platform, flexible
+			and powerful IDE/editor. Many editors meet one or more of these
+			requirements but fall short on others.
+			</p>
+			<p>Geany attempts to hit the sweet spot.</p>
+			<p><a class="btn" href="{% url "page" "about/geany" %}">More Features &raquo;</a></p>
+		</div>
+		<div class="span4">
+			<h2>Great Community</h2>
+			<p>Geany is Good Ol' Fashioned
+			<a href="https://en.wikipedia.org/wiki/Free_software">Free Software</a>.
+			Using the <a href="http://www.gnu.org/licenses/gpl-2.0.txt">GPL v2 license</a>,
+			Geany assures that not only can you customize and hack it, but
+			that everyone benefits from changes the community makes. Geany
+			has a vibrant community of professionals and hobbiests alike
+			that contribute improvements and fixes across numerous
+			platforms including
+			<a href="{% url "page" "community/mailing-lists" %}">The Mailing Lists</a>,
+			<a href="{% url "page" "community/irc" %}">IRC</a>,
+			<a href="https://github.com/geany">Github</a>,
+			<a href="http://sourceforge.net/projects/geany/">SourceForge</a>, and
+			<a href="#">Google+</a>.</p>
+			<p><a class="btn" href="{% url "page" "community/contribute" %}">Get Involved &raquo;</a></p>
+			<p><a class="btn" href="{% url "page" "about/donate" %}">Donate &raquo;</a></p>
+	   </div>
+		<div class="span4">
+			<h2>RTFM</h2>
+			<p>Geany not only has an extensive <a href="{% url "page" "documentation/manual" %}">User Manual</a>
+			but also has a crowd-sourced <a href="http://wiki.geany.org/">Wiki</a> and full
+			<a href="http://www.geany.org/manual/reference/">Plugin API Documentation</a>. Not satisfied?</p>
+			<p>Hit us up on <a href="{% url "page" "community/mailing-lists" %}">The Mailing Lists</a> or
+			<a href="{% url "page" "community/irc" %}">IRC</a>
+			and we'll get you on track.</p>
+			<p><a class="btn" href="{% url "page" "documentation/manual" %}">To The Docs! &raquo;</a></p>
+		</div>
+	</div>
+
+	<hr>
+
+{% endblock %}
+
+
+{% block footer_js %}
+<script>
+	$(document).ready(function(){
+		$('#GeanyScreenshots').carousel();
+	});
+</script>
+{% endblock %}

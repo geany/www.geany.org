@@ -1,0 +1,61 @@
+
+.forkmeongithub {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    border: 0;
+}
+
+.hero-unit {
+    padding-top: 20px;
+}
+
+.hero-unit h1 {
+    padding-bottom: 20px;
+    font-size: 32px;
+}
+
+.hero-unit {
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 20px;
+}
+
+.hero-unit .btn {
+    padding: 8px 12px;
+    margin: 20px;
+    float: right;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.navbar img.brand {
+    padding: 0px 5px;
+}
+
+.carousel-indicators {
+    top: -35px;
+}
+
+.carousel-indicators li {
+    border-color: rgb(150, 150, 150);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.carousel-indicators .active {
+    background-color: rgba(190, 190, 190, 0.5);
+}
+
+#footer .well {
+    padding: 10px;
+}
+
+#footer p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+pre {
+    padding: 0px;
+}

@@ -146,6 +146,7 @@ USE_I18N = True
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "to-be-configured-in-local-settings"
+NEVERCACHE_KEY = "to-be-configured-in-local-settings"
 
 # Tuple of IP addresses, as strings, that:
 #   * See debug comments, when DEBUG is true
@@ -313,6 +314,7 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.UpdateCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    #"django_log_failed_auth.middleware.FailedAuthenticationMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -396,7 +398,6 @@ PIWIK_STATS_TOKEN = 'anonymous'
 PIWIK_STATS_SITE_ID = 1
 
 NIGHTLYBUILDS_BASE_DIR = '/path/to/nightly/builds'
-
 
 
 LOGGING = {

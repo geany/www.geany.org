@@ -1,15 +1,16 @@
 {% extends "skel.html" %}
-{% load pages_tags mezzanine_tags i18n compress %}
-
-
-{% block top_search %}
-    {% include "includes/search_form.html" %}
-{% endblock %}
+{% load pages_tags %}
 
 {% block top_menu %}
-<div class="row">
-    <div class="navbar">
-        {% page_menu "pages/menus/dropdown.html" %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <img src="{{ STATIC_URL }}img/geany-36x36.png" class="brand">
+            <a class="brand" href="{% url "home" %}">Geany</a>
+            <div class="nav-collapse collapse">
+                {% page_menu "pages/menus/dropdown.html" %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

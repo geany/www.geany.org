@@ -9,42 +9,86 @@
     display: block;
 }
 
+.new-snippet-form .control-group ul {
+    margin-left: 5px;
+    margin-bottom: 0px;
+}
+
+.new-snippet-form .control-group ul li {
+    list-style: none;
+}
+
+.new-snippet-form .control-group ul li label {
+    width: auto;
+    padding-right: 15px;
+}
+
+.new-snippet-form .control-group ul li input[type="radio"],
+.new-snippet-form .control-group ul li input[type="checkbox"] {
+    margin: 0px;
+}
+
+.new-snippet-form select, input[type="file"] {
+    height: inherit;
+}
+
+.new-snippet-form input, .uneditable-input {
+    width: 300px;
+}
+
+input[type="file"],
+input[type="image"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="radio"],
+input[type="checkbox"] {
+    width: auto;
+}
+
+.form-horizontal .control-label {
+    padding-top: 1px;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+
 /*
  * Snippet
  */
-div.snippet-options{
+div.snippet-options {
     float: right;
     font-size: 0.9em;
     margin-top: 5px;
 }
 
-div.snippet{
-    overflow: auto;
+div.snippet_list {
+    padding: 3px;
 }
 
-div.snippet table{
+div.snippet table {
     margin: 0;
     padding: 0;
     border-collapse: collapse;
-}
-
-div.snippet table td{
-    margin: 0;
-    padding: 0 4px;
-    vertical-align: top;
-}
-
-div.snippet table th{
-    border-right: 1px solid #ccc;
-    vertical-align: top;
-}
-
-div.snippet table th a{
-    display: block;
-    text-decoration: none;
-    color: #888;
-    text-align: right;
-    padding: 0 4px 0 18px;
 }
 /*
  * Snippet
@@ -80,7 +124,6 @@ div #snippet_list a {
     color: #ffffff;
     text-decoration: none;
 }
-
 /*
  * Embedded snippet list
  */
@@ -89,22 +132,37 @@ div #snippet_list a {
 /*
  * Code
  */
+div.snippet ol {
+    padding: 1px;
+    border: 1px solid rgb(220, 220, 220);
+    -webkit-border-radius:  5px;
+    -moz-border-radius:     5px;
+    border-radius:          5px;
+}
+
+div.snippet pre.wrapped {
+    white-space: pre-wrap;
+}
+
+pre {
+    background-color: rgb(250, 250, 250);
+}
+
 pre.code {
     font-family: "Bitstream Vera Sans Mono", monospace;
     font-size: 12px;
-    line-height: 17px;
+    line-height: 15px;
     margin: 0;
     padding: 0;
-    background-color: transparent;
-    bordeR: none;
+    border: none;
 }
 
-pre.code div.line:hover{
-    background-color: #FFFFE6;
+div.line:hover pre.code {
+    background-color: #FFFFA6;
 }
 
 pre.code div.line.marked,
-pre.code div.line.marked *{
+pre.code div.line.marked * {
     background-color: #BAE688 !important;
 }
 /*
