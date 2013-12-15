@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import datetime
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
@@ -21,6 +20,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest, \
     HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from honeypot.decorators import check_honeypot
@@ -47,7 +47,7 @@ def _get_snippet_list(no_content=False):
 
 #----------------------------------------------------------------------
 def _clean_expired_snippets():
-    deleteable_snippets = Snippet.objects.filter(expires__lte=datetime.now())
+    deleteable_snippets = Snippet.objects.filter(expires__lte=timezone.now())
     if deleteable_snippets:
         deleteable_snippets.delete()
 
