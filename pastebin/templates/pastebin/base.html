@@ -9,7 +9,7 @@
 
 {% block top_menu %}
 {% url 'home' as url_home %}
-{% url 'about' as url_about %}
+{% url 'help' as url_help %}
 {% url 'api' as url_api %}
 {% url 'snippet_list' as url_snippet_list %}
 
@@ -23,8 +23,8 @@
                 <li class="{% if request.path = url_home %} active{% endif %}">
                     <a href="{{ url_home }}">New snippet</a>
                 </li>
-                <li class="{% if request.path = url_about %} active{% endif %}">
-                    <a href="{{ url_about }}">About</a>
+                <li class="{% if request.path = url_help %} active{% endif %}">
+                    <a href="{{ url_help }}">Help</a>
                 </li>
                 <li class="{% if request.path = url_api %} active{% endif %}">
                     <a href="{{ url_api }}">API</a>
