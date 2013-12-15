@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^admin/', 'mezzanine.core.views.page_not_found'),
 
     url(r'^help/$', TemplateView.as_view(template_name='pastebin/help.html'), name='help'),
-    url(r'^api/$', TemplateView.as_view(template_name='pastebin/api.html'), name='api'),
+    url(r'^help/api/$', TemplateView.as_view(template_name='pastebin/api.html'), name='api'),
 
     url(r'^api/$', 'pastebin.views.api_create'),
 
