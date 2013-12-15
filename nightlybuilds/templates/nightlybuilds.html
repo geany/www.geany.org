@@ -58,14 +58,14 @@ binary packages can be found below.</p>
 </thead>
 <tbody>
     {% for build in nightlybuilds %}
-        <tr>
+        <tr class="{% if build.get_status %}success{% else %}error{% endif %}">
             <td class="centered_column">{% if build.get_status %}
                     <img src="{{ STATIC_URL }}img/icon-yes.gif" alt="{{ build.get_status_text }}" title="{{ build.get_status_text }}" />
                 {% else %}
                     <img src="{{ STATIC_URL }}img/icon-no.gif" alt="{{ build.get_status_text }}" title="{{ build.get_status_text }}" />
                 {% endif %}
             </td>
-            <td>{{ build.nightly_build_target.project }}</td>
+            <td>{{ build.nightly_build_target.project|capfirst }}</td>
             <td>{{ build.revision }}</td>
             <td>{{ build.nightly_build_target.name }}</td>
             <td><span title="Build host: {{ build.build_host }}">{{ build.nightly_build_target.arch }}</span></td>
