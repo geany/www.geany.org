@@ -11,12 +11,17 @@
 </pre>
 
 <h3>Older Releases</h3>
-<ul>
+<div class="row">
 {% for release in releases %}
-    {% if release.version != selected_release.version %}
-        <li><a href="{% url 'releasenotes_for_release' release.version %}">Geany {{ release.version }}</a></li>
+    <div class="span2">
+        <a href="{% url 'releasenotes_for_release' release.version %}">Geany {{ release.version }}</a>
+    </div>
+
+    {% if forloop.counter|divisibleby:4 %}
+        </div>
+        <div class="row">
     {% endif %}
 {% endfor %}
-</ul>
+</div>
 
 {% endblock %}
