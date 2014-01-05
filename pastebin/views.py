@@ -16,13 +16,15 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest, \
-    HttpResponse, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
+from django.template.response import TemplateResponse
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.views.generic.base import View, TemplateView
 from honeypot.decorators import check_honeypot
 from pastebin.api.create import CreateSnippetApiController, SnippetValidationError
 from pastebin.forms import SnippetForm
@@ -45,144 +47,178 @@ def _get_snippet_list(no_content=False):
     return snippet_list_
 
 
-#----------------------------------------------------------------------
-def _clean_expired_snippets():
-    deleteable_snippets = Snippet.objects.filter(expires__lte=timezone.now())
-    if deleteable_snippets:
-        deleteable_snippets.delete()
+########################################################################
+class SnippetNewView(View):
+    template_name = 'pastebin/snippet_new.html'
 
+    #----------------------------------------------------------------------
+    @method_decorator(check_honeypot)
+    def dispatch(self, *args, **kwargs):
+        return super(SnippetNewView, self).dispatch(*args, **kwargs)
 
-#----------------------------------------------------------------------
-@check_honeypot
-def snippet_new(request, template_name='pastebin/snippet_new.html'):
+    #----------------------------------------------------------------------
+    def get(self, request):
+        snippet_form = SnippetForm(request=request)
+        return self._render_response(request, snippet_form)
 
-    if request.method == "POST":
+    #----------------------------------------------------------------------
+    def _render_response(self, request, snippet_form):
+        snippet_list = _get_snippet_list(no_content=True)
+        template_context = dict(snippet_form=snippet_form, snippet_list=snippet_list)
+
+        return render_to_response(
+            self.template_name,
+            template_context,
+            RequestContext(request))
+
+    #----------------------------------------------------------------------
+    def post(self, request):
         snippet_form = SnippetForm(data=request.POST, request=request)
         if snippet_form.is_valid():
             request, new_snippet = snippet_form.save()
             return HttpResponseRedirect(new_snippet.get_absolute_url())
-    else:
+
+        return self._render_response(request, snippet_form)
+
+
+########################################################################
+class SnippetNotFoundError(Exception):
+    pass
+
+
+########################################################################
+class SnippetDetailView(View):
+    template_name = 'pastebin/snippet_details.html'
+
+    #----------------------------------------------------------------------
+    @method_decorator(check_honeypot)
+    def dispatch(self, *args, **kwargs):
+        return super(SnippetDetailView, self).dispatch(*args, **kwargs)
+
+    #----------------------------------------------------------------------
+    def get(self, request, snippet_id):
         # housekeeping
-        _clean_expired_snippets()
-        snippet_form = SnippetForm(request=request)
+        self._clean_expired_snippets()
+        # load snippet
+        try:
+            snippet = self._fetch_snippet(snippet_id)
+        except SnippetNotFoundError, e:
+            # 404 response with custom message
+            context = dict(message=unicode(e))
+            return TemplateResponse(request, 'errors/404.html', context=context, status=404)
 
-    snippet_list_ = _get_snippet_list(no_content=True)
-
-    template_context = {
-        'snippet_form': snippet_form,
-        'snippet_list': snippet_list_,
-    }
-
-    return render_to_response(
-        template_name,
-        template_context,
-        RequestContext(request)
-    )
-
-
-#----------------------------------------------------------------------
-@check_honeypot
-def snippet_details(request, snippet_id, template_name='pastebin/snippet_details.html', is_raw=False):
-
-    # housekeeping
-    _clean_expired_snippets()
-
-    try:
-        snippet = Snippet.objects.get(secret_id=snippet_id)
-    except MultipleObjectsReturned:
-        raise Http404('Multiple snippets exist for this slug. This should never '
-                      'happen but its likely that you are a spam bot, so I dont '
-                      'care.')
-    except ObjectDoesNotExist:
-        raise Http404('This snippet does not exist anymore. Its likely that its '
-                      'lifetime is expired.')
-
-    new_snippet_initial = {
-        'content': snippet.content,
-        'lexer': snippet.lexer,
-    }
-
-    if request.method == "POST":
-        snippet_form = SnippetForm(data=request.POST, request=request, initial=new_snippet_initial)
-        if snippet_form.is_valid():
-            request, new_snippet = snippet_form.save(parent=snippet)
-            return HttpResponseRedirect(new_snippet.get_absolute_url())
-    else:
+        new_snippet_initial = dict(content=snippet.content, lexer=snippet.lexer)
         snippet_form = SnippetForm(initial=new_snippet_initial, request=request)
 
-    snippet_list_ = _get_snippet_list(no_content=True)
-    template_context = {
-        'snippet_list': snippet_list_,
-        'snippet_form': snippet_form,
-        'snippet': snippet,
-        'lines': range(snippet.get_linecount()),
-    }
+        snippet_list_ = _get_snippet_list(no_content=True)
+        template_context = {
+            'snippet_list': snippet_list_,
+            'snippet_form': snippet_form,
+            'snippet': snippet,
+            'lines': range(snippet.get_linecount()),
+        }
 
-    response = render_to_response(
-        template_name,
-        template_context,
-        RequestContext(request)
-    )
+        response = render_to_response(
+            self.template_name,
+            template_context,
+            RequestContext(request))
+        return response
 
-    if is_raw:
+    #----------------------------------------------------------------------
+    def _clean_expired_snippets(self):
+        deleteable_snippets = Snippet.objects.filter(expires__lte=timezone.now())
+        if deleteable_snippets:
+            deleteable_snippets.delete()
+
+    #----------------------------------------------------------------------
+    def _fetch_snippet(self, snippet_id):
+        try:
+            snippet = Snippet.objects.get(secret_id=snippet_id)
+        except MultipleObjectsReturned:
+            raise SnippetNotFoundError(_(u'Multiple snippets exist for this slug. This should never happen.'))
+        except ObjectDoesNotExist:
+            raise SnippetNotFoundError(_(u'This snippet does not exist anymore. Probably its lifetime is expired.'))
+        else:
+            return snippet
+
+
+########################################################################
+class SnippetDetailRawView(SnippetDetailView):
+    template_name = 'pastebin/snippet_details_raw.html'
+
+    #----------------------------------------------------------------------
+    def get(self, request, snippet_id):
+        response = super(SnippetDetailRawView, self).get(request, snippet_id)
+        # set content type
         response['Content-Type'] = 'text/plain;charset=UTF-8'
         return response
-    else:
-        return response
 
 
-#----------------------------------------------------------------------
-def snippet_delete(request, snippet_id):
-    snippet = get_object_or_404(Snippet, secret_id=snippet_id)
-    try:
-        snippet_list_ = request.session['snippet_list']
-    except KeyError:
-        return HttpResponseForbidden('You have no recent snippet list, cookie error?')
-    if not snippet.pk in snippet_list_:
-        return HttpResponseForbidden('That\'s not your snippet, sucka!')
-    snippet.delete()
-    return HttpResponseRedirect(reverse('home'))
+########################################################################
+class SnippetDeleteView(View):
+
+    #----------------------------------------------------------------------
+    def get(self, request, snippet_id):
+        snippet = get_object_or_404(Snippet, secret_id=snippet_id)
+        try:
+            snippet_list_ = request.session['snippet_list']
+        except KeyError:
+            # 403 response with custom message
+            return TemplateResponse(
+                request,
+                'errors/403.html',
+                context=dict(message=_(u'You have no recent snippet list, cookie error?')),
+                status=403)
+        if not snippet.pk in snippet_list_:
+            # 403 response with custom message
+            return TemplateResponse(
+                request,
+                'errors/403.html',
+                context=dict(message=_(u'That is not your snippet!')),
+                status=403)
+
+        snippet.delete()
+        return HttpResponseRedirect(reverse('home'))
 
 
-#----------------------------------------------------------------------
-def snippet_list(request, template_name='pastebin/snippet_list.html'):
+########################################################################
+class LatestSnippetsView(TemplateView):
+    template_name = 'pastebin/snippet_list.html'
 
-    snippet_list_ = _get_snippet_list()
+    #----------------------------------------------------------------------
+    def get_context_data(self, **kwargs):
+        snippet_list_ = _get_snippet_list()
 
-    template_context = {
-        'snippets_max': getattr(settings, 'MAX_SNIPPETS_PER_USER', 10),
-        'snippet_list': snippet_list_,
-    }
-
-    return render_to_response(
-        template_name,
-        template_context,
-        RequestContext(request)
-    )
+        context = super(LatestSnippetsView, self).get_context_data(**kwargs)
+        context['snippets_max'] = getattr(settings, 'MAX_SNIPPETS_PER_USER', 10)
+        context['snippet_list'] = snippet_list_
+        return context
 
 
-#----------------------------------------------------------------------
-def _get_site(request):
-    if hasattr(request, 'site'):
-        return request.site
-    else:
-        return Site.objects.get_current()
+########################################################################
+class SnippetAPIView(View):
 
+    #----------------------------------------------------------------------
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(SnippetAPIView, self).dispatch(*args, **kwargs)
 
-#----------------------------------------------------------------------
-@require_POST
-@csrf_exempt
-def api_create(request):
-    """
-    View for snippet creation via API
-    """
-    try:
-        controller = CreateSnippetApiController(request)
-        snippet = controller.create()
-    except SnippetValidationError, e:
-        return HttpResponseBadRequest(unicode(e), content_type=u'text/plain')
+    #----------------------------------------------------------------------
+    def post(self, request):
+        try:
+            controller = CreateSnippetApiController(request)
+            snippet = controller.create()
+        except SnippetValidationError, e:
+            return HttpResponseBadRequest(unicode(e), content_type=u'text/plain')
 
-    site = _get_site(request)
-    absolute_url = snippet.get_absolute_url()
-    result = u'http://%s%s/' % (site.domain, absolute_url)
-    return HttpResponse(result, content_type=u'text/plain')
+        site = self._get_site(request)
+        absolute_url = snippet.get_absolute_url()
+        result = u'http://%s%s/' % (site.domain, absolute_url)
+        return HttpResponse(result, content_type=u'text/plain')
+
+    #----------------------------------------------------------------------
+    def _get_site(self, request):
+        if hasattr(request, 'site'):
+            return request.site
+        else:
+            return Site.objects.get_current()

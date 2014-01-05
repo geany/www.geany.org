@@ -16,6 +16,13 @@
 from django.conf.urls import url, patterns
 from django.views.generic.base import TemplateView
 from geany.sitemaps import StaticSitemap
+from pastebin.views import (
+    LatestSnippetsView,
+    SnippetAPIView,
+    SnippetDeleteView,
+    SnippetDetailRawView,
+    SnippetDetailView,
+    SnippetNewView)
 
 
 urlpatterns = patterns('',
@@ -25,13 +32,13 @@ urlpatterns = patterns('',
     url(r'^help/$', TemplateView.as_view(template_name='pastebin/help.html'), name='help'),
     url(r'^help/api/$', TemplateView.as_view(template_name='pastebin/api.html'), name='api'),
 
-    url(r'^api/$', 'pastebin.views.api_create'),
+    url(r'^api/$', SnippetAPIView.as_view()),
 
-    url(r'^$', 'pastebin.views.snippet_new', name='home'),
-    url(r'^latest/$', 'pastebin.views.snippet_list', name='snippet_list'),
-    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/$', 'pastebin.views.snippet_details', name='snippet_details'),
-    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/delete/$', 'pastebin.views.snippet_delete', name='snippet_delete'),
-    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$', 'pastebin.views.snippet_details', {'template_name': 'pastebin/snippet_details_raw.html', 'is_raw': True}, name='snippet_details_raw'),
+    url(r'^$', SnippetNewView.as_view(), name='home'),
+    url(r'^latest/$', LatestSnippetsView.as_view(), name='snippet_list'),
+    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/$', SnippetDetailView.as_view(), name='snippet_details'),
+    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/delete/$', SnippetDeleteView.as_view(), name='snippet_delete'),
+    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$', SnippetDetailRawView.as_view(), name='snippet_details_raw'),
 )
 
 # Sitemap framework
