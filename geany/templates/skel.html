@@ -56,22 +56,6 @@ $(function() {
 <div class="container">
 
 {% block bodyblock %}
-
-{% comment %}
-    <div class="row">
-        <div class="hero-unit">
-            <div id="main-header">
-                <div class="text-right">
-                    {% block top_search %}
-                    {% endblock %}
-                </div>
-                <h1>Geany</h1>
-                <p>A fast and lightweight IDE</p>
-            </div>
-        </div>
-    </div>
-{% endcomment %}
-
     <div class="row">
         <div id="content-main">
             {% block main %}{% endblock %}
@@ -83,7 +67,7 @@ $(function() {
         <div id="footer">
             <div class="well">
                 <p>
-                    Contents Copyright {% now "Y" %} The Geany development team
+                    Contents Copyright {% now "Y" %}  &dash; The Geany development team
                 </p>
             </div>
         </div>
