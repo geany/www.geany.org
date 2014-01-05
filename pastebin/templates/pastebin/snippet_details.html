@@ -32,15 +32,27 @@
                          {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %}
                          as {{ snippet.lexer|title }}</p>
 
-<div class="snippet">
-<ol>
-    {% for line in snippet|highlight %}
-        <li id="l{{ forloop.counter }}">
-            <div class="line"><pre class="code">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</pre></div>
-        </li>
-    {% endfor %}
-</ol>
-
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Markup</a></li>
+        <li><a href="#tab2" data-toggle="tab">Plain</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <div class="snippet">
+                <ol>
+                    {% for line in snippet|highlight %}
+                        <li id="l{{ forloop.counter }}">
+                            <div class="line"><pre class="code">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</pre></div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+            <textarea class="snippet-plain">{{ snippet.content }}</textarea>
+        </div>
+    </div>
 </div>
 
 <hr/>

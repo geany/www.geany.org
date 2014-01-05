@@ -1,3 +1,19 @@
+/*
+ * Tabs
+ */
+.nav-tabs > li > a {
+    /* inactive tab */
+    background-color: rgb(220, 220, 220);
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: rgb(225, 225, 225);
+}
+/*
+ * Tabs
+ */
+
+
 .new-snippet-form textarea {
     font-family: monospace;
     width: 100%;
@@ -89,6 +105,13 @@ div.snippet table {
     margin: 0;
     padding: 0;
     border-collapse: collapse;
+}
+
+.snippet-plain {
+    font-family: monospace;
+    font-size: 12px;
+    height: 300px;
+    width: 90%;
 }
 /*
  * Snippet
