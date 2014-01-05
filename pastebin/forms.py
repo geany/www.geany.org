@@ -12,11 +12,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from datetime import timedelta
 from django import forms
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from pastebin.highlight import LEXER_LIST, LEXER_DEFAULT
 from pastebin.models import Snippet, Spamword
-import datetime
 
 
 #===============================================================================
@@ -72,8 +73,8 @@ class SnippetForm(forms.ModelForm):
             self.instance.parent = parent
 
         # Add expire datestamp
-        self.instance.expires = datetime.datetime.now() + \
-            datetime.timedelta(seconds=int(self.cleaned_data['expire_options']))
+        self.instance.expires = timezone.now() + \
+            timedelta(seconds=int(self.cleaned_data['expire_options']))
 
         # Save snippet in the db
         forms.ModelForm.save(self, *args, **kwargs)
