@@ -399,6 +399,8 @@ PIWIK_STATS_SITE_ID = 1
 
 NIGHTLYBUILDS_BASE_DIR = '/path/to/nightly/builds'
 
+IRC_USER_LIST_FILE = '/var/tmp/irc_userlist'
+
 
 LOGGING = {
     'version': 1,

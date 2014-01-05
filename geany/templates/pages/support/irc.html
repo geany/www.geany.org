@@ -1,0 +1,25 @@
+{% extends "pages/richtextpage.html" %}
+
+{% load geany_tags %}
+
+{% block content_after %}
+
+{% get_irc_userlist as irc_userlist %}
+
+<h2>Users</h2>
+
+<p>Currently {{ irc_userlist|length }} users are connected:</p>
+
+<div class="row">
+{% for username in irc_userlist %}
+    <div class="span2">{{ username }}</div>
+
+    {% if forloop.counter|divisibleby:4 %}
+        </div>
+        <div class="row">
+    {% endif %}
+{% endfor %}
+</div>
+
+
+{% endblock %}
