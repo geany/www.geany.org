@@ -3,20 +3,21 @@
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from datetime import timedelta
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from pastebin.highlight import LEXER_DEFAULT
-import datetime
 import random
 import re
 import time
@@ -66,7 +67,7 @@ class Snippet(models.Model):
             until_seconds = time.time()
 
         seconds = until_seconds - from_seconds
-        delta = datetime.timedelta(seconds=seconds)
+        delta = timedelta(seconds=seconds)
 
         # deltas store time as seconds and days, we have to get hours and minutes ourselves
         delta_minutes = delta.seconds // 60
@@ -93,7 +94,7 @@ class Snippet(models.Model):
     #----------------------------------------------------------------------
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.published = datetime.datetime.now()
+            self.published = timezone.now()
             self.secret_id = generate_secret_id()
         self.content_highlighted = self.content
         models.Model.save(self, *args, **kwargs)
