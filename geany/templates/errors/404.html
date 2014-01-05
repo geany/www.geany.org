@@ -1,14 +1,19 @@
-{% extends "skel.html" %}
-
+{% extends "errors/error_base.html" %}
 {% load i18n %}
 
-{% block title %}
-{% trans "Page not found" %}
+{% block meta_title %}
+	{% if title %}
+		{{ title }}
+	{% else %}
+		{% trans "Page not found" %}
+	{% endif %}
 {% endblock %}
 
 
-{% block main %}
-<div class="well">
-{% trans "The page you requested does not exist." %}
-</div>
+{% block error_message %}
+	{% if message %}
+		{{ message }}
+	{% else %}
+		{% trans "The page you requested does not exist." %}
+	{% endif %}
 {% endblock %}

@@ -1,13 +1,15 @@
-{% extends "skel.html" %}
-
+{% extends "errors/error_base.html" %}
 {% load i18n %}
 
-{% block title %}
-{% trans "Error" %}
+{% block meta_title %}
+	{% if title %}
+		{{ title }}
+	{% else %}
+		{% trans "Server Error" %}
+	{% endif %}
 {% endblock %}
 
-{% block main %}
-<div class="well">
-{% trans "Sorry, an error occurred. The admin has been informed." %}
-</div>
+
+{% block error_message %}
+	{% trans "Sorry, an error occurred. The admin has been informed." %}
 {% endblock %}
