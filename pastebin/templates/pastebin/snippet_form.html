@@ -1,34 +1,45 @@
-{% load honeypot %}
+{% load geany_tags honeypot i18n mezzanine_tags %}
+{% load  %}
 
-<form method="post" action="{% url 'home' %}" class="form-horizontal new-snippet-form">
-{% if snippet_form.non_field_errors %}
-    <div class="alert alert-block alert-error">
+
+{% if snippet_form.non_field_errors or snippet_form.errors %}
+<div class="form-errors">
     {% for error in snippet_form.non_field_errors %}
-            <p>{{ error }}</p>
-        {% endfor %}
-    </div>
+    <div class="alert alert-danger non-field-error">{{ error }}</div>
+    {% empty %}
+    <div class="alert alert-danger field-error">{% trans "Please correct the errors below." %}</div>
+    {% endfor %}
+</div>
 {% endif %}
 
+<form method="post" action="{% url 'home' %}" class="form-horizontal new-snippet-form" role="form">
+{% nevercache %}
 {% csrf_token %}
+{% endnevercache %}
 {% render_honeypot_field %}
 {% for field in snippet_form %}
     <div>
-        <div class="control-group">
-            {{ field.label_tag }}
-            <div class="controls">
+        <div class="form-group input_{{ field.id_for_label }} {{ field.field.type }}
+                {% if field.errors %} has-error{% endif %}">
+            <label class="control-label col-sm-2" for="{{ field.auto_id }}">{{ field.label }}</label>
+            <div class="col-sm-10">
+                {{ field|add_css:"form-control input-sm" }}
                 {% if field.errors %}
-                    {% for error in field.errors %}
-                        <span class="label label-warning help-block">{{ error }}</span>
+                <p class="help-block">
+                    {% for e in field.errors %}
+                    {% if not forloop.first %} / {% endif %}{{ e }}
                     {% endfor %}
+                </p>
                 {% endif %}
-                {{ field }}
             </div>
         </div>
     </div>
 {% endfor %}
-<div class="control-group">
+<div class="form-group">
     <div class="controls">
-        <input type="submit" value="Paste it" class="btn btn-primary"/>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">{% trans "Paste it" %}</button>
+        </div>
     </div>
 </div>
 </form>

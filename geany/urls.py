@@ -13,11 +13,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, include, url
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.views.generic.base import TemplateView
-
-from mezzanine.conf import settings
 from geany.sitemaps import GeanyDisplayableSitemap
+from mezzanine.conf import settings
 from nightlybuilds.views import NightlyBuildsView
 
 
@@ -26,10 +26,19 @@ sitemaps = {"sitemaps": {"all": GeanyDisplayableSitemap}}
 
 admin.autodiscover()
 
+urlpatterns = i18n_patterns("",
+    # Change the admin prefix here to use an alternate URL for the
+    # admin interface, which would be marginally more secure.
+    ("^admin/", include(admin.site.urls)),
+)
 
-urlpatterns = patterns("",
-    url(r"^admin/", include(admin.site.urls)),
+if settings.USE_MODELTRANSLATION:
+    urlpatterns += patterns('',
+        url('^i18n/$', 'django.views.i18n.set_language', name='set_language'),
+    )
 
+# Geany patterns
+urlpatterns += patterns("",
     # use our custom sitemap implementation
     url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
 

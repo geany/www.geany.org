@@ -1,6 +1,12 @@
+.badge {
+    font-weight: 200;
+}
+
+
 /*
  * Tabs
  */
+
 .nav-tabs > li > a {
     /* inactive tab */
     background-color: rgb(220, 220, 220);
@@ -14,78 +20,44 @@
  */
 
 
-.new-snippet-form textarea {
-    font-family: monospace;
-    width: 100%;
+/*
+ * Snippet form
+ */
+form.new-snippet-form {
+    margin-bottom: 30px;
 }
 
-.new-snippet-form .label {
-    margin-top: 7px;
-    margin-bottom: 7px;
-    display: block;
+.new-snippet-form label {
+    font-weight: 200;
 }
 
-.new-snippet-form .control-group ul {
+.new-snippet-form ul#id_expire_options {
     margin-left: 5px;
     margin-bottom: 0px;
+    width: auto;
 }
 
-.new-snippet-form .control-group ul li {
+.new-snippet-form ul#id_expire_options li {
     list-style: none;
 }
 
-.new-snippet-form .control-group ul li label {
-    width: auto;
-    padding-right: 15px;
+.new-snippet-form ul#id_expire_options li input{
+    display: inline;
 }
 
-.new-snippet-form .control-group ul li input[type="radio"],
-.new-snippet-form .control-group ul li input[type="checkbox"] {
+.new-snippet-form ul#id_expire_options li label {
+    float: left;
+    margin-right: 10px;
+    padding-right: 15px;
+    width: auto;
+}
+
+.new-snippet-form ul#id_expire_options li input[type="radio"] {
     margin: 0px;
 }
-
-.new-snippet-form select, input[type="file"] {
-    height: inherit;
-}
-
-.new-snippet-form input, .uneditable-input {
-    width: 300px;
-}
-
-input[type="file"],
-input[type="image"],
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-input[type="radio"],
-input[type="checkbox"] {
-    width: auto;
-}
-
-.form-horizontal .control-label {
-    padding-top: 1px;
-}
-
-select,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-    padding-top: 1px;
-    padding-bottom: 1px;
-}
+/*
+ * Snippet form
+ */
 
 
 /*
@@ -111,7 +83,7 @@ div.snippet table {
     font-family: monospace;
     font-size: 12px;
     height: 300px;
-    width: 90%;
+    width: 100%;
 }
 /*
  * Snippet
@@ -121,7 +93,6 @@ div.snippet table {
 /*
  * Embedded snippet list
  */
-
 div #snippet_list {
     margin-top: 25px;
 }
@@ -136,16 +107,12 @@ div #snippet_list li {
     list-style: none;
     white-space: nowrap;
     padding: 3px;
-}
-
-div #snippet_list span.badge {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    width: 31%;
 }
 
 div #snippet_list a {
-    color: #ffffff;
     text-decoration: none;
+    width: 100%;
 }
 /*
  * Embedded snippet list
@@ -155,6 +122,10 @@ div #snippet_list a {
 /*
  * Code
  */
+div.snippet {
+    margin-left: 25px;
+}
+
 div.snippet ol {
     padding: 1px;
     border: 1px solid rgb(220, 220, 220);

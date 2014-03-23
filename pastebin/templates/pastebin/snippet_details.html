@@ -9,9 +9,9 @@
 {% block main %}
 <div class="well">
 
-<h2>
+<h1>
     Snippet #{{ snippet.pk }}
-</h2>
+</h1>
 
 <div class="snippet-options">
     <abbr title="Time to life">TTL:</abbr> {{ snippet.expires|timeuntil_or_forever }}

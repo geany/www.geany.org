@@ -14,26 +14,24 @@
 {% url 'snippet_list' as url_snippet_list %}
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <img src="{{ STATIC_URL }}img/geany-36x36.png" class="brand">
-            <a class="brand" href="http://www.geany.org/">Geany</a>
+    <div class="container">
+        <img src="{{ STATIC_URL }}img/geany-36x36.png" class="navbar-brand">
+        <a class="navbar-brand" href="http://www.geany.org/">Geany</a>
 
-            <ul class="nav">
-                <li class="{% if request.path = url_home %} active{% endif %}">
-                    <a href="{{ url_home }}">New snippet</a>
-                </li>
-                <li class="{% if request.path = url_help %} active{% endif %}">
-                    <a href="{{ url_help }}">Help</a>
-                </li>
-                <li class="{% if request.path = url_api %} active{% endif %}">
-                    <a href="{{ url_api }}">API</a>
-                </li>
-                <li class="{% if request.path = url_snippet_list %} active{% endif %}">
-                    <a href="{{ url_snippet_list }}">Recent snippets</a>
-                </li>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            <li class="{% if request.path = url_home %} active{% endif %}">
+                <a href="{{ url_home }}">New snippet</a>
+            </li>
+            <li class="{% if request.path = url_help %} active{% endif %}">
+                <a href="{{ url_help }}">Help</a>
+            </li>
+            <li class="{% if request.path = url_api %} active{% endif %}">
+                <a href="{{ url_api }}">API</a>
+            </li>
+            <li class="{% if request.path = url_snippet_list %} active{% endif %}">
+                <a href="{{ url_snippet_list }}">Recent snippets</a>
+            </li>
+        </ul>
     </div>
 </div>
 

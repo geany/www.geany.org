@@ -14,21 +14,17 @@
 {% else %}
     {# empty menu for nightly.geany.org #}
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <img src="{{ STATIC_URL }}img/geany-36x36.png" class="brand">
-                <a class="brand" href="http://www.geany.org/">Geany</a>
+        <div class="container">
+            <img src="{{ STATIC_URL }}img/geany-36x36.png" class="navbar-brand">
+            <a class="navbar-brand" href="http://www.geany.org/">Geany</a>
 
-                <ul class="nav">
-                    <li><a href="/">Refresh</a></li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">Refresh</a></li>
+            </ul>
         </div>
     </div>
 {% endif %}
 {% endblock %}
-
-{% block top_search %}{% endblock %}
 
 {% block main %}
 <div class="well">
@@ -41,7 +37,7 @@ a cross-compiled Windows build and a test build
 against GTK 2.16 to check for compatibility. The results, build logs and the corresponding
 binary packages can be found below.</p>
 
-<table class="table table-striped table-bordered nightlybuilds">
+<table class="table table-bordered nightlybuilds">
 <thead>
     <tr>
         <th></th>
@@ -58,7 +54,7 @@ binary packages can be found below.</p>
 </thead>
 <tbody>
     {% for build in nightlybuilds %}
-        <tr class="{% if build.get_status %}success{% else %}error{% endif %}">
+        <tr class="{% if build.get_status %}success{% else %}danger{% endif %}">
             <td class="centered_column">{% if build.get_status %}
                     <img src="{{ STATIC_URL }}img/icon-yes.gif" alt="{{ build.get_status_text }}" title="{{ build.get_status_text }}" />
                 {% else %}

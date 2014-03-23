@@ -107,6 +107,10 @@ the settings to your needs:
     }
 
     NIGHTLYBUILDS_BASE_DIR = '/path/to/nightlybuilds/or/just/empty/'
+    # disable security on 127.0.0.1 without HTTPS
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+    SSL_FORCE_URL_PREFIXES = ()
 
 
 ### Database settings ###

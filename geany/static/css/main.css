@@ -6,22 +6,27 @@
     border: 0;
 }
 
-.hero-unit {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: bold;
+}
+
+.jumbotron {
     padding-top: 20px;
 }
 
-.hero-unit h1 {
+.jumbotron h1 {
     padding-bottom: 20px;
     font-size: 32px;
 }
 
-.hero-unit {
+.jumbotron {
     font-size: 16px;
     font-weight: 200;
     line-height: 20px;
+    padding-bottom: 58px;
 }
 
-.hero-unit .btn {
+.jumbotron .btn {
     padding: 8px 12px;
     margin: 20px;
     float: right;
@@ -29,12 +34,23 @@
     font-size: 16px;
 }
 
-.navbar img.brand {
-    padding: 0px 5px;
+.navbar img.navbar-brand {
+    padding: 5px 5px;
+}
+
+.navbar {
+    min-height: 40px;
+}
+
+.carousel {
+    margin-bottom: 10px;
 }
 
 .carousel-indicators {
     top: -35px;
+    left: auto;
+    right: 15px;
+    width: auto;
 }
 
 .carousel-indicators li {
@@ -45,6 +61,14 @@
 
 .carousel-indicators .active {
     background-color: rgba(190, 190, 190, 0.5);
+}
+
+#content-main .well {
+    padding-top: 3px;
+}
+
+#content-main .well h1 {
+    padding-bottom: 10px;
 }
 
 #footer .well {

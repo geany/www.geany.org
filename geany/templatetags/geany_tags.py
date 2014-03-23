@@ -70,3 +70,14 @@ def get_irc_userlist():
     # remove newline characters
     user_list = [username.strip() for username in user_list]
     return sorted(user_list)
+
+
+#----------------------------------------------------------------------
+@register.filter(name='add_css')
+def add_css(field, css):
+    # read existing CSS classes
+    css_classes = field.field.widget.attrs.get('class', u'')
+    # add new ones
+    css_classes = u'%s %s' % (css_classes, css)
+    # render the widget
+    return field.as_widget(attrs={'class': css_classes})

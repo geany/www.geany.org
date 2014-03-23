@@ -24,23 +24,30 @@ from pygments.lexers import (
 
 LEXER_LIST_ALL = sorted([(i[1][0], i[0]) for i in get_all_lexers()])
 LEXER_LIST = (
+    ('nasm', 'Assembler'),
     ('bash', 'Bash'),
     ('c', 'C'),
+    ('cpp', 'C++'),
     ('css', 'CSS'),
     ('diff', 'Diff'),
     ('django', 'Django/Jinja'),
+    ('po', 'Gettext/Po'),
     ('html', 'HTML'),
+    ('ini', 'INI config file'),
     ('irc', 'IRC logs'),
+    ('java', 'Java'),
     ('js', 'JavaScript'),
+    ('json', 'JSON'),
+    ('lua', 'Lua'),
     ('perl', 'Perl'),
     ('php', 'PHP'),
-    ('pycon', 'Python console session'),
-    ('pytb', 'Python Traceback'),
     ('python', 'Python'),
-    ('python3', 'Python 3'),
     ('rst', 'Restructured Text'),
+    ('ruby', 'Ruby'),
     ('sql', 'SQL'),
     ('text', 'Text only'),
+    ('vala', 'Vala'),
+    ('xml', 'XML'),
 )
 LEXER_DEFAULT = 'text'
 

@@ -3,13 +3,11 @@
 
 {% block top_menu %}
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <img src="{{ STATIC_URL }}img/geany-36x36.png" class="brand">
-            <a class="brand" href="{% url "home" %}">Geany</a>
-            <div class="nav-collapse collapse">
-                {% page_menu "pages/menus/dropdown.html" %}
-            </div>
+    <div class="container">
+        <img src="{{ STATIC_URL }}img/geany-36x36.png" class="navbar-brand">
+        <a class="navbar-brand" href="{% url "home" %}">Geany</a>
+        <div class="navbar-collapse collapse">
+            {% page_menu "pages/menus/dropdown.html" %}
         </div>
     </div>
 </div>

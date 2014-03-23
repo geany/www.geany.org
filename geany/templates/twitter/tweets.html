@@ -5,7 +5,7 @@
 
 {% if tweets %}
 <h3>{% trans "Recent Tweets" %}</h3>
-<ul class="unstyled tweets">
+<ul class="list-unstyled tweets">
     {% for tweet in tweets %}
     <li>
         <img src="{{ tweet.profile_image_url }}" alt="">

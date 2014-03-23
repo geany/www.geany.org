@@ -1,5 +1,12 @@
 {% extends "pastebin/base.html" %}
 
+{% block extra_js %}
+{{ block.super }}
+<script>
+$(function() {$('.mezzanine-form :input:visible:enabled:first').focus();});
+</script>
+{% endblock %}
+
 
 {% block meta_title %}
     New snippet | {{ block.super }}
@@ -8,7 +15,7 @@
 
 {% block main %}
 <div class="well">
-    <h2>Paste a new snippet</h2>
+    <h1>Paste a new snippet</h1>
     {% include "pastebin/snippet_form.html" %}
 
     {% include "pastebin/snippet_list_embedded.html" %}

@@ -13,7 +13,7 @@
 <h3>Older Releases</h3>
 <div class="row">
 {% for release in releases %}
-    <div class="span2">
+    <div class="col-md-2">
         <a href="{% url 'releasenotes_for_release' release.version %}">Geany {{ release.version }}</a>
     </div>
 

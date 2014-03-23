@@ -1,9 +1,22 @@
+{% load i18n %}
+
+<h2>{% trans "Recent Snippets" %}</h2>
 
 {% if snippet_list %}
 <div id="snippet_list">
     <ul>
     {% for snippet in snippet_list %}
-        <li><span class="badge"><a href="{{ snippet.get_absolute_url }}">#{{ snippet.pk }} by {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %} ({{ snippet.age }})</a></span></li>
+        <li>
+            <span >
+                <a href="{{ snippet.get_absolute_url }}" class="btn btn-default btn-xs active" role="button">
+                    #{{ snippet.pk }} by {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %} ({{ snippet.age }})
+                </a>
+            </span>
+        </li>
+        {% if forloop.counter|divisibleby:3 %}
+        </ul>
+        <ul>
+        {% endif %}
     {% endfor %}
     </ul>
 </div>

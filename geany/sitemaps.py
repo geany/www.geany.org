@@ -15,7 +15,7 @@
 from django.contrib import sitemaps
 from django.contrib.sites.models import Site
 from django.core import urlresolvers
-from django_hosts.reverse import get_host
+from django_hosts.resolvers import get_host
 from mezzanine.blog.models import BlogPost
 from mezzanine.core.sitemaps import DisplayableSitemap
 
