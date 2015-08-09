@@ -14,6 +14,7 @@
 
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
+from geany.sitemaps import StaticSitemap, sitemap_registry
 
 
 urlpatterns = patterns('',
@@ -27,3 +28,6 @@ urlpatterns = patterns('',
 # Adds ``STATIC_URL`` to the context of error pages, so that error pages can use JS, CSS and images.
 handler404 = "mezzanine.core.views.page_not_found"
 handler500 = "mezzanine.core.views.server_error"
+
+# register our urlpatterns to the global sitemap generator
+sitemap_registry.add(StaticSitemap, urlpatterns)

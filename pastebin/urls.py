@@ -13,7 +13,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from django.conf.urls import url, patterns
+from django.conf import settings
+from django.conf.urls import include, patterns, url
 from django.views.generic.base import TemplateView
 from geany.sitemaps import StaticSitemap
 from pastebin.views import (
@@ -41,8 +42,15 @@ urlpatterns = patterns('',
     url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$', SnippetDetailRawView.as_view(), name='snippet_details_raw'),
 )
 
+# Django-Debug-Toolbar support
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
+
 # Sitemap framework
-sitemaps = {"sitemaps": {"all": StaticSitemap('pastebin.geany.org', urlpatterns)}}
+sitemaps = {"sitemaps": {"all": StaticSitemap(settings.SITE_DOMAIN_PASTEBIN, urlpatterns)}}
 urlpatterns += patterns('',
     # use our custom sitemap implementation
     url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps)
