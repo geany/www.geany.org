@@ -83,3 +83,26 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 pre {
     padding: 0px;
 }
+
+div.feature-icon {
+    text-align: center;
+}
+
+.feature-icon span {
+    background: rgb(50, 118, 177) none repeat scroll 0% 0%;
+    color: rgb(255, 255, 255);
+    font-size: 3.0em;
+    border-radius: 200px;
+    -moz-border-radius: 200px;
+    -webkit-border-radius: 200px;
+    padding: 13px;
+    display: inline-block;
+}
+
+.feature-icon .glyphicon:empty {
+    width: inherit;
+}
+
+.news-list li {
+    margin-bottom: 10px;
+}

@@ -307,6 +307,7 @@ INSTALLED_APPS = (
 
     # we
     "geany",
+    "news",
     "latest_version",
     "static_docs",
     "pastebin",         # pastebin.geany.org
@@ -373,7 +374,6 @@ OPTIONAL_APPS = (
 #########################
 
 # some more Mezzanine settings
-BLOG_SLUG = 'news'
 FORMS_USE_HTML5 = True
 INLINE_EDITING_ENABLED = False
 
@@ -385,7 +385,7 @@ DASHBOARD_TAGS = (
 )
 
 ADMIN_MENU_ORDER = (
-    (_("Content"), ("pages.Page", "blog.BlogPost",
+    (_("Content"), ("pages.Page", "blog.BlogPost", "news.NewsPost",
        "generic.ThreadedComment", "mezzanine_blocks.Block", "mezzanine_blocks.RichBlock", (_("Media Library"), "fb_browse"),)),
     (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting", "latest_version.LatestVersion", (_("Manage latest version"), "mezzanine_spam_stats.SpamStat"))),
     (_("Users"), ("auth.User", "auth.Group",)))

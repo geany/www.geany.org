@@ -16,12 +16,12 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.views.generic.base import TemplateView
-from geany.sitemaps import GeanyDisplayableSitemap
+from geany.sitemaps import GeanyMainSitemap
 from mezzanine.conf import settings
 from nightlybuilds.views import NightlyBuildsView
 
 
-sitemaps = {"sitemaps": {"all": GeanyDisplayableSitemap}}
+sitemaps = {"sitemaps": {"all": GeanyMainSitemap}}
 
 
 admin.autodiscover()
@@ -42,9 +42,6 @@ urlpatterns += patterns("",
     # use our custom sitemap implementation
     url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
 
-    # news (for now implemented using the Mezzanine blog app)
-    url("^news/$", "mezzanine.blog.views.blog_post_list", name="news"),
-
     # TODO, NEWS, etc.
     url(r"^", include("static_docs.urls")),
 
@@ -53,6 +50,9 @@ urlpatterns += patterns("",
 
     # /service/version.php (for the UpdateChecker plugin)
     url(r"^", include("latest_version.urls")),
+
+    # /news/ News
+    url(r"^news/", include("news.urls")),
 
     # home page
     url(r"^$", TemplateView.as_view(template_name='home.html'), name='home'),
