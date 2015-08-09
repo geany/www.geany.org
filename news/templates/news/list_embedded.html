@@ -1,0 +1,105 @@
+{% load static from staticfiles %}
+
+<ul class="list-group">
+{% for newspost in recent_news_posts %}
+    <li class="list-group-item">
+        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+        <a href="#" data-toggle="modal" data-target="#news-modal" id="news-post-{{ newspost.slug }}">
+            {{ newspost.title }}
+        </a>
+        <span class="small">- {{ newspost.publish_date|date:"F Y" }}</span>
+    </li>
+{% endfor %}
+</ul>
+
+{% comment %}
+<ul class="list-group">
+{% for newspost in recent_news_posts %}
+    <li class="list-group-item">
+        <a href="#" data-toggle="modal" data-target="#news-modal" id="news-post-{{ newspost.slug }}">
+            {{ newspost.title }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+{% endcomment %}
+
+<!-- Modal -->
+<div class="modal fade" id="news-modal" tabindex="-1" role="dialog" aria-labelledby="news-modal-label">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="news-modal-title">title-dummy</h4>
+      </div>
+      <div class="modal-body" id="news-modal-body">
+        body-dummy
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+function fetch_newspost(newspost_slug) {
+    $("#news-modal").modal();
+    $("#news-modal-title").html("News loading...");
+    $("#news-modal-body").html("<p><img src=\"{% static 'mezzanine/img/loadingAnimation.gif' %}\"></p>");
+    $.ajax({
+        {# slightly hacky: we use the base URL pattern but add a fake slug to trick Django into the "news_detail" URL pattern #}
+        url: "{% url 'news_list' %}json/",
+        dataType: "json",
+        timeout: 30 * 1000,
+        data: {newspost_slug: newspost_slug},
+        type: "POST",
+        crossDomain: false,
+        success: function (newspost) {
+            var result_html;
+            var title;
+            if (newspost.error == null) {
+                title = '';
+                title += '<div>';
+                title += '<div class="pull-right small">';
+                title += newspost.publish_date;
+                title += '&nbsp;</div>';
+                title += newspost.title;
+                title += '</div>';
+                result_html = newspost.content;
+            } else {
+                title = 'Error';
+                result_html = newspost.error;
+            }
+            $("#news-modal-body").html(result_html);
+            $("#news-modal-title").html(title);
+        },
+        error: function (jqxhr, text_status, error) {
+            var result_html;
+            if (error === "timeout") {
+                result_html = "<p><strong>An error occurred: " + text_status + "</strong></p>";
+            } else {
+                result_html = "<p><strong>An error occurred: " + text_status + ": " + error + "</strong></p>";
+                result_html += "<p><pre>" + jqxhr.responseText + "</pre></p>";
+            }
+            $("#news-modal-title").html('Error');
+            $("#news-modal-body").html(result_html);
+        }
+    });
+}
+
+function show_modal_for_news() {
+    var newspost_slug;
+    // strip off the prefix "news-post-"
+    newspost_slug = this.id.substring(10);
+    fetch_newspost(newspost_slug);
+    return false;
+}
+
+$(document).ready(function () {
+    $("[id^=news-post-]").click(show_modal_for_news);
+});
+</script>

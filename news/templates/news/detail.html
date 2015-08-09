@@ -1,0 +1,31 @@
+{% extends "pages/richtextpage.html" %}
+{% load i18n mezzanine_tags  %}
+
+{% block extra_css %}
+{{ super }}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/newspost.css">
+{% endblock %}
+
+
+{% block meta_title %}{{ newspost.title }}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ newspost.content|striptags|truncatewords:15 }}
+{% endmetablock %}{% endblock %}
+
+
+{% block richtext_content %}
+
+<div>
+    <div class="pull-left">
+        <h2>{{ newspost.title }}</h2>
+    </div>
+    <div class="pull-right">
+        {{ newspost.publish_date|date:"F dS, Y" }}
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+{{ newspost.content|richtext_filter|safe }}
+
+{% endblock %}

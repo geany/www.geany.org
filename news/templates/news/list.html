@@ -1,0 +1,43 @@
+{% extends "pages/richtextpage.html" %}
+{% load i18n mezzanine_tags  %}
+
+{% block extra_css %}
+{{ super }}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/newspost.css">
+{% endblock %}
+
+
+{% block meta_title %}{% if page %}{{ page.richtextpage.meta_title }}{% else %}{% trans "News" %}{% endif %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+Latest news of the Geany project.
+{% endmetablock %}{% endblock %}
+
+
+{% block richtext_content %}
+
+<h2>News</h2>
+
+<div class="list-group">
+{% for newspost in object_list %}
+    <div class="list-group-item">
+        <div class="list-group-item-heading">
+            <div class="pull-left">
+                <h4>
+                    <a href="{{ newspost.get_absolute_url }}">{{ newspost.title }}</a>
+                </h4>
+            </div>
+            <div class="pull-right">
+                {{ newspost.publish_date|date:"F dS, Y" }}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="list-group-item-text">
+            {{ newspost.content|striptags|truncatechars:75 }}
+            <a href="{{ newspost.get_absolute_url }}" class="small">more</a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
