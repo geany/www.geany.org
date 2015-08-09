@@ -12,11 +12,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from static_docs.views import ReleaseNotesView, ToDoView
 
 
-urlpatterns = patterns('',
+urlpatterns = (
     url(r'^documentation/todo/$', ToDoView.as_view(), name='todo'),
 
     url(r'^documentation/releasenotes/$', ReleaseNotesView.as_view(), name='releasenotes'),

@@ -12,35 +12,37 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import TemplateView
+from django.views.i18n import set_language
+from django.views.static import serve as static_serve
 from geany.sitemaps import GeanyMainSitemap
 from mezzanine.conf import settings
 from nightlybuilds.views import NightlyBuildsView
-
 
 sitemaps = {"sitemaps": {"all": GeanyMainSitemap}}
 
 
 admin.autodiscover()
 
-urlpatterns = i18n_patterns("",
+urlpatterns = i18n_patterns(
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
-    ("^admin/", include(admin.site.urls)),
+    url("^admin/", include(admin.site.urls)),
 )
 
 if settings.USE_MODELTRANSLATION:
-    urlpatterns += patterns('',
-        url('^i18n/$', 'django.views.i18n.set_language', name='set_language'),
+    urlpatterns += (
+        url('^i18n/$', set_language, name='set_language'),
     )
 
 # Geany patterns
-urlpatterns += patterns("",
+urlpatterns += (
     # use our custom sitemap implementation
-    url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
+    url(r"^sitemap\.xml$", sitemap, sitemaps),
 
     # TODO, NEWS, etc.
     url(r"^", include("static_docs.urls")),
@@ -68,6 +70,6 @@ handler500 = "mezzanine.core.views.server_error"
 
 
 if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, }),
+    urlpatterns += (
+        url(r'^media/(?P<path>.*)$', static_serve, {'document_root': settings.MEDIA_ROOT, }),
    )

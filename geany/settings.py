@@ -95,7 +95,7 @@ from django.utils.translation import ugettext_lazy as _
 # If ``True``, users will be automatically redirected to HTTPS
 # for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
 #
-SSL_ENABLED = True
+# SSL_ENABLED = True  # managed via dynamic settings in the Django Admin
 
 # Host name that the site should always be accessed via that matches
 # the SSL certificate.
@@ -394,7 +394,7 @@ ADMIN_MENU_ORDER = (
     (_("Users"), ("auth.User", "auth.Group",)))
 
 # django-debug-toolbar
-DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # caching & sessions
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"

@@ -15,7 +15,7 @@
 {% evaluate page.richtextpage.content as evaluated_content %}
 
 {# display #}
-{{ evaluated_content|richtext_filter|safe }}
+{{ evaluated_content|richtext_filters|safe }}
 
 {% block content_after %}
 {% endblock %}

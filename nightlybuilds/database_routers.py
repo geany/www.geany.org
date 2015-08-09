@@ -48,5 +48,5 @@ class NightlyBuildsRouter(object):
         return None
 
     #----------------------------------------------------------------------
-    def allow_syncdb(self, db, model):
+    def allow_migrate(self, db, model):
         return model._meta.app_label != 'nightlybuilds'

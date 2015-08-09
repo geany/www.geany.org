@@ -13,30 +13,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-from django.conf.urls import include, patterns, url
+from django.conf.urls import include, url
 from geany.sitemaps import StaticSitemap
 from nightlybuilds.views import NightlyBuildsView
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     # no admin on this site
     url(r'^admin/', 'mezzanine.core.views.page_not_found'),
 
     url(r'^$', NightlyBuildsView.as_view(), name='home'),
-)
+]
 
 # Django-Debug-Toolbar support
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns += patterns('',
+    urlpatterns += (
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
 
 # Sitemap framework
 sitemaps = {"sitemaps": {"all": StaticSitemap('nightly.geany.org', urlpatterns)}}
-urlpatterns += patterns('',
+urlpatterns += (
     # use our custom sitemap implementation
-    url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps)
+    url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
 )
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error pages can use JS, CSS and images.

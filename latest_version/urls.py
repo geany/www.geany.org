@@ -12,17 +12,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic import TemplateView
 from geany.sitemaps import StaticSitemap, sitemap_registry
 
 
-urlpatterns = patterns('',
+urlpatterns = (
     # compat / special url for the UpdateChecker Geany plugin
-    url(r'^service/version.php', TemplateView.as_view(
-                                    template_name='latest_version.txt',
-                                    content_type='text/plain'),
-                            name='latest_version'),
+    url(
+        r'^service/version.php',
+        TemplateView.as_view(template_name='latest_version.txt', content_type='text/plain'),
+        name='latest_version'),
 )
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error pages can use JS, CSS and images.
