@@ -47,6 +47,7 @@ form.new-snippet-form {
 
 .new-snippet-form ul#id_expire_options li label {
     float: left;
+    text-align: center;
     margin-right: 10px;
     padding-right: 15px;
     width: auto;
@@ -54,6 +55,11 @@ form.new-snippet-form {
 
 .new-snippet-form ul#id_expire_options li input[type="radio"] {
     margin: 0px;
+}
+
+.new-snippet-form .form-group input[type="text"],
+.new-snippet-form .form-group select {
+    max-width: 40em;
 }
 /*
  * Snippet form
@@ -73,13 +79,7 @@ div.snippet_list {
     padding: 3px;
 }
 
-div.snippet table {
-    margin: 0;
-    padding: 0;
-    border-collapse: collapse;
-}
-
-.snippet-plain {
+textarea.snippet-plain {
     font-family: monospace;
     font-size: 12px;
     height: 300px;
@@ -126,9 +126,23 @@ div.snippet {
     margin-left: 25px;
 }
 
+div.tab-pane {
+    border-left: 1px solid rgb(220, 220, 220);
+    border-right: 1px solid rgb(220, 220, 220);
+    border-bottom: 1px solid rgb(220, 220, 220);
+    background-color: rgb(250, 250, 250);
+}
+
+div.snippet-plain {
+    padding: 5px;
+}
+
 div.snippet ol {
     padding: 1px;
-    border: 1px solid rgb(220, 220, 220);
+    margin-bottom: 5px;
+    border-left: 1px solid rgb(220, 220, 220);
+    border-bottom: 1px solid rgb(220, 220, 220);
+    border-top: 1px solid rgb(220, 220, 220);
     -webkit-border-radius:  5px;
     -moz-border-radius:     5px;
     border-radius:          5px;
