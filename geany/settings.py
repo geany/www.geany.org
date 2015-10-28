@@ -273,6 +273,7 @@ TEMPLATES = [
         },
     },
 ]
+# compability for Mezzanine which still requires this setting
 TEMPLATE_CONTEXT_PROCESSORS = TEMPLATES[0]['OPTIONS']['context_processors']
 
 # List of finder classes that know how to find static files in
@@ -461,6 +462,14 @@ LOGGING = {
         },
     }
 }
+
+
+###################
+# IGNORE WARNINGS #
+###################
+SILENCED_SYSTEM_CHECKS = (
+  '1_8.W001'  # TEMPLATE_CONTEXT_PROCESSORS setting required for Mezzanine
+)
 
 
 ##################
