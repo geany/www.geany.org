@@ -1,5 +1,5 @@
 Mezzanine
-MySQL-python
+mysqlclient
 django-compressor
 django-extensions
 django-honeypot
