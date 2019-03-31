@@ -1,4 +1,4 @@
-{% load i18n future %}
+{% load i18n %}
 <form action="{% url "search" %}" class="navbar-search pull-right">
 
 <input class="search-query" id="nav_search_text" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">

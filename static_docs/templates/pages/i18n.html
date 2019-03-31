@@ -1,0 +1,53 @@
+{% extends "pages/richtextpage.html" %}
+
+{% load mezzanine_tags pages_tags %}
+
+{% block richtext_content %}
+
+<h2>Geany translation statistics</h2>
+
+<p>
+For more information about translating Geany, please see
+<a href="{% url 'page' 'contribute/translation' %}">general information about translations</a>.
+</p>
+
+<table class="table table-bordered table-striped">
+<thead>
+    <tr>
+        <th class="col-md-4">Language</th>
+        <th class="col-md-1 success">Translated</th>
+        <th class="col-md-1 warning">Fuzzy</th>
+        <th class="col-md-1 danger">Untranslated</th>
+        <th class="col-md-3 hidden-xs"></th>
+    </tr>
+</thead>
+<tbody>
+    {% for language_data in i18n_statistics.catalog_statistics %}
+        <tr>
+            <td class="col-md-4"><a href="{{ static_docs_geany_destination_url }}/{{ language_data.language_name }}.po">{{ language_data.language_name }}</a> ({{ language_data.last_translator }})</td>
+            <td class="col-md-1">{{ language_data.statistics.translated }} ({{ language_data.statistics.percentage_translated|floatformat:0 }} %)</td>
+            <td class="col-md-1">{{ language_data.statistics.fuzzy }} ({{ language_data.statistics.percentage_fuzzy|floatformat:0 }} %)</td>
+            <td class="col-md-1">{{ language_data.statistics.untranslated }} ({{ language_data.statistics.percentage_untranslated|floatformat:0 }} %)</td>
+            <td class="col-md-3 hidden-xs">
+                <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-success" style="width: {{ language_data.statistics.percentage_translated }}%">
+                        <span class="sr-only">Translated {{ language_data.statistics.percentage_translated|floatformat:0 }} %</span>
+                        {{ language_data.statistics.percentage_translated|floatformat:0 }} %
+                    </div>
+                    <div class="progress-bar progress-bar-warning" style="width: {{ language_data.statistics.percentage_fuzzy }}%">
+                        <span class="sr-only">Fuzzy {{ language_data.statistics.percentage_fuzzy|floatformat:0 }} %</span>
+                    </div>
+                    <div class="progress-bar progress-bar-danger" style="width: {{ language_data.statistics.percentage_untranslated }}%">
+                        <span class="sr-only">Untranslated {{ language_data.statistics.percentage_untranslated|floatformat:0 }} %</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+</table>
+
+<p><a href="{{ static_docs_geany_destination_url }}/geany.pot">geany.pot</a> was generated on {{ generated_datetime|date:"Y-m-d" }} {{ generated_datetime|time:"H:i:s" }} UTC (will be refreshed every 24 hours)</p>
+
+{% endblock %}

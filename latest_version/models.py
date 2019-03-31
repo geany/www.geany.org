@@ -40,4 +40,8 @@ class LatestVersion(models.Model):
 
     #----------------------------------------------------------------------
     def __unicode__(self):
-        return self.version
+        return str(self)
+
+    #----------------------------------------------------------------------
+    def __str__(self):
+        return 'Geany {}'.format(self.version)

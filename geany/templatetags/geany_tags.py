@@ -37,7 +37,7 @@ class EvaluateNode(template.Node):
             content_template = template.Template(content)
             rendered_content = content_template.render(context)
             context[self._target_var_name] = rendered_content
-        except (template.VariableDoesNotExist, template.TemplateSyntaxError), e:
+        except (template.VariableDoesNotExist, template.TemplateSyntaxError) as e:
             return u'Error rendering: %s' % unicode(e)
 
         return ''
@@ -58,13 +58,13 @@ def do_evaluate(parser, token):
 
 
 #----------------------------------------------------------------------
-@register.as_tag
+@register.simple_tag
 def get_irc_userlist():
     user_list = list()
     try:
         with open(settings.IRC_USER_LIST_FILE) as file_h:
             user_list = file_h.readlines()
-    except IOError, e:
+    except IOError as e:
         logger.error(u'An error occurred reading IRC user list: %s', unicode(e), exc_info=True)
 
     # remove newline characters

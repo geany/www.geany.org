@@ -13,14 +13,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import url
-from static_docs.views import ReleaseNotesView, ToDoView
+from static_docs.views import I18NStatisticsView, ReleaseNotesView, ToDoView
 
 
 urlpatterns = (
     url(r'^documentation/todo/$', ToDoView.as_view(), name='todo'),
 
     url(r'^documentation/releasenotes/$', ReleaseNotesView.as_view(), name='releasenotes'),
-    url(r'^documentation/releasenotes/(?P<version>.*)$', ReleaseNotesView.as_view(), name='releasenotes_for_release'),
+    url(
+        r'^documentation/releasenotes/(?P<version>.*)$',
+        ReleaseNotesView.as_view(),
+        name='releasenotes_for_release'),
+
+    url(
+        r'^contribute/translation/statistics/$',
+        I18NStatisticsView.as_view(),
+        name='translation_statistics'),
 )
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error pages can use JS, CSS and images.

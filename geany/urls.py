@@ -19,8 +19,11 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import TemplateView
 from django.views.i18n import set_language
 from django.views.static import serve as static_serve
-from geany.sitemaps import GeanyMainSitemap
 from mezzanine.conf import settings
+import mezzanine_pagedown.urls
+
+from geany import urls_legacy
+from geany.sitemaps import GeanyMainSitemap
 from nightlybuilds.views import NightlyBuildsView
 
 sitemaps = {"sitemaps": {"all": GeanyMainSitemap}}
@@ -53,11 +56,20 @@ urlpatterns += (
     # /service/version.php (for the UpdateChecker plugin)
     url(r"^", include("latest_version.urls")),
 
+    # Pastebin
+    url(r"^p/", include("pastebin.urls")),
+
     # /news/ News
     url(r"^news/", include("news.urls")),
 
     # home page
     url(r"^$", TemplateView.as_view(template_name='home.html'), name='home'),
+
+    # pagedown
+    url(r"^pagedown/", include(mezzanine_pagedown.urls)),
+
+    # legacy URLs (redirect for old website deeplinks)
+    url(r"^", include(urls_legacy)),
 
     # everything else
     url(r"^", include("mezzanine.urls")),

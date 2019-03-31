@@ -81,7 +81,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 pre {
-    padding: 0px;
+    padding: 5px;
+    background: rgb(230, 230, 230);
+    color: rgb(199, 37, 78);
 }
 
 div.feature-icon {
@@ -105,4 +107,25 @@ div.feature-icon {
 
 .news-list li {
     margin-bottom: 10px;
+}
+
+/* table formatting on Releases page */
+#releases + table {
+    border: 1px solid rgb(221, 221, 221);
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+#releases + table > thead > tr > th,
+#releases + table > tbody > tr > th,
+#releases + table > tfoot > tr > th,
+#releases + table > thead > tr > td,
+#releases + table > tbody > tr > td,
+#releases + table > tfoot > tr > td {
+    border: 1px solid rgb(221, 221, 221);
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid rgb(221, 221, 221);
 }

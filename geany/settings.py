@@ -16,7 +16,6 @@ from __future__ import absolute_import, unicode_literals
 import os
 from django.utils.translation import ugettext_lazy as _
 
-
 ######################
 # MEZZANINE SETTINGS #
 ######################
@@ -133,10 +132,7 @@ USE_X_FORWARDED_HOST = True
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ('127.0.0.1',
                  'geany.org',
-                 'www.geany.org',
-                 'pastebin.geany.org',
-                 'geany.nightlybuilds.org',
-                 'nightly.geany.org')
+                 'www.geany.org')
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -198,6 +194,9 @@ DATABASES = {
         "USER": "",
         "PASSWORD": "",
         "HOST": "127.0.0.1",
+        "OPTIONS": {
+            "init_command": "SET storage_engine=INNODB"
+        }
     },
     'nightlybuilds': {
         'ENGINE': 'django.db.backends.mysql',
@@ -270,11 +269,12 @@ TEMPLATES = [
                 'latest_version.context_processors.latest_version',
                 'mezzanine.pages.context_processors.page',
             ],
+            'builtins': [
+                'mezzanine.template.loader_tags',
+            ],
         },
     },
 ]
-# compability for Mezzanine which still requires this setting
-TEMPLATE_CONTEXT_PROCESSORS = TEMPLATES[0]['OPTIONS']['context_processors']
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -307,7 +307,6 @@ INSTALLED_APPS = (
     "mezzanine.forms",
     "mezzanine.galleries",
     "mezzanine.twitter",
-    "mezzanine.accounts",
 
     # we
     "geany",
@@ -318,18 +317,21 @@ INSTALLED_APPS = (
     "nightlybuilds",    # nightly.geany.org
 
     # 3rd party
+    "easyaudit",
     "honeypot",     # for pastebin
     "django_hosts",
     "gunicorn",
+    "mezzanine_pagedown",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
 # these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     "mezzanine.core.middleware.UpdateCacheMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
+    "django_hosts.middleware.HostsRequestMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     # Uncomment if using internationalisation or localisation
     # "django.middleware.locale.LocaleMiddleware",
@@ -337,20 +339,19 @@ MIDDLEWARE_CLASSES = (
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
+    "easyaudit.middleware.easyaudit.EasyAuditMiddleware",
+
     "mezzanine.core.request.CurrentRequestMiddleware",
     "mezzanine.core.middleware.RedirectFallbackMiddleware",
-    #"mezzanine.core.middleware.TemplateForDeviceMiddleware",
-    #"mezzanine.core.middleware.TemplateForHostMiddleware",
     "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
     "mezzanine.core.middleware.SitePermissionMiddleware",
     # Uncomment the following if using any of the SSL settings:
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
-    "django_hosts.middleware.HostsMiddleware",
+    "django_hosts.middleware.HostsResponseMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
 )
 
@@ -358,6 +359,23 @@ MIDDLEWARE_CLASSES = (
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
+
+# pagedown / markdown
+RICHTEXT_WIDGET_CLASS = 'mezzanine_pagedown.widgets.PageDownWidget'
+RICHTEXT_FILTERS = ['mezzanine_pagedown.filters.custom']
+RICHTEXT_FILTER_LEVEL = 3
+PAGEDOWN_SERVER_SIDE_PREVIEW = False
+PAGEDOWN_MARKDOWN_EXTENSIONS = (
+    # GFM alike
+    'pymdownx.magiclink',
+    'pymdownx.betterem',
+    'pymdownx.tilde',
+    'pymdownx.tasklist',
+    'pymdownx.superfences',
+    # markdown extensions
+    'tables',
+    'toc',
+)
 
 #########################
 # OPTIONAL APPLICATIONS #
@@ -384,14 +402,21 @@ INLINE_EDITING_ENABLED = False
 # dashboard
 DASHBOARD_TAGS = (
     ("mezzanine_tags.app_list",),
-    ("comment_tags.recent_comments",),
     ("mezzanine_tags.recent_actions",),
+    ("comment_tags.recent_comments",),
 )
 
 ADMIN_MENU_ORDER = (
     (_("Content"), ("pages.Page", "blog.BlogPost", "news.NewsPost",
        "generic.ThreadedComment", "mezzanine_blocks.Block", "mezzanine_blocks.RichBlock", (_("Media Library"), "fb_browse"),)),
-    (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting", "latest_version.LatestVersion", (_("Manage latest version"), "mezzanine_spam_stats.SpamStat"))),
+    (_("Site"), (
+        "sites.Site",
+        "redirects.Redirect",
+        "conf.Setting",
+    )),
+    (_("Geany"), (
+        "latest_version.LatestVersion",
+    )),
     (_("Users"), ("auth.User", "auth.Group",)))
 
 # django-debug-toolbar
@@ -414,7 +439,19 @@ HONEYPOT_FIELD_NAME = 'website'
 
 NIGHTLYBUILDS_BASE_DIR = '/path/to/nightly/builds'
 
+STATIC_DOCS_GEANY_SOURCE_DIR = '/home/geany/geany/geany_git/po'
+STATIC_DOCS_GEANY_DESTINATION_DIR = os.path.join(MEDIA_ROOT, 'i18n')
+STATIC_DOCS_GEANY_DESTINATION_URL = os.path.join(MEDIA_URL, 'i18n')
+STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME = 'i18n_statistics.json'
+
 IRC_USER_LIST_FILE = '/var/tmp/irc_userlist'
+
+DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS = False
+DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
+DJANGO_EASY_AUDIT_ADMIN_SHOW_AUTH_EVENTS = False
+DJANGO_EASY_AUDIT_ADMIN_SHOW_REQUEST_EVENTS = False
+# do not implicitly log logins (the User model is updated on each login)
+DJANGO_EASY_AUDIT_UNREGISTERED_CLASSES_EXTRA = ['auth.user']
 
 
 #########################
@@ -422,7 +459,7 @@ IRC_USER_LIST_FILE = '/var/tmp/irc_userlist'
 #########################
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format': '%(asctime)s %(name)s %(process)d %(threadName)s %(levelname)s %(message)s'
@@ -446,18 +483,34 @@ LOGGING = {
         }
     },
     'loggers': {
+        '': {
+            'handlers':['console', 'mail_admins'],
+            'level':'DEBUG',
+            'propagate': False,
+        },
         'root': {
-            'handlers':['console'],
+            'handlers':['console', 'mail_admins'],
+            'level':'DEBUG',
+            'propagate': False,
+        },
+        'py.warnings': {
+            'propagate': True,
             'level':'DEBUG',
         },
         'django': {
-            'handlers':['console'],
             'propagate': True,
-            'level':'INFO',
+            'level':'DEBUG',
         },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        'django.db': {
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.template': {
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'MARKDOWN': {
+            'level': 'INFO',
             'propagate': True,
         },
     }
@@ -468,7 +521,7 @@ LOGGING = {
 # IGNORE WARNINGS #
 ###################
 SILENCED_SYSTEM_CHECKS = (
-  '1_8.W001'  # TEMPLATE_CONTEXT_PROCESSORS setting required for Mezzanine
+  'fields.W162'  # warning about longtext index in easy-audit not supported on MySQL
 )
 
 
@@ -483,9 +536,15 @@ SILENCED_SYSTEM_CHECKS = (
 # Instead of doing "from .local_settings import *", we use exec so that
 # local_settings has full access to everything defined in this module.
 
-f = os.path.join(os.path.dirname(os.path.abspath(__file__)), "local_settings.py")
+f = os.path.join(PROJECT_APP_PATH, 'local_settings.py')
 if os.path.exists(f):
-    exec(open(f, "rb").read())
+    import sys
+    import imp
+    module_name = '{}.local_settings'.format(PROJECT_APP)
+    module = imp.new_module(module_name)
+    module.__file__ = f
+    sys.modules[module_name] = module
+    exec(open(f, 'rb').read())
 
 
 ####################

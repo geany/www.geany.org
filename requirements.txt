@@ -1,16 +1,26 @@
-Mezzanine
+babel
 mysqlclient
 django-compressor
+django-easy-audit
 django-extensions
 django-honeypot
 django-hosts
 django-memcache-status
 gunicorn
+mezzanine-pagedown
 pygments
 pylibmc
+python-logstash-async
+pymdown-extensions
 pytz
 setproctitle
 
 
 # for development
 django-debug-toolbar
+
+# Mezzanine from GIT
+# https://github.com/stephenmcd/mezzanine/issues/1899
+git+https://github.com/stephenmcd/filebrowser-safe.git
+git+https://github.com/stephenmcd/grappelli-safe.git
+git+https://github.com/eht16/mezzanine.git@issue1899_keyword_update_with_django2_0#egg=mezzanine

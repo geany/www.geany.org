@@ -1,10 +1,10 @@
 {% extends "skel.html" %}
-{% load pages_tags %}
+{% load pages_tags static %}
 
 {% block top_menu %}
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <img src="{{ STATIC_URL }}img/geany-36x36.png" class="navbar-brand">
+        <img src="{% static "img/geany-36x36.png" %}" class="navbar-brand">
         <a class="navbar-brand" href="{% url "home" %}">Geany</a>
         <div class="navbar-collapse collapse">
             {% page_menu "pages/menus/dropdown.html" %}

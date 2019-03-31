@@ -14,7 +14,7 @@
 
 from django.contrib import sitemaps
 from django.contrib.sites.models import Site
-from django.core import urlresolvers
+from django.urls import NoReverseMatch, reverse
 from django_hosts.resolvers import get_host
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
@@ -57,7 +57,7 @@ class GeanyMainSitemap(DisplayableSitemap):
 
     #----------------------------------------------------------------------
     def lastmod(self, obj):
-        return obj.publish_date
+        return getattr(obj, 'publish_date', None)
 
 
 ########################################################################
@@ -130,8 +130,8 @@ class StaticSitemap(sitemaps.Sitemap):
     #----------------------------------------------------------------------
     def _resolve_url(self, url):
         try:
-            return urlresolvers.reverse(url, urlconf=self._host.urlconf)
-        except urlresolvers.NoReverseMatch:
+            return reverse(url, urlconf=self._host.urlconf)
+        except NoReverseMatch:
             return None
 
     #----------------------------------------------------------------------

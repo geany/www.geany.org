@@ -12,12 +12,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from datetime import datetime
+import json
+import logging
+import os.path
+import re
+
+from django.conf import settings
 from django.http import Http404
 from django.views.generic.base import TemplateView
-from geany.decorators import cache_function, CACHE_TIMEOUT_24HOURS
+
 from static_docs.github_client import GitHubApiClient
-import logging
-import re
+from geany.decorators import cache_function, CACHE_TIMEOUT_1HOUR, CACHE_TIMEOUT_24HOURS
 
 
 RELEASE_REGEXP = re.compile(r'^Geany (?P<version>[0-9\.]+) \((?P<date>.*)\)$')
@@ -155,3 +161,28 @@ class ToDoView(StaticDocsView):
     #----------------------------------------------------------------------
     def _parse_news_file(self):
         return self._file_contents
+
+
+########################################################################
+class I18NStatisticsView(TemplateView):
+
+    template_name = "pages/i18n.html"
+
+    #----------------------------------------------------------------------
+    def get_context_data(self, **kwargs):
+        i18n_statistics = self._get_i18n_statistics()
+        context = super(I18NStatisticsView, self).get_context_data(**kwargs)
+        context['i18n_statistics'] = i18n_statistics
+        context['generated_datetime'] = datetime.utcfromtimestamp(
+            i18n_statistics['generated_timestamp'])
+        context['static_docs_geany_destination_url'] = settings.STATIC_DOCS_GEANY_DESTINATION_URL
+        return context
+
+    #----------------------------------------------------------------------
+    @cache_function(CACHE_TIMEOUT_1HOUR)
+    def _get_i18n_statistics(self):
+        filename = os.path.join(
+            settings.STATIC_DOCS_GEANY_DESTINATION_DIR,
+            settings.STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME)
+        with open(filename) as input_file:
+            return json.load(input_file)
