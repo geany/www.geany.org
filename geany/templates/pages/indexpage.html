@@ -1,0 +1,35 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags pages_tags geany_tags %}
+
+{% block main %}{{ block.super }}
+
+<div class="well">
+
+{% block content_before %}
+{% endblock %}
+
+{% block richtext_content %}
+<h1>{{ page.title }}</h1>
+
+{# Simple index page - dynamically create a list of links to sub pages #}
+	<div class="list-group">
+	{% for child_page in page.children.all %}
+
+		{# filter for pages shown in the top menu ('1') #}
+		{% if '1' in child_page.in_menus %}
+		<a href="{{ child_page.get_absolute_url }}" class="list-group-item">{{ child_page.title }}</a>
+		{% endif %}
+	{% empty %}
+		<p>No sub pages</p>
+	{% endfor %}
+	</div>
+
+{% block content_after %}
+{% endblock %}
+
+{% endblock %}
+
+</div>
+
+{% endblock %}
