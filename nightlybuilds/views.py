@@ -14,10 +14,10 @@
 
 from django.db.models import F
 from django.views.generic import ListView
+
 from nightlybuilds.models import NightlyBuild
 
 
-########################################################################
 class NightlyBuildsView(ListView):
     template_name = "nightlybuilds.html"
 

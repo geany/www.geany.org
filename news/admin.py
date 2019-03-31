@@ -18,7 +18,6 @@ from mezzanine.core.models import CONTENT_STATUS_DRAFT, CONTENT_STATUS_PUBLISHED
 from news.models import NewsPost
 
 
-########################################################################
 class NewsPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'user', 'status', 'publish_date')
     list_editable = ("status",)
@@ -28,14 +27,14 @@ class NewsPostAdmin(admin.ModelAdmin):
     actions = ['_toggle_many_published']
     radio_fields = {"status": admin.HORIZONTAL}
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def save_model(self, request, obj, form, change):
         if not obj.user_id:
             # set logged in user as author
             obj.user = request.user
         obj.save()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _toggle_many_published(self, request, queryset):
         # this is not really as efficient as it could be as the query is performed, but I don't know
         # a way to get the primary keys in the queryset without executing it
@@ -45,7 +44,7 @@ class NewsPostAdmin(admin.ModelAdmin):
             rows_updated += 1
         self.message_user(request, "{} News posts were successfully changed.".format(rows_updated))
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _toggle_newspost_published_status(self, newspost):
         if newspost.status == CONTENT_STATUS_PUBLISHED:
             newspost.status = CONTENT_STATUS_DRAFT

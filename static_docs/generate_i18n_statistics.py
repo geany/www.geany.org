@@ -184,7 +184,12 @@ class TranslationStatisticsGenerator(object):
         destination_filename = join(self._destination_path, self._message_catalog.filename)
         pot_file = self._factor_pot_filename()
 
-        update_command = ['msgmerge', source_filename, pot_file, '--output-file', destination_filename]
+        update_command = [
+            'msgmerge',
+            source_filename,
+            pot_file,
+            '--output-file',
+            destination_filename]
         self._execute_command(update_command)
 
     # ----------------------------------------------------------------------

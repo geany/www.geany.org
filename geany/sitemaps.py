@@ -19,6 +19,7 @@ from django_hosts.resolvers import get_host
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
 
+
 """
 Sitemap generation
 GeanyMainSitemap is the main class which generates sitemap items
@@ -35,7 +36,6 @@ the static items at runtime as they may change at any time.
 """
 
 
-########################################################################
 class GeanyMainSitemap(DisplayableSitemap):
     """
     Sitemap class for Django's sitemaps framework that returns
@@ -44,59 +44,57 @@ class GeanyMainSitemap(DisplayableSitemap):
     changefreq = 'monthly'
     priority = 0.5
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def items(self):
         items = super(GeanyMainSitemap, self).items()
         additional_app_items = self._get_additional_app_items()
         items.extend(additional_app_items)
         return items
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _get_additional_app_items(self):
         return sitemap_registry.get_all_items()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def lastmod(self, obj):
         return getattr(obj, 'publish_date', None)
 
 
-########################################################################
 class SitemapItem(object):
     """Simulate a model, mainly to provide get_absolute_url() for Sitemaps"""
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self, name, absolute_url, publish_date=None, priority=0.5):
         self._name = name
         self._absolute_url = absolute_url
         self._publish_date = publish_date
         self._priority = priority
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_absolute_url(self):
         return self._absolute_url
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     @property
     def name(self):
         return self._name
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     @property
     def publish_date(self):
         return self._publish_date
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     @property
     def priority(self):
         return self._priority
 
 
-########################################################################
 class StaticSitemap(sitemaps.Sitemap):
     """Return the static sitemap items"""
     priority = 0.5
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self, domain, patterns):
         self._domain = domain
         self._patterns = patterns
@@ -105,16 +103,16 @@ class StaticSitemap(sitemaps.Sitemap):
         self._url_mapping = {}
         self._get_site_and_host()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def items(self):
         return self.get_static_items() + self.get_dynamic_items()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_static_items(self):
         self._initialize()
         return [SitemapItem(name, url) for name, url in self._url_mapping.items()]
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _initialize(self):
         for pattern in self._patterns:
             if getattr(pattern, 'name', None) is not None:
@@ -122,65 +120,64 @@ class StaticSitemap(sitemaps.Sitemap):
                 if url_resolved:
                     self._url_mapping[pattern.name] = url_resolved
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _get_site_and_host(self):
         self._site = Site.objects.get(domain=self._domain)
         self._host = get_host(self._domain)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _resolve_url(self, url):
         try:
             return reverse(url, urlconf=self._host.urlconf)
         except NoReverseMatch:
             return None
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_dynamic_items(self):
         return list()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def changefreq(self, obj):
         return 'monthly'
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def location(self, obj):
         return self._url_mapping[obj.name]
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_urls(self, page=1, site=None, protocol=None):
         # pass our site to the parent as we know better which site we are on
         return super(StaticSitemap, self).get_urls(page, self._site, protocol)
 
 
-########################################################################
 class SitemapRegistry(object):
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self):
         self._sitemap_generators = list()
         self._static_items = None
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def add(self, generator_class, url_patterns, site_domain=None):
         if site_domain is None:
             site_domain = settings.SITE_DOMAIN_WWW
         sitemap_generator_item = (generator_class, url_patterns, site_domain)
         self._sitemap_generators.append(sitemap_generator_item)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _update_static_sitemap_items(self, sitemap_generator_class, url_patterns, site_domain):
         generator = sitemap_generator_class(site_domain, url_patterns)
         items = generator.get_static_items()
         self._static_items.extend(items)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_all_items(self):
         if self._static_items is None:
             self._static_items = self._get_static_items()
         dynamic_items = self._get_dynamic_items()
         return self._static_items + dynamic_items
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _get_static_items(self):
         static_items = list()
         for sitemap_generator_class, url_patterns, site_domain in self._sitemap_generators:
@@ -189,7 +186,7 @@ class SitemapRegistry(object):
             static_items.extend(items)
         return static_items
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _get_dynamic_items(self):
         dynamic_items = list()
         for sitemap_generator_class, url_patterns, site_domain in self._sitemap_generators:

@@ -26,6 +26,7 @@ from geany import urls_legacy
 from geany.sitemaps import GeanyMainSitemap
 from nightlybuilds.views import NightlyBuildsView
 
+
 sitemaps = {"sitemaps": {"all": GeanyMainSitemap}}
 
 
@@ -83,5 +84,4 @@ handler500 = "mezzanine.core.views.server_error"
 
 if settings.DEBUG:
     urlpatterns += (
-        url(r'^media/(?P<path>.*)$', static_serve, {'document_root': settings.MEDIA_ROOT, }),
-   )
+        url(r'^media/(?P<path>.*)$', static_serve, {'document_root': settings.MEDIA_ROOT, }),)

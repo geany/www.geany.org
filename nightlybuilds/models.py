@@ -15,7 +15,6 @@
 from django.db import models
 
 
-########################################################################
 class NightlyBuildTarget(models.Model):
 
     nightly_build_target_id = models.PositiveIntegerField(primary_key=True)
@@ -31,17 +30,15 @@ class NightlyBuildTarget(models.Model):
         blank=True,
         on_delete=models.PROTECT)
 
-    ########################################################################
     class Meta:
         ordering = ('name', 'arch')
         db_table = 'nightly_build_target'
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __unicode__(self):
         return '%s %s' % (self.name, self.arch)
 
 
-########################################################################
 class NightlyBuild(models.Model):
 
     nightly_build_id = models.PositiveIntegerField(primary_key=True)
@@ -57,22 +54,21 @@ class NightlyBuild(models.Model):
     build_host = models.CharField(max_length=255)
     build_date = models.DateTimeField(max_length=255)
 
-    ########################################################################
     class Meta:
         ordering = ('-build_date',)
         db_table = 'nightly_build'
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_status(self):
         return not self.status
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_status_text(self):
         if self.get_status():
-            return u'Built successfully'
-        else:
-            return 'Build failed, see the logs for details'
+            return 'Built successfully'
 
-    #----------------------------------------------------------------------
+        return 'Build failed, see the logs for details'
+
+    # ----------------------------------------------------------------------
     def __unicode__(self):
         return '%s %s' % (self.build_date, self.nightly_build_target)

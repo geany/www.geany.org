@@ -13,19 +13,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.template.defaultfilters import date, safe
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, View
 from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
+
 from news.models import NewsPost
 
 
-########################################################################
 class NewsPostPublishedMixin(object):
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_queryset(self):
         """ filter non-published news posts except for staff users """
         user = self.request.user
@@ -34,41 +34,38 @@ class NewsPostPublishedMixin(object):
             order_by('-publish_date')
 
 
-########################################################################
 class NewsListView(NewsPostPublishedMixin, ListView):
 
     model = NewsPost
     template_name = 'news/list.html'
 
 
-########################################################################
 class NewsDetailView2(NewsPostPublishedMixin, DetailView):
 
     model = NewsPost
     template_name = 'news/detail.html'
 
 
-########################################################################
 class NewsDetailView(NewsPostPublishedMixin, View):
     template_name = 'news/detail.html'
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
         return super(NewsDetailView, self).dispatch(*args, **kwargs)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get(self, request, newspost_slug):
         newspost = get_object_or_404(NewsPost, slug=newspost_slug)
         return render(request, self.template_name, {'newspost': newspost})
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def post(self, request, *args, **kwargs):
         newspost_slug = request.POST.get('newspost_slug')
         try:
             newspost = NewsPost.objects.get(slug=newspost_slug)
         except NewsPost.DoesNotExist:
-            error_message = u'News post item for "{}" could not be found'.format(newspost_slug)
+            error_message = 'News post item for "{}" could not be found'.format(newspost_slug)
             result = dict(error=error_message)
         else:
             # adapt to dict

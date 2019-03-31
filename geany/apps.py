@@ -15,7 +15,6 @@
 from django.apps import AppConfig
 
 
-########################################################################
 class GeanyAppConfig(AppConfig):
     name = 'geany'
     verbose_name = "Geany"

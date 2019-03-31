@@ -15,33 +15,35 @@
 from django.template import Library
 from django.template.defaultfilters import timeuntil
 from django.utils.timezone import now
+
 from pastebin.highlight import pygmentize
+
 
 NINETY_YEARS_IN_DAYS = 32850  # 90 * 365
 
 
-register = Library()
+register = Library()  # pylint: disable=invalid-name
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 @register.filter
 def in_list(value, arg):
     return value in arg
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 @register.filter
 def timeuntil_or_forever(snippet_expire):
     ttl = snippet_expire - now()
     if ttl.days > NINETY_YEARS_IN_DAYS:
         # snippet TTL 'forever' is defined as 100 years, so if remaining TTL is more than
         # (90 * 365) days, we most probably got a snippet with TTL 'forever'
-        return u'forever'
-    else:
-        return timeuntil(snippet_expire)
+        return 'forever'
+
+    return timeuntil(snippet_expire)
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 @register.filter
 def highlight(snippet, line_count=None):
     h = pygmentize(snippet.content, snippet.lexer)
@@ -52,5 +54,5 @@ def highlight(snippet, line_count=None):
 
     if line_count:
         lines = lines[:line_count]
-        lines.append(u'...')
+        lines.append('...')
     return lines

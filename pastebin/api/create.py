@@ -13,9 +13,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import timedelta
+
 from django.utils.timezone import now
+
 from pastebin.forms import SnippetForm
-from pastebin.highlight import LEXER_LIST_ALL, LEXER_DEFAULT
+from pastebin.highlight import LEXER_DEFAULT, LEXER_LIST_ALL
 from pastebin.models import Snippet
 
 
@@ -66,38 +68,37 @@ GEANY_LEXER_MAPPING = {
 }
 
 
-########################################################################
 class SnippetValidationError(Exception):
     pass
 
 
-########################################################################
 class CreateSnippetApiController(object):
 
     valid_fields = ('title', 'content', 'expires', 'author', 'lexer')
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self, request):
         self._request = request
         self._data = request.POST.copy()
         self._snippet = None
         self._snippet_form = None
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def create(self):
         self._validate_passed_fields()
         self._validate_against_snippet_form()
         self._create_snippet()
         return self._snippet
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _validate_passed_fields(self):
         provided_fields = set(self._data.keys())
         additional_fields = provided_fields.difference(self.valid_fields)
         if additional_fields:
-            raise SnippetValidationError(u'Invalid fields provided (%s)' % ','.join(additional_fields))
+            raise SnippetValidationError(
+                'Invalid fields provided (%s)' % ','.join(additional_fields))
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _validate_against_snippet_form(self):
         self._preprocess_data()
 
@@ -107,11 +108,12 @@ class CreateSnippetApiController(object):
         snippet_form.fields['lexer'].choices = LEXER_LIST_ALL
         # validate
         if not snippet_form.is_valid():
-            errors = u'\n'.join([u'%s: %s' % (k, v.as_text()) for k, v in snippet_form.errors.items()])
+            errors = '\n'.join(
+                ['%s: %s' % (k, v.as_text()) for k, v in snippet_form.errors.items()])
             raise SnippetValidationError(errors)
         self._snippet_form = snippet_form
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _preprocess_data(self):
         # compatibility with SnippetForm
         self._data['expire_options'] = self._data.get('expires', 3600)
@@ -128,7 +130,7 @@ class CreateSnippetApiController(object):
                 # lexers and simply override them with 'text'
                 self._data['lexer'] = LEXER_DEFAULT
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _create_snippet(self):
         cleaned_data = self._snippet_form.cleaned_data
         expire_options = int(cleaned_data.get('expire_options', 3600))

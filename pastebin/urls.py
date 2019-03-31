@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf import settings
 from django.conf.urls import url
 from django.views.decorators.cache import never_cache
 from django.views.generic.base import TemplateView
@@ -24,10 +23,11 @@ from pastebin.views import (
     SnippetDeleteView,
     SnippetDetailRawView,
     SnippetDetailView,
-    SnippetNewView)
+    SnippetNewView,
+)
 
 
-urlpatterns = (
+urlpatterns = (  # pylint: disable=invalid-name
     url(r'^help/$', TemplateView.as_view(template_name='pastebin/help.html'), name='snippet_help'),
     url(r'^help/api/$', TemplateView.as_view(template_name='pastebin/api.html'), name='snippet_help_api'),
 

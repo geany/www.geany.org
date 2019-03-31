@@ -13,10 +13,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import url
+
 from geany.sitemaps import sitemap_registry
 from news.feeds import LatestNewsPostsFeed
 from news.sitemaps import NewsPostSitemap
-from news.views import NewsListView, NewsDetailView
+from news.views import NewsDetailView, NewsListView
 
 
 urlpatterns = (

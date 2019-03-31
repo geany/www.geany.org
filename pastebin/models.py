@@ -13,34 +13,35 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import timedelta
-from django.urls import reverse
-from django.db import models
-from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
-from pastebin.highlight import LEXER_DEFAULT
 import random
 import re
 import time
+
+from django.db import models
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+
+from pastebin.highlight import LEXER_DEFAULT
 
 
 t = 'abcdefghijkmnopqrstuvwwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ1234567890'
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 def generate_secret_id(length=5):
-    return ''.join([random.choice(t) for i in range(length)])
+    return ''.join([random.choice(t) for i in range(length)])  # pylint: disable=unused-variable
 
 
-########################################################################
 class Snippet(models.Model):
-    secret_id = models.CharField(_(u'Secret ID'), max_length=255, blank=True)
-    title = models.CharField(_(u'Title'), max_length=120, blank=True)
-    author = models.CharField(_(u'Author'), max_length=30, blank=True)
-    content = models.TextField(_(u'Content'), )
-    content_highlighted = models.TextField(_(u'Highlighted Content'), blank=True)
-    lexer = models.CharField(_(u'Lexer'), max_length=30, default=LEXER_DEFAULT)
-    published = models.DateTimeField(_(u'Published'), blank=True, db_index=True)
-    expires = models.DateTimeField(_(u'Expires'), blank=True, db_index=True)
+    secret_id = models.CharField(_('Secret ID'), max_length=255, blank=True)
+    title = models.CharField(_('Title'), max_length=120, blank=True)
+    author = models.CharField(_('Author'), max_length=30, blank=True)
+    content = models.TextField(_('Content'), )
+    content_highlighted = models.TextField(_('Highlighted Content'), blank=True)
+    lexer = models.CharField(_('Lexer'), max_length=30, default=LEXER_DEFAULT)
+    published = models.DateTimeField(_('Published'), blank=True, db_index=True)
+    expires = models.DateTimeField(_('Expires'), blank=True, db_index=True)
     parent = models.ForeignKey(
         'self',
         null=True,
@@ -48,16 +49,15 @@ class Snippet(models.Model):
         related_name='children',
         on_delete=models.PROTECT)
 
-    ########################################################################
     class Meta:
         ordering = ('-published',)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def age(self):
         age = time.mktime(self.published.timetuple())
         return self._readable_delta(age)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def _readable_delta(self, from_seconds, until_seconds=None):
         '''Returns a nice readable delta.
 
@@ -78,7 +78,7 @@ class Snippet(models.Model):
         delta_minutes = delta.seconds // 60
         delta_hours = delta_minutes // 60
 
-        ## show a fuzzy but useful approximation of the time delta
+        # show a fuzzy but useful approximation of the time delta
         if delta.days:
             return '%d days ago' % (delta.days)
         elif delta_hours:
@@ -88,15 +88,15 @@ class Snippet(models.Model):
         else:
             return '%d seconds ago' % (delta.seconds)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_linecount(self):
         return len(self.content.splitlines())
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def content_splitted(self):
         return self.content_highlighted.splitlines()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def save(self, *args, **kwargs):
         if not self.pk and not self.secret_id:
             self.secret_id = generate_secret_id()
@@ -106,29 +106,28 @@ class Snippet(models.Model):
         self.content_highlighted = self.content
         models.Model.save(self, *args, **kwargs)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_absolute_url(self):
         return reverse('snippet_details', kwargs={'snippet_id': self.secret_id})
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __unicode__(self):
         return '%s' % self.secret_id
 
 
-########################################################################
 class SpamwordManager(models.Manager):
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_regex(self):
-        return re.compile(r'|'.join((i[1] for i in self.values_list())),
+        return re.compile(
+            r'|'.join((i[1] for i in self.values_list())),
             re.MULTILINE)
 
 
-########################################################################
 class Spamword(models.Model):
     word = models.CharField(max_length=100)
     objects = SpamwordManager()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __unicode__(self):
         return self.word

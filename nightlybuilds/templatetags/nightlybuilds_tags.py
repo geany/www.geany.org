@@ -12,20 +12,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
 from django import template
 from django.conf import settings
 from django.utils.html import format_html
-import os
 
 
 register = template.Library()
 base_dir = settings.NIGHTLYBUILDS_BASE_DIR
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 @register.simple_tag
 def get_build_log(nightly_build, log_type):
-    if log_type == u'Stdout':
+    if log_type == 'Stdout':
         log = nightly_build.log_stdout
     else:
         log = nightly_build.log_stderr
@@ -39,20 +40,20 @@ def get_build_log(nightly_build, log_type):
         else:
             if size > 0:
                 return format_html(
-                    u'<a href="/{}/{}">{}</stdout>',
+                    '<a href="/{}/{}">{}</stdout>',
                     nightly_build.nightly_build_target.folder,
                     log,
                     log_type)
-    return u''
+    return ''
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 @register.simple_tag
 def get_details(nightly_build):
     header_txt = os.path.join(base_dir, nightly_build.nightly_build_target.folder, 'HEADER.txt')
     if os.path.exists(header_txt):
         return format_html(
-            u'<a href="/{}/">Details</a>',
+            '<a href="/{}/">Details</a>',
             nightly_build.nightly_build_target.folder)
-    else:
-        return u''
+
+    return ''

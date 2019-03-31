@@ -23,7 +23,6 @@ from mezzanine.utils.models import get_user_model_name
 from mezzanine.utils.urls import slugify
 
 
-########################################################################
 class PublishedManager(models.Manager):
     """
     Provides filter for restricting items returned by status and
@@ -32,7 +31,7 @@ class PublishedManager(models.Manager):
     # this is a clone of mezzanine.core.managers.PublishedManager but with the
     # 'expiry_date' field removed
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def published(self, for_user=None):
         """
         For non-staff users, return items with a published status and
@@ -45,16 +44,15 @@ class PublishedManager(models.Manager):
             models.Q(publish_date__lte=now()) | models.Q(publish_date__isnull=True),
             models.Q(status=CONTENT_STATUS_PUBLISHED))
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def recently_published(self, count=5, for_user=None):
         return self.published(for_user).order_by('-publish_date')[:count]
 
 
-########################################################################
 class NewsPost(models.Model):
 
     slug = models.CharField(_('Slug'), max_length=255, editable=False, db_index=True)
-    title = models.CharField(_(u'Title'), max_length=255, blank=True)
+    title = models.CharField(_('Title'), max_length=255, blank=True)
     content = RichTextField(_('Content'))
     user = models.ForeignKey(
         get_user_model_name(),
@@ -68,12 +66,12 @@ class NewsPost(models.Model):
         db_index=True,
         help_text=_('With Draft chosen, will only be shown for admin users on the site.'))
     entry_date = models.DateTimeField(
-        _(u'Published'),
+        _('Published'),
         editable=False,
         auto_now_add=True,
         db_index=True)
     publish_date = models.DateTimeField(
-        _(u'Published on'),
+        _('Published on'),
         blank=True,
         db_index=True,
         default=timezone.now)
@@ -81,22 +79,21 @@ class NewsPost(models.Model):
     # add a 'published' method to the Manager to filter by published status
     objects = PublishedManager()
 
-    ########################################################################
     class Meta:
         ordering = ('-publish_date',)
-        verbose_name = _(u'News')
-        verbose_name_plural = _(u'News')
+        verbose_name = _('News')
+        verbose_name_plural = _('News')
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
         super(NewsPost, self).save(*args, **kwargs)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_absolute_url(self):
         return reverse('news_detail', kwargs={'newspost_slug': self.slug})
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __unicode__(self):
         return self.title

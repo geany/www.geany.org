@@ -18,7 +18,6 @@ from django.core.management import BaseCommand
 from static_docs.generate_i18n_statistics import TranslationStatisticsGenerator
 
 
-########################################################################
 class Command(BaseCommand):
     help = "Generate a JSON file with I18N statistics after updating PO files"
 

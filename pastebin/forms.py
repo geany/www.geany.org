@@ -13,51 +13,52 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import timedelta
+
 from django import forms
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from pastebin.highlight import LEXER_LIST, LEXER_DEFAULT
+
+from pastebin.highlight import LEXER_DEFAULT, LEXER_LIST
 from pastebin.models import Snippet, Spamword
 
 
-#===============================================================================
+# ===============================================================================
 # Snippet Form and Handling
-#===============================================================================
+# ===============================================================================
 
 EXPIRE_CHOICES = (
-    (3600, _(u'In one hour')),
-    (3600 * 24 * 7, _(u'In one week')),
-    (3600 * 24 * 30, _(u'In one month')),
-    (3600 * 24 * 30 * 12 * 100, _(u'Save forever')),  # 100 years, I call it forever ;)
+    (3600, _('In one hour')),
+    (3600 * 24 * 7, _('In one week')),
+    (3600 * 24 * 30, _('In one month')),
+    (3600 * 24 * 30 * 12 * 100, _('Save forever')),  # 100 years, I call it forever ;)
 )
 
 EXPIRE_DEFAULT = 3600 * 24 * 30
 
 
-########################################################################
 class SnippetForm(forms.ModelForm):
 
     lexer = forms.ChoiceField(
         choices=LEXER_LIST,
         initial=LEXER_DEFAULT,
-        label=_(u'Lexer'),
+        label=_('Lexer'),
     )
 
     expire_options = forms.ChoiceField(
         choices=EXPIRE_CHOICES,
         initial=EXPIRE_DEFAULT,
-        label=_(u'Expires'),
+        label=_('Expires'),
         widget=forms.RadioSelect,
     )
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self, request, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
         self.request = request
         # set author
         self.fields['author'].initial = self.request.session.get('author', '')
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def clean_content(self):
         content = self.cleaned_data.get('content')
         if content:
@@ -66,9 +67,10 @@ class SnippetForm(forms.ModelForm):
                 raise forms.ValidationError('This snippet was identified as SPAM.')
         return content
 
-    #----------------------------------------------------------------------
-    def save(self, parent=None, *args, **kwargs):
+    # ----------------------------------------------------------------------
+    def save(self, *args, **kwargs):
         # Set parent snippet
+        parent = kwargs.pop('parent', None)
         if parent:
             self.instance.parent = parent
 
@@ -89,7 +91,6 @@ class SnippetForm(forms.ModelForm):
 
         return self.request, self.instance
 
-    ########################################################################
     class Meta:
         model = Snippet
         fields = (

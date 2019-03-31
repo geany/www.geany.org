@@ -16,10 +16,9 @@ from geany.sitemaps import StaticSitemap
 from news.models import NewsPost
 
 
-########################################################################
 class NewsPostSitemap(StaticSitemap):
     """Return the static sitemap items + the last five most recent News posts"""
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def get_dynamic_items(self):
         return list(NewsPost.objects.recently_published(count=30))

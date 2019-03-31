@@ -13,12 +13,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django import template
+
 from news.models import NewsPost
+
 
 register = template.Library()
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 @register.inclusion_tag("news/list_embedded.html", takes_context=True)
 def get_recent_news(context):
     user = context.request.user

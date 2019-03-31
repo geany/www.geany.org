@@ -13,8 +13,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import, unicode_literals
+
 import os
+
 from django.utils.translation import ugettext_lazy as _
+
 
 ######################
 # MEZZANINE SETTINGS #
@@ -133,6 +136,7 @@ USE_X_FORWARDED_HOST = True
 ALLOWED_HOSTS = ('127.0.0.1',
                  'geany.org',
                  'www.geany.org')
+INTERNAL_IPS = ("127.0.0.1", "10.0.44.3", "37.120.182.205", "2a03:4000:f:40f:99::205")
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -407,8 +411,14 @@ DASHBOARD_TAGS = (
 )
 
 ADMIN_MENU_ORDER = (
-    (_("Content"), ("pages.Page", "blog.BlogPost", "news.NewsPost",
-       "generic.ThreadedComment", "mezzanine_blocks.Block", "mezzanine_blocks.RichBlock", (_("Media Library"), "fb_browse"),)),
+    (_("Content"), (
+        "pages.Page",
+        "blog.BlogPost",
+        "news.NewsPost",
+        "generic.ThreadedComment",
+        "mezzanine_blocks.Block",
+        "mezzanine_blocks.RichBlock",
+        (_("Media Library"), "fb_browse"),)),
     (_("Site"), (
         "sites.Site",
         "redirects.Redirect",
@@ -471,9 +481,9 @@ LOGGING = {
         }
     },
     'handlers': {
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
         'mail_admins': {
@@ -484,22 +494,22 @@ LOGGING = {
     },
     'loggers': {
         '': {
-            'handlers':['console', 'mail_admins'],
-            'level':'DEBUG',
+            'handlers': ['console', 'mail_admins'],
+            'level': 'DEBUG',
             'propagate': False,
         },
         'root': {
-            'handlers':['console', 'mail_admins'],
-            'level':'DEBUG',
+            'handlers': ['console', 'mail_admins'],
+            'level': 'DEBUG',
             'propagate': False,
         },
         'py.warnings': {
             'propagate': True,
-            'level':'DEBUG',
+            'level': 'DEBUG',
         },
         'django': {
             'propagate': True,
-            'level':'DEBUG',
+            'level': 'DEBUG',
         },
         'django.db': {
             'level': 'INFO',
@@ -521,7 +531,7 @@ LOGGING = {
 # IGNORE WARNINGS #
 ###################
 SILENCED_SYSTEM_CHECKS = (
-  'fields.W162'  # warning about longtext index in easy-audit not supported on MySQL
+    'fields.W162'  # warning about longtext index in easy-audit not supported on MySQL
 )
 
 
@@ -536,15 +546,15 @@ SILENCED_SYSTEM_CHECKS = (
 # Instead of doing "from .local_settings import *", we use exec so that
 # local_settings has full access to everything defined in this module.
 
-f = os.path.join(PROJECT_APP_PATH, 'local_settings.py')
-if os.path.exists(f):
+filename = os.path.join(PROJECT_APP_PATH, 'local_settings.py')
+if os.path.exists(filename):
     import sys
     import imp
     module_name = '{}.local_settings'.format(PROJECT_APP)
     module = imp.new_module(module_name)
-    module.__file__ = f
+    module.__file__ = filename
     sys.modules[module_name] = module
-    exec(open(f, 'rb').read())
+    exec(open(filename, 'rb').read())
 
 
 ####################

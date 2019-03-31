@@ -16,12 +16,11 @@ from django.core.management.base import BaseCommand
 from pygments.formatters import HtmlFormatter
 
 
-########################################################################
 class Command(BaseCommand):
     help = "Regenerate CSS for snippet sxntax highlighting py Pygments"
     requires_system_checks = False
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def handle(self, *args, **options):
         with open('pastebin/static/css/pygments.css', 'w') as css_file:
             # You can change style and the html class here:

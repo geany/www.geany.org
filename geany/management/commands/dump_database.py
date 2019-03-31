@@ -15,11 +15,10 @@
 from django.core.management import BaseCommand, call_command
 
 
-########################################################################
 class Command(BaseCommand):
     help = "Dump the database (excluding users, sessions and logs)"
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def handle(self, *args, **options):
         call_command(
             'dumpdata',

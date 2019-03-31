@@ -12,7 +12,9 @@ import os
 from django.core.wsgi import get_wsgi_application
 from mezzanine.utils.conf import real_project_name
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                      "%s.settings" % real_project_name("geany"))
+
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    "{}.settings".format(real_project_name("geany")))
 
 application = get_wsgi_application()

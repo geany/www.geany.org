@@ -14,31 +14,31 @@
 
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
+from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.utils.html import absolute_urls
-from mezzanine.conf import settings
+
 from news.models import NewsPost
 
 
-########################################################################
 class LatestNewsPostsFeed(Feed):
 
     title = "Geany project news"
     description = "News feed for the Geany project"
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def link(self):
         return reverse("news_list")
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def items(self):
         return NewsPost.objects.recently_published(count=200)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def item_title(self, item):
         return item.title
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def item_description(self, item):
         description = richtext_filters(item.content)
         absolute_urls_name = "mezzanine.utils.html.absolute_urls"
@@ -46,10 +46,10 @@ class LatestNewsPostsFeed(Feed):
             description = absolute_urls(description)
         return description
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def item_pubdate(self, item):
         return item.publish_date
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def item_author_name(self, item):
         return item.user.get_full_name() or item.user.username
