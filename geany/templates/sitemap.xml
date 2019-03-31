@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type='text/xsl' href='{{ STATIC_URL }}xml-sitemap.xsl'?>
+{% load static %}
+<?xml-stylesheet type='text/xsl' href='{% static "xml-sitemap.xsl" %}'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {% spaceless %}
 {% for url in urlset %}

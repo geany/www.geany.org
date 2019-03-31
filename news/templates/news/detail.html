@@ -1,9 +1,9 @@
 {% extends "pages/richtextpage.html" %}
-{% load i18n mezzanine_tags  %}
+{% load i18n mezzanine_tags static %}
 
 {% block extra_css %}
 {{ super }}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/newspost.css">
+<link rel="stylesheet" type="text/css" href="{% static "css/newspost.css" %}">
 {% endblock %}
 
 

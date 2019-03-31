@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load nightlybuilds_tags %}
+{% load nightlybuilds_tags static %}
 
 {% block extra_css %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/nightlybuilds.css"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/nightlybuilds.css" %}"/>
 {% endblock %}
 
 {% block meta_title %}Geany Nightly Builds{% endblock %}
@@ -15,7 +15,7 @@
     {# empty menu for nightly.geany.org #}
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <img src="{{ STATIC_URL }}img/geany-36x36.png" class="navbar-brand">
+            <img src="{% static "img/geany-36x36.png" %}" class="navbar-brand">
             <a class="navbar-brand" href="http://www.geany.org/">Geany</a>
 
             <ul class="nav navbar-nav">
@@ -60,9 +60,9 @@ binary packages can be found below.</p>
             {% if project == build.nightly_build_target.project %}
             <tr class="{% if build.get_status %}success{% else %}danger{% endif %}">
                 <td class="centered_column">{% if build.get_status %}
-                        <img src="{{ STATIC_URL }}img/icon-yes.gif" alt="{{ build.get_status_text }}" title="{{ build.get_status_text }}" />
+                        <img src="{% static "img/icon-yes.gif" %}" alt="{{ build.get_status_text }}" title="{{ build.get_status_text }}" />
                     {% else %}
-                        <img src="{{ STATIC_URL }}img/icon-no.gif" alt="{{ build.get_status_text }}" title="{{ build.get_status_text }}" />
+                        <img src="{% static "img/icon-no.gif" %}" alt="{{ build.get_status_text }}" title="{{ build.get_status_text }}" />
                     {% endif %}
                 </td>
                 <td>{{ build.nightly_build_target.project|capfirst }}</td>
