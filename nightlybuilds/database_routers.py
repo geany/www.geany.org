@@ -48,5 +48,5 @@ class NightlyBuildsRouter(object):
         return None
 
     #----------------------------------------------------------------------
-    def allow_migrate(self, db, model):
-        return model._meta.app_label != 'nightlybuilds'
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        return app_label != 'nightlybuilds'
