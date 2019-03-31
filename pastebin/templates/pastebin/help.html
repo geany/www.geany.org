@@ -12,8 +12,8 @@
 <p>This pastebin is here to help you collaborate on debugging code snippets. If you're not familiar with the idea,
 most people use it like this:</p>
 <ul>
-<li><a href="{% url 'home' %}">submit</a> a code fragment to pastebin,
-getting a url like http://{{ request.site.domain }}/abc1234</li>
+<li><a href="{% url 'snippet_new' %}">submit</a> a code fragment to pastebin,
+getting a url like https://{{ request.site.domain }}/p/abc1234</li>
 <li>paste the url into an IRC or IM conversation</li>
 <li>someone responds by reading and perhaps submitting a modification of your code</li>
 </ul>

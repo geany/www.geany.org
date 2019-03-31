@@ -17,7 +17,7 @@
         ~ {{ snippet.published|date:"Y/m/d G:i:s" }}
     </h4>
     <div class="snippet well snippet_list">
-        <pre class="code">{% for line in snippet|highlight:5 %}<div class="line" id="l{{ forloop.counter }}">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</div>{% endfor %}</pre>
+        <pre class="highlight">{% for line in snippet|highlight:5 %}<div class="line" id="l{{ forloop.counter }}">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</div>{% endfor %}</pre>
     </div>
     {% endfor %}
     {% else %}

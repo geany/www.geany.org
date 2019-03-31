@@ -13,7 +13,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import timedelta
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -41,7 +41,12 @@ class Snippet(models.Model):
     lexer = models.CharField(_(u'Lexer'), max_length=30, default=LEXER_DEFAULT)
     published = models.DateTimeField(_(u'Published'), blank=True, db_index=True)
     expires = models.DateTimeField(_(u'Expires'), blank=True, db_index=True)
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
+    parent = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        related_name='children',
+        on_delete=models.PROTECT)
 
     ########################################################################
     class Meta:
@@ -93,9 +98,11 @@ class Snippet(models.Model):
 
     #----------------------------------------------------------------------
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.published = timezone.now()
+        if not self.pk and not self.secret_id:
             self.secret_id = generate_secret_id()
+        if not self.published:
+            self.published = timezone.now()
+
         self.content_highlighted = self.content
         models.Model.save(self, *args, **kwargs)
 

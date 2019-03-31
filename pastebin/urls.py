@@ -13,8 +13,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import url
+from django.views.decorators.cache import never_cache
 from django.views.generic.base import TemplateView
+
 from geany.sitemaps import StaticSitemap
 from pastebin.views import (
     LatestSnippetsView,
@@ -25,36 +27,23 @@ from pastebin.views import (
     SnippetNewView)
 
 
-urlpatterns = [
-    # no admin on this site
-    url(r'^admin/', 'mezzanine.core.views.page_not_found'),
+urlpatterns = (
+    url(r'^help/$', TemplateView.as_view(template_name='pastebin/help.html'), name='snippet_help'),
+    url(r'^help/api/$', TemplateView.as_view(template_name='pastebin/api.html'), name='snippet_help_api'),
 
-    url(r'^help/$', TemplateView.as_view(template_name='pastebin/help.html'), name='help'),
-    url(r'^help/api/$', TemplateView.as_view(template_name='pastebin/api.html'), name='api'),
+    url(r'^api/$', never_cache(SnippetAPIView.as_view()), name='snippet_api'),
 
-    url(r'^api/$', SnippetAPIView.as_view()),
-
-    url(r'^$', SnippetNewView.as_view(), name='home'),
+    url(r'^$', never_cache(SnippetNewView.as_view()), name='snippet_new'),
     url(r'^latest/$', LatestSnippetsView.as_view(), name='snippet_list'),
     url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/$', SnippetDetailView.as_view(), name='snippet_details'),
     url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/delete/$', SnippetDeleteView.as_view(), name='snippet_delete'),
     url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$', SnippetDetailRawView.as_view(), name='snippet_details_raw'),
-]
-
-# Django-Debug-Toolbar support
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += (
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    )
-
-# Sitemap framework
-sitemaps = {"sitemaps": {"all": StaticSitemap(settings.SITE_DOMAIN_PASTEBIN, urlpatterns)}}
-urlpatterns += (
-    # use our custom sitemap implementation
-    url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
 )
 
-# Adds ``STATIC_URL`` to the context of error pages, so that error pages can use JS, CSS and images.
-handler404 = "mezzanine.core.views.page_not_found"
-handler500 = "mezzanine.core.views.server_error"
+
+# Sitemap framework
+#sitemaps = {"sitemaps": {"all": StaticSitemap(settings.SITE_DOMAIN_PASTEBIN, urlpatterns)}}
+#urlpatterns += (
+#    # use our custom sitemap implementation
+#    url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
+#)

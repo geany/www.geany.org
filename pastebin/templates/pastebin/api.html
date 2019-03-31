@@ -10,13 +10,13 @@
 
 <h1>API</h1>
 
-<p>The following Python code can be used as a simple command line client for this
+<p>The following Python 3 code can be used as a simple command line client for this
 Pastebin service:</p>
 
 <pre>#!/usr/bin/env python
 
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import os
 import sys
 
@@ -25,12 +25,13 @@ def paste_code():
     fields.append(('content', ''.join(sys.stdin.readlines())))
     fields.append(('author', os.getlogin()))
     fields.append(('lexer', 'python'))
-    request = urllib2.Request(
-        'http://{{ request.site.domain }}/api/',
-        urllib.urlencode(fields),
+    encoded_data = urllib.parse.urlencode(fields).encode('utf-8')
+    request = urllib.request.Request(
+        'https://{{ request.site.domain }}{% url 'snippet_api' %}',
+        encoded_data,
     )
-    response = urllib2.urlopen(request)
-    print response.read()[:-1]
+    response = urllib.request.urlopen(request)
+    print(response.read()[:-1])
 
 if __name__ == '__main__':
     paste_code()</pre>
@@ -75,7 +76,7 @@ if __name__ == '__main__':
         <td>lexer</td>
         <td class="nowrap">python, text, php, perl, c, bash, ...</td>
         <td>The lexer to be used, all lexers supported by Pygments are possible and
-            also most of Geany's filetype names (geany --ft-names)
+            also most of Geany's filetype names (<code>geany --ft-names</code>)
         </td>
     </tr>
 </tbody>

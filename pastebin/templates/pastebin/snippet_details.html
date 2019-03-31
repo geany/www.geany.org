@@ -43,7 +43,7 @@
                 <ol>
                     {% for line in snippet|highlight %}
                         <li id="l{{ forloop.counter }}">
-                            <div class="line"><pre class="code">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</pre></div>
+                            <div class="line"><pre class="highlight">{% if line %}{{ line|safe }}{% else %}&nbsp;{% endif %}</pre></div>
                         </li>
                     {% endfor %}
                 </ol>
@@ -106,11 +106,11 @@ jQuery(document).ready(function(){
     */
     $('#word_wrap_toggle').toggle(
         function(){
-            $('div.snippet pre.code').css('white-space', 'pre');
+            $('div.snippet pre.highlight').css('white-space', 'pre');
             return false;
         },
         function(){
-            $('div.snippet pre.code').css('white-space', 'pre-wrap');
+            $('div.snippet pre.highlight').css('white-space', 'pre-wrap');
             return false;
         }
     );

@@ -14,18 +14,19 @@
 
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.template.context import RequestContext
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.base import View, TemplateView
+from django.views.generic.base import TemplateView, View
 from honeypot.decorators import check_honeypot
+
 from pastebin.api.create import CreateSnippetApiController, SnippetValidationError
 from pastebin.forms import SnippetForm
 from pastebin.models import Snippet
@@ -65,11 +66,7 @@ class SnippetNewView(View):
     def _render_response(self, request, snippet_form):
         snippet_list = _get_snippet_list(no_content=True)
         template_context = dict(snippet_form=snippet_form, snippet_list=snippet_list)
-
-        return render_to_response(
-            self.template_name,
-            template_context,
-            RequestContext(request))
+        return render(request, self.template_name, template_context)
 
     #----------------------------------------------------------------------
     def post(self, request):
@@ -102,9 +99,9 @@ class SnippetDetailView(View):
         # load snippet
         try:
             snippet = self._fetch_snippet(snippet_id)
-        except SnippetNotFoundError, e:
+        except SnippetNotFoundError as e:
             # 404 response with custom message
-            context = dict(message=unicode(e))
+            context = dict(message=e)
             return TemplateResponse(request, 'errors/404.html', context=context, status=404)
 
         new_snippet_initial = dict(content=snippet.content, lexer=snippet.lexer)
@@ -118,11 +115,7 @@ class SnippetDetailView(View):
             'lines': range(snippet.get_linecount()),
         }
 
-        response = render_to_response(
-            self.template_name,
-            template_context,
-            RequestContext(request))
-        return response
+        return render(request, self.template_name, template_context)
 
     #----------------------------------------------------------------------
     def _clean_expired_snippets(self):
@@ -178,7 +171,7 @@ class SnippetDeleteView(View):
                 status=403)
 
         snippet.delete()
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('snippet_new'))
 
 
 ########################################################################
@@ -208,12 +201,12 @@ class SnippetAPIView(View):
         try:
             controller = CreateSnippetApiController(request)
             snippet = controller.create()
-        except SnippetValidationError, e:
+        except SnippetValidationError as e:
             return HttpResponseBadRequest(unicode(e), content_type=u'text/plain')
 
         site = self._get_site(request)
         absolute_url = snippet.get_absolute_url()
-        result = u'http://%s%s/' % (site.domain, absolute_url)
+        result = u'https://%s%s/' % (site.domain, absolute_url)
         return HttpResponse(result, content_type=u'text/plain')
 
     #----------------------------------------------------------------------

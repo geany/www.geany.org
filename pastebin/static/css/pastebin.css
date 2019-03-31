@@ -35,6 +35,7 @@ form.new-snippet-form {
     margin-left: 5px;
     margin-bottom: 0px;
     width: auto;
+    border: none;
 }
 
 .new-snippet-form ul#id_expire_options li {
@@ -156,7 +157,7 @@ pre {
     background-color: rgb(250, 250, 250);
 }
 
-pre.code {
+pre.highlight {
     font-family: "Bitstream Vera Sans Mono", monospace;
     font-size: 12px;
     line-height: 15px;
@@ -165,12 +166,12 @@ pre.code {
     border: none;
 }
 
-div.line:hover pre.code {
+div.line:hover pre.highlight {
     background-color: #FFFFA6;
 }
 
-pre.code div.line.marked,
-pre.code div.line.marked * {
+pre.highlight div.line.marked,
+pre.highlight div.line.marked * {
     background-color: #BAE688 !important;
 }
 /*
