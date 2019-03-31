@@ -22,4 +22,4 @@ class NewsPostSitemap(StaticSitemap):
 
     #----------------------------------------------------------------------
     def get_dynamic_items(self):
-        return list(NewsPost.objects.recently_published(count=10))
+        return list(NewsPost.objects.recently_published(count=30))

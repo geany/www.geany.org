@@ -6,6 +6,10 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/newspost.css">
 {% endblock %}
 
+{% block extra_head %}
+{{ block.super }}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "news_feed" %}">
+{% endblock %}
 
 {% block meta_title %}{% if page %}{{ page.richtextpage.meta_title }}{% else %}{% trans "News" %}{% endif %}{% endblock %}
 
@@ -17,27 +21,64 @@ Latest news of the Geany project.
 {% block richtext_content %}
 
 <h2>News</h2>
-
-<div class="list-group">
-{% for newspost in object_list %}
-    <div class="list-group-item">
-        <div class="list-group-item-heading">
-            <div class="pull-left">
-                <h4>
-                    <a href="{{ newspost.get_absolute_url }}">{{ newspost.title }}</a>
-                </h4>
-            </div>
-            <div class="pull-right">
-                {{ newspost.publish_date|date:"F dS, Y" }}
-            </div>
-            <div class="clearfix"></div>
+{% regroup object_list|dictsortreversed:"publish_date" by publish_date.year as newsposts_by_year %}
+<div id="accordion" class="panel-group">
+{% for by_year in newsposts_by_year %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    {{ by_year.grouper }}
+                </a>
+            </h4>
         </div>
-        <div class="list-group-item-text">
-            {{ newspost.content|striptags|truncatechars:75 }}
-            <a href="{{ newspost.get_absolute_url }}" class="small">more</a>
+        <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse{% if forloop.counter0 == 0 %} in{% endif %}">
+            <div class="panel-body list-group">
+
+                {% for newspost in by_year.list %}
+                <div class="list-group-item">
+                    <div class="list-group-item-heading">
+                        <div class="pull-left">
+                            <h4>
+                                <a href="{{ newspost.get_absolute_url }}">{{ newspost.title }}</a>
+                            </h4>
+                        </div>
+                        <div class="pull-right">
+                            {{ newspost.publish_date|date:"F dS, Y" }}
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="list-group-item-text">
+                        {{ newspost.content|striptags|truncatechars:75 }}
+                        <a href="{{ newspost.get_absolute_url }}" class="small">more</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endfor %}
 </div>
 
+
+{% endblock %}
+
+
+{% block footer_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Add minus icon for collapse element which is open by default
+        $(".collapse.in").each(function(){
+            $(this).siblings(".panel-heading").find(".glyphicon").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+        });
+
+        // Toggle plus minus icon on show hide of collapse element
+        $(".collapse").on('show.bs.collapse', function(){
+            $(this).parent().find(".glyphicon").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+        }).on('hide.bs.collapse', function(){
+            $(this).parent().find(".glyphicon").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+        });
+    });
+</script>
 {% endblock %}

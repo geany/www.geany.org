@@ -22,5 +22,5 @@ register = template.Library()
 @register.inclusion_tag("news/list_embedded.html", takes_context=True)
 def get_recent_news(context):
     user = context.request.user
-    context["recent_news_posts"] = NewsPost.objects.recently_published(for_user=user)
+    context["recent_news_posts"] = NewsPost.objects.recently_published(count=4, for_user=user)
     return context

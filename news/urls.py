@@ -22,7 +22,7 @@ from news.views import NewsListView, NewsDetailView
 urlpatterns = (
     url(r'^$', NewsListView.as_view(), name='news_list'),
     url(r'^feed/$', LatestNewsPostsFeed(), name='news_feed'),
-    url(r'^(?P<newspost_slug>.+)$', NewsDetailView.as_view(), name='news_detail'),
+    url(r'^(?P<newspost_slug>.+)/$', NewsDetailView.as_view(), name='news_detail'),
 )
 
 # register our urlpatterns to the global sitemap generator

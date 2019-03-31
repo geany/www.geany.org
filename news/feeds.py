@@ -13,7 +13,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.syndication.views import Feed
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.utils.html import absolute_urls
 from mezzanine.conf import settings
@@ -32,7 +32,7 @@ class LatestNewsPostsFeed(Feed):
 
     #----------------------------------------------------------------------
     def items(self):
-        return NewsPost.objects.recently_published(count=20)
+        return NewsPost.objects.recently_published(count=200)
 
     #----------------------------------------------------------------------
     def item_title(self, item):

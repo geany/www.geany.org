@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
@@ -59,7 +59,8 @@ class NewsPost(models.Model):
     user = models.ForeignKey(
         get_user_model_name(),
         verbose_name=_('Author'),
-        related_name='%(class)ss')
+        related_name='%(class)ss',
+        on_delete=models.PROTECT)
     status = models.IntegerField(
         _('Status'),
         choices=CONTENT_STATUS_CHOICES,

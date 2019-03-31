@@ -10,19 +10,12 @@
         <span class="small">- {{ newspost.publish_date|date:"F Y" }}</span>
     </li>
 {% endfor %}
+    <li class="list-group-item">
+        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+        <a href="{% url 'news_list' %}">Older news</a>
+    </li>
 </ul>
 
-{% comment %}
-<ul class="list-group">
-{% for newspost in recent_news_posts %}
-    <li class="list-group-item">
-        <a href="#" data-toggle="modal" data-target="#news-modal" id="news-post-{{ newspost.slug }}">
-            {{ newspost.title }}
-        </a>
-    </li>
-{% endfor %}
-</ul>
-{% endcomment %}
 
 <!-- Modal -->
 <div class="modal fade" id="news-modal" tabindex="-1" role="dialog" aria-labelledby="news-modal-label">
