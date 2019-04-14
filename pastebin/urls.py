@@ -16,7 +16,7 @@ from django.conf.urls import url
 from django.views.decorators.cache import never_cache
 from django.views.generic.base import TemplateView
 
-from geany.sitemaps import StaticSitemap
+from geany.sitemaps import sitemap_registry, StaticSitemap
 from pastebin.views import (
     LatestSnippetsView,
     SnippetAPIView,
@@ -42,8 +42,4 @@ urlpatterns = (  # pylint: disable=invalid-name
 
 
 # Sitemap framework
-#sitemaps = {"sitemaps": {"all": StaticSitemap(settings.SITE_DOMAIN_PASTEBIN, urlpatterns)}}
-#urlpatterns += (
-#    # use our custom sitemap implementation
-#    url(r"^sitemap\.xml$", 'django.contrib.sitemaps.views.sitemap', sitemaps),
-#)
+sitemap_registry.add(StaticSitemap, urlpatterns)

@@ -52,7 +52,7 @@ urlpatterns += (
     url(r"^", include("static_docs.urls")),
 
     # nightly builds
-    url(r"^download/nightly-builds/$", NightlyBuildsView.as_view()),
+    url(r"^download/nightly-builds/$", NightlyBuildsView.as_view(), name='nightlybuilds'),
 
     # /service/version.php (for the UpdateChecker plugin)
     url(r"^", include("latest_version.urls")),
