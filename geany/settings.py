@@ -322,7 +322,6 @@ INSTALLED_APPS = (
 
     # 3rd party
     "honeypot",     # for pastebin
-    "django_hosts",
     "gunicorn",
     "mezzanine_pagedown",
 )
@@ -334,7 +333,6 @@ MIDDLEWARE = (
     "mezzanine.core.middleware.UpdateCacheMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
-    "django_hosts.middleware.HostsRequestMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     # Uncomment if using internationalisation or localisation
     # "django.middleware.locale.LocaleMiddleware",
@@ -352,7 +350,6 @@ MIDDLEWARE = (
     # Uncomment the following if using any of the SSL settings:
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
-    "django_hosts.middleware.HostsResponseMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
 )
 
@@ -436,10 +433,6 @@ SESSION_COOKIE_SECURE = True
 
 # django compressor
 COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
-
-# django-hosts
-ROOT_HOSTCONF = 'geany.hosts'
-DEFAULT_HOST = 'www.geany.org'
 
 # django-honeypot
 HONEYPOT_FIELD_NAME = 'website'

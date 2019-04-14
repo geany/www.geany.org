@@ -4,7 +4,6 @@ mysqlclient
 django-compressor
 django-extensions
 django-honeypot
-django-hosts
 django-memcache-status
 gunicorn
 mezzanine-pagedown

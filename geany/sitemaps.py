@@ -15,7 +15,6 @@
 from django.contrib import sitemaps
 from django.contrib.sites.models import Site
 from django.urls import NoReverseMatch, reverse
-from django_hosts.resolvers import get_host
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
 
@@ -99,9 +98,8 @@ class StaticSitemap(sitemaps.Sitemap):
         self._domain = domain
         self._patterns = patterns
         self._site = None
-        self._host = None
         self._url_mapping = {}
-        self._get_site_and_host()
+        self._get_site()
 
     # ----------------------------------------------------------------------
     def items(self):
@@ -121,14 +119,13 @@ class StaticSitemap(sitemaps.Sitemap):
                     self._url_mapping[pattern.name] = url_resolved
 
     # ----------------------------------------------------------------------
-    def _get_site_and_host(self):
+    def _get_site(self):
         self._site = Site.objects.get(domain=self._domain)
-        self._host = get_host(self._domain)
 
     # ----------------------------------------------------------------------
     def _resolve_url(self, url):
         try:
-            return reverse(url, urlconf=self._host.urlconf)
+            return reverse(url)
         except NoReverseMatch:
             return None
 
