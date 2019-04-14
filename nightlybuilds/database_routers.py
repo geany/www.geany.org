@@ -48,4 +48,5 @@ class NightlyBuildsRouter(object):
 
     # ----------------------------------------------------------------------
     def allow_migrate(self, db, app_label, model_name=None, **hints):
-        return app_label != 'nightlybuilds'
+        return (db != 'nightlybuilds' and app_label != 'nightlybuilds') \
+            or (db == 'nightlybuilds' and app_label == 'nightlybuilds')
