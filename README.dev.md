@@ -12,7 +12,7 @@ and uses Mezzanine (http://mezzanine.jupo.org/) for content management.
 As Django is based on Python, first of all you need Python and a couple of
 extra packages installed on your system.
 
-For now, the code is tested against Python2 only.
+The code requires Python 3.5 or higher.
 
 
 Prepare your system
@@ -23,12 +23,12 @@ virtualenv. Into the virtualenv we will install Django, Mezzanine and a couple o
 other helper packages.
 
 To be able to use virtualenv, you first need to install it as well as some
-development libraries for the MySQL and Memcache client libraries.
+development libraries for Python, the MySQL and Memcache client libraries.
 The most easy way is to use the package manager of your distribution.
-On the Debian like systems the following command should install the necessary
+On Debian like systems the following command should install the necessary
 packages:
 
-    apt-get install python-virtualenv python-pip libmysqlclient-dev libmemcached-dev
+    apt-get install python3-venv python3-pip python3-dev build-essential libmysqlclient-dev libmemcached-dev
 
 
 Get the code
@@ -45,17 +45,11 @@ Setting up a virtualenv
 Change into the freshly cloned repository directory and execute the following commands
 to create a new virtualenv and install required Python packages:
 
-    export PIP_REQUIRE_VIRTUALENV=true
-
-    virtualenv venv
-    # activate virtual environment
-    source venv/bin/activate
+    python3 -m venv venv
     # upgrade some packages, just to be safe
-    pip install --upgrade pip setuptools
-    # very helpful tool to manage packages in addition to pip
-    pip install git+git://github.com/eht16/yolk#egg=yolk
+    venv/bin/pip install --upgrade pip setuptools
     # install our requirements
-    pip install -r requirements.txt
+    venv/bin/pip install -r requirements.txt
 
 This will setup a new virtualenv, upgrade the Python package manager
 pip and install required packages for the website.
@@ -79,24 +73,19 @@ the settings to your needs:
     DEBUG = True
 
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": "dbname",
-            "USER": "dbuser",
-            "PASSWORD": "supersecret",
-            "HOST": "127.0.0.1",
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'geany_dev_www.db'),
         },
         'nightlybuilds': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'dbname2',
-            "USER": "dbuser",
-            "PASSWORD": "supersecret",
-            "HOST": "127.0.0.1",
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'geany_dev_nightly.db'),
         }
     }
 
     # some random characters, should be unique per site, e.g. use str(uuid.uuid4())
-    SECRET_KEY = "12345"
+    SECRET_KEY = "change-me-to-something-random-and-unique"
+    NEVERCACHE_KEY = "change-me-to-something-random-and-unique"
 
     CACHES = {
         'default': {
@@ -109,6 +98,11 @@ the settings to your needs:
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
     SSL_FORCE_URL_PREFIXES = ()
+    INTERNAL_IPS = ("127.0.0.1",)
+    ALLOWED_HOSTS = ('127.0.0.1', 'localhost')
+
+    STATIC_DOCS_GEANY_SOURCE_DIR = '/path/to/geany/source/or/just/empty'
+    IRC_USER_LIST_FILE = '/path/to/irc/data/or/just/empty'
 
 
 ### Database settings
@@ -118,46 +112,35 @@ For local development you can also use Sqlite which is simpler
 to setup but harder to work with when you need to manipulate the
 data directly.
 Your choice.
-Whatever database you use, ask Enrico to get a dump of a demo database
-to get something to work with. This dump can be easily imported into
+A dump of a demo database to get something to work with is available in
+`database.json`.
+This dump can be easily imported into
 a configured database with the following command:
 
-    python manage.py reset_db
-    python manage.py migrate --no-initial-data
-    echo 'TRUNCATE auth_permission; \
-          TRUNCATE django_content_type; \
-          TRUNCATE django_site;' | python manage.py dbshell
-    python manage.py createsuperuser
-    python manage.py loaddata database.json
+    venv/bin/python manage.py reset_db --noinput
+    venv/bin/python manage.py migrate --run-syncdb --noinput
+    echo 'DELETE FROM auth_permission;
+          DELETE FROM django_content_type;
+          DELETE FROM django_site;' | venv/bin/python manage.py dbshell
+    venv/bin/python manage.py loaddata database.json
+
+The database dump contains a default admin user:
+
+    username: admin
+    password: change-me
 
 
 Start the development server
 ----------------------------
 
-After you setup everything as described above, you are almost ready
-to start the development server to actually do something.
+After you set up everything as described above, you are ready
+to start the development server to actually do something:
 
-Before, just one further step is required: activate your virtual environment.
-Execute the following command in the directory *www.geany.org*:
-
-    source venv/bin/activate
-
-This will activate the previously created virtualenv and mangles
-your Python environment so that the interpreter and related packages
-in the *venv* sub directory are used instead of the gloablly installed
-ones.
-On some shells, you will see a `(venv)` prefix in the prompt indicating
-a virtualenv is activated.
-If you later want to clean up your shell and leave that virtualenv, just
-type `deactivate` in your shell.
-
-Now, finally, it's time to start your development server:
-
-    python manage.py runserver
+    venv/bin/python manage.py runserver
 
 This will start a simple HTTP server on *localhost* port 8000.
 You can open the resulting site in your browser by pointing it
-to http://localhost:8000 .
+to http://localhost:8000.
 
 Basically now you are done and you can start improving the website.
 A little detail you might notice: once you change any .py file
@@ -210,20 +193,11 @@ Call this command after updates of the Pygments package and
 then commit the updated CSS file `pastebin/static/css/pygments.css`.
 
 
-Special hostnames / DNS
------------------------
+### manage.py generate_i18n_statistics
 
-Since this website project not only contains www.geany.org but also
-some related subsites (pastebin.geany.org, nightly.geany.org) there is
-a special DNS record on the geany.org zone: ***.local.geany.org**.
-
-This record and all subdomains will resolve to *127.0.0.1* (aka *localhost*).
-
-In your browser you can use http://pastebin.local.geany.org:8000/ and
-http://nightly.local.geany.org:8000/ to use these subsites with your
-local development server.
-All other domains not recognized as a known subsite will fallback to
-the main website.
+Generate translation statistics by extracting them from the
+PO files of a Geany source. These statistics are shown on the
+website on /contribute/translation/statistics/.
 
 
 Useful shell aliases
