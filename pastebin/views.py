@@ -196,7 +196,7 @@ class SnippetAPIView(View):
             controller = CreateSnippetApiController(request)
             snippet = controller.create()
         except SnippetValidationError as e:
-            return HttpResponseBadRequest(unicode(e), content_type='text/plain')
+            return HttpResponseBadRequest(str(e), content_type='text/plain')
 
         site = self._get_site(request)
         absolute_url = snippet.get_absolute_url()

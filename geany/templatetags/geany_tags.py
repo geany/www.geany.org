@@ -39,7 +39,7 @@ class EvaluateNode(template.Node):
             rendered_content = content_template.render(context)
             context[self._target_var_name] = rendered_content
         except (template.VariableDoesNotExist, template.TemplateSyntaxError) as e:
-            return 'Error rendering: %s' % unicode(e)
+            return 'Error rendering: {}'.format(e)
 
         return ''
 
@@ -54,7 +54,7 @@ def do_evaluate(parser, token):
         _, variable, _, target_var_name = token.split_contents()
     except ValueError:
         raise template.TemplateSyntaxError(
-            '%r tag requires a single argument' % token.contents.split()[1])
+            '{!r} tag requires a single argument'.format(token.contents.split()[1]))
     return EvaluateNode(variable, target_var_name)
 
 
@@ -66,7 +66,7 @@ def get_irc_userlist():
         with open(settings.IRC_USER_LIST_FILE) as file_h:
             user_list = file_h.readlines()
     except IOError as e:
-        logger.error('An error occurred reading IRC user list: %s', unicode(e), exc_info=True)
+        logger.error('An error occurred reading IRC user list: {}'.format(e), exc_info=True)
 
     # remove newline characters
     user_list = [username.strip() for username in user_list]
@@ -79,6 +79,6 @@ def add_css(field, css):
     # read existing CSS classes
     css_classes = field.field.widget.attrs.get('class', '')
     # add new ones
-    css_classes = '%s %s' % (css_classes, css)
+    css_classes = '{} {}'.format(css_classes, css)
     # render the widget
     return field.as_widget(attrs={'class': css_classes})

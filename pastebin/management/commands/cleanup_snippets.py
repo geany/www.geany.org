@@ -12,28 +12,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from optparse import make_option
-import datetime
 import sys
 
-from django.core.management.base import LabelCommand
+from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 from pastebin.models import Snippet
 
 
-class Command(LabelCommand):
-    option_list = LabelCommand.option_list + (
-        make_option(
-            '--dry-run', '-d',
-            action='store_true',
-            dest='dry_run',
-            help='Don\'t do anything.'),
-    )
+class Command(BaseCommand):
+
     help = 'Purges snippets that are expired'
 
     # ----------------------------------------------------------------------
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--dry-run', '-d',
+            action='store_true',
+            dest='dry_run',
+            help='Don\'t do anything.')
+
+    # ----------------------------------------------------------------------
     def handle(self, *args, **options):
-        deleteable_snippets = Snippet.objects.filter(expires__lte=datetime.datetime.now())
+        deleteable_snippets = Snippet.objects.filter(expires__lte=timezone.now())
         sys.stdout.write('{} snippets gets deleted:\n'.format(deleteable_snippets.count()))
         for deleteable_snippet in deleteable_snippets:
             sys.stdout.write(
