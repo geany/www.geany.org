@@ -200,7 +200,7 @@ class SnippetAPIView(View):
 
         site = self._get_site(request)
         absolute_url = snippet.get_absolute_url()
-        result = 'https://%s%s/' % (site.domain, absolute_url)
+        result = 'https://{}{}'.format(site.domain, absolute_url)
         return HttpResponse(result, content_type='text/plain')
 
     # ----------------------------------------------------------------------

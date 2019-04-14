@@ -31,7 +31,8 @@ def paste_code():
         encoded_data,
     )
     response = urllib.request.urlopen(request)
-    print(response.read()[:-1])
+    response_content = response.read()
+    print(response_content.decode())
 
 if __name__ == '__main__':
     paste_code()</pre>
