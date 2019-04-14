@@ -1,7 +1,6 @@
 babel
 mysqlclient
 django-compressor
-django-easy-audit
 django-extensions
 django-honeypot
 django-hosts

@@ -321,7 +321,6 @@ INSTALLED_APPS = (
     "nightlybuilds",    # nightly.geany.org
 
     # 3rd party
-    "easyaudit",
     "honeypot",     # for pastebin
     "django_hosts",
     "gunicorn",
@@ -345,8 +344,6 @@ MIDDLEWARE = (
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
-    "easyaudit.middleware.easyaudit.EasyAuditMiddleware",
 
     "mezzanine.core.request.CurrentRequestMiddleware",
     "mezzanine.core.middleware.RedirectFallbackMiddleware",
@@ -456,13 +453,6 @@ STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME = 'i18n_statistics.json'
 
 IRC_USER_LIST_FILE = '/var/tmp/irc_userlist'
 
-DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS = False
-DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
-DJANGO_EASY_AUDIT_ADMIN_SHOW_AUTH_EVENTS = False
-DJANGO_EASY_AUDIT_ADMIN_SHOW_REQUEST_EVENTS = False
-# do not implicitly log logins (the User model is updated on each login)
-DJANGO_EASY_AUDIT_UNREGISTERED_CLASSES_EXTRA = ['auth.user']
-
 
 #########################
 # LOGGING               #
@@ -531,7 +521,6 @@ LOGGING = {
 # IGNORE WARNINGS #
 ###################
 SILENCED_SYSTEM_CHECKS = (
-    'fields.W162'  # warning about longtext index in easy-audit not supported on MySQL
 )
 
 
