@@ -25,12 +25,12 @@ from django.utils.translation import ugettext_lazy as _
 from pastebin.highlight import LEXER_DEFAULT
 
 
-t = 'abcdefghijkmnopqrstuvwwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ1234567890'
+CHARS = 'abcdefghijkmnopqrstuvwwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ1234567890'
 
 
 # ----------------------------------------------------------------------
 def generate_secret_id(length=5):
-    return ''.join([random.choice(t) for i in range(length)])  # pylint: disable=unused-variable
+    return ''.join([random.choice(CHARS) for i in range(length)])  # pylint: disable=unused-variable
 
 
 class Snippet(models.Model):
@@ -97,22 +97,22 @@ class Snippet(models.Model):
         return self.content_highlighted.splitlines()
 
     # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.pk and not self.secret_id:
             self.secret_id = generate_secret_id()
         if not self.published:
             self.published = timezone.now()
 
         self.content_highlighted = self.content
-        models.Model.save(self, *args, **kwargs)
+        super(Snippet, self).save(*args, **kwargs)
 
     # ----------------------------------------------------------------------
     def get_absolute_url(self):
         return reverse('snippet_details', kwargs={'snippet_id': self.secret_id})
 
     # ----------------------------------------------------------------------
-    def __unicode__(self):
-        return '%s' % self.secret_id
+    def __str__(self):
+        return '{}'.format(self.secret_id)
 
 
 class SpamwordManager(models.Manager):
@@ -129,5 +129,5 @@ class Spamword(models.Model):
     objects = SpamwordManager()
 
     # ----------------------------------------------------------------------
-    def __unicode__(self):
-        return self.word
+    def __str__(self):
+        return '{}'.format(self.word)

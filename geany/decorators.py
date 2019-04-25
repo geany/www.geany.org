@@ -42,23 +42,25 @@ def cache_function(timeout=900, ignore_arguments=False):
             ....
             return expensiveResult
     """
-    def do_cache(f):
-        def x(*args, **kwargs):
-            key = '%s.%s' % ((f.__module__, f.__name__))
+    def do_cache(function):
+        def wrapped(*args, **kwargs):
+            key = '%s.%s' % ((function.__module__, function.__name__))
             if args and not ignore_arguments:
                 cache_args = args
                 # don't include 'self' in arguments
-                arguments = inspect.getargspec(f)[0]
-                if arguments and arguments[0] == 'self':
+                arguments = inspect.getfullargspec(function)
+                if arguments and arguments.args[0] == 'self':
                     cache_args = args[1:]
                 if cache_args:
-                    key = '%s.args%s' % (key, hexlify(repr(cache_args)))
+                    cache_args_repr = repr(cache_args).encode('utf-8')
+                    key = '%s.args%s' % (key, hexlify(cache_args_repr))
             if kwargs and not ignore_arguments:
-                key = '%s.kwargs%s' % (key, hexlify(repr(kwargs)))
+                kwargs_repr = repr(kwargs).encode('utf-8')
+                key = '%s.kwargs%s' % (key, hexlify(kwargs_repr))
             result = _djcache.get(key)
             if result is None:
-                result = f(*args, **kwargs)
+                result = function(*args, **kwargs)
                 _djcache.set(key, result, timeout)
             return result
-        return x
+        return wrapped
     return do_cache

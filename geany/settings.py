@@ -527,16 +527,15 @@ SILENCED_SYSTEM_CHECKS = (
 
 # Instead of doing "from .local_settings import *", we use exec so that
 # local_settings has full access to everything defined in this module.
-
-filename = os.path.join(PROJECT_APP_PATH, 'local_settings.py')
+filename = os.path.join(PROJECT_APP_PATH, 'local_settings.py')  # pylint: disable=invalid-name
 if os.path.exists(filename):
     import sys
     import imp
-    module_name = '{}.local_settings'.format(PROJECT_APP)
-    module = imp.new_module(module_name)
+    module_name = '{}.local_settings'.format(PROJECT_APP)  # pylint: disable=invalid-name
+    module = imp.new_module(module_name)  # pylint: disable=invalid-name
     module.__file__ = filename
     sys.modules[module_name] = module
-    exec(open(filename, 'rb').read())
+    exec(open(filename, 'rb').read())  # pylint: disable=exec-used
 
 
 ####################

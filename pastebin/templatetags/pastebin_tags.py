@@ -22,7 +22,7 @@ from pastebin.highlight import pygmentize
 NINETY_YEARS_IN_DAYS = 32850  # 90 * 365
 
 
-register = Library()  # pylint: disable=invalid-name
+register = Library()
 
 
 # ----------------------------------------------------------------------
@@ -46,9 +46,9 @@ def timeuntil_or_forever(snippet_expire):
 # ----------------------------------------------------------------------
 @register.filter
 def highlight(snippet, line_count=None):
-    h = pygmentize(snippet.content, snippet.lexer)
-    if h:
-        lines = h.splitlines()
+    highlighted = pygmentize(snippet.content, snippet.lexer)
+    if highlighted:
+        lines = highlighted.splitlines()
     else:
         lines = snippet.content.splitlines()
 

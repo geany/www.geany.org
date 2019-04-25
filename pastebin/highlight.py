@@ -14,8 +14,9 @@
 
 from django.utils.html import escape
 from pygments import highlight
-from pygments.formatters import HtmlFormatter
-from pygments.lexers import get_all_lexers, get_lexer_by_name, PythonLexer
+from pygments.formatters.html import HtmlFormatter
+from pygments.lexers import get_all_lexers, get_lexer_by_name
+from pygments.lexers.python import PythonLexer
 
 
 LEXER_LIST_ALL = sorted([(i[1][0], i[0]) for i in get_all_lexers()])
@@ -56,8 +57,8 @@ class NakedHtmlFormatter(HtmlFormatter):
 
     # ----------------------------------------------------------------------
     def _wrap_code(self, source):
-        for j, t in source:
-            yield j, t
+        for code, text in source:
+            yield code, text
 
 
 # ----------------------------------------------------------------------

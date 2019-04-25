@@ -17,13 +17,13 @@ from django.shortcuts import get_object_or_404, render
 from django.template.defaultfilters import date, safe
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView, ListView, View
+from django.views.generic import ListView, View
 from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 
 from news.models import NewsPost
 
 
-class NewsPostPublishedMixin(object):
+class NewsPostPublishedMixin:
 
     # ----------------------------------------------------------------------
     def get_queryset(self):
@@ -40,19 +40,13 @@ class NewsListView(NewsPostPublishedMixin, ListView):
     template_name = 'news/list.html'
 
 
-class NewsDetailView2(NewsPostPublishedMixin, DetailView):
-
-    model = NewsPost
-    template_name = 'news/detail.html'
-
-
 class NewsDetailView(NewsPostPublishedMixin, View):
     template_name = 'news/detail.html'
 
     # ----------------------------------------------------------------------
     @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-        return super(NewsDetailView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super(NewsDetailView, self).dispatch(request, *args, **kwargs)
 
     # ----------------------------------------------------------------------
     def get(self, request, newspost_slug):
@@ -60,7 +54,7 @@ class NewsDetailView(NewsPostPublishedMixin, View):
         return render(request, self.template_name, {'newspost': newspost})
 
     # ----------------------------------------------------------------------
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):  # pylint: disable=unused-argument
         newspost_slug = request.POST.get('newspost_slug')
         try:
             newspost = NewsPost.objects.get(slug=newspost_slug)

@@ -20,7 +20,7 @@ from news.sitemaps import NewsPostSitemap
 from news.views import NewsDetailView, NewsListView
 
 
-urlpatterns = (
+urlpatterns = (  # pylint: disable=invalid-name
     url(r'^$', NewsListView.as_view(), name='news_list'),
     url(r'^feed/$', LatestNewsPostsFeed(), name='news_feed'),
     url(r'^(?P<newspost_slug>.+)/$', NewsDetailView.as_view(), name='news_detail'),

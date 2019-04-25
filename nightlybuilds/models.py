@@ -35,8 +35,8 @@ class NightlyBuildTarget(models.Model):
         db_table = 'nightly_build_target'
 
     # ----------------------------------------------------------------------
-    def __unicode__(self):
-        return '%s %s' % (self.name, self.arch)
+    def __str__(self):
+        return '{} {}'.format(self.name, self.arch)
 
 
 class NightlyBuild(models.Model):
@@ -70,5 +70,5 @@ class NightlyBuild(models.Model):
         return 'Build failed, see the logs for details'
 
     # ----------------------------------------------------------------------
-    def __unicode__(self):
-        return '%s %s' % (self.build_date, self.nightly_build_target)
+    def __str__(self):
+        return '{} {}'.format(self.build_date, self.nightly_build_target)

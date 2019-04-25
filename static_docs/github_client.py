@@ -24,10 +24,10 @@ GITHUB_USER = 'geany'
 GITHUB_REPOSITORY = 'geany'
 HTTP_REQUEST_TIMEOUT = 10
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
-class GitHubApiClient(object):
+class GitHubApiClient:
     """"""
 
     # ----------------------------------------------------------------------

@@ -19,20 +19,18 @@ from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
 
 
-"""
-Sitemap generation
-GeanyMainSitemap is the main class which generates sitemap items
-for all Mezzaine pages, blog posts, News posts and various static
-items.
-
-Other apps might add their own sitemap generator classes to the
-"sitemap_registry" provided by this module. For performance reasons,
-static sitemap items (i.e. items generated from URLconf patterns) are
-generated already on module-level because they never changed during
-the whole application lifetime.
-In addition, dynamic items (such as Pages and news posts) are added to
-the static items at runtime as they may change at any time.
-"""
+# Sitemap generation
+# GeanyMainSitemap is the main class which generates sitemap items
+# for all Mezzaine pages, blog posts, News posts and various static
+# items.
+#
+# Other apps might add their own sitemap generator classes to the
+# "sitemap_registry" provided by this module. For performance reasons,
+# static sitemap items (i.e. items generated from URLconf patterns) are
+# generated already on module-level because they never changed during
+# the whole application lifetime.
+# In addition, dynamic items (such as Pages and news posts) are added to
+# the static items at runtime as they may change at any time.
 
 
 class GeanyMainSitemap(DisplayableSitemap):
@@ -59,7 +57,7 @@ class GeanyMainSitemap(DisplayableSitemap):
         return getattr(obj, 'publish_date', None)
 
 
-class SitemapItem(object):
+class SitemapItem:
     """Simulate a model, mainly to provide get_absolute_url() for Sitemaps"""
 
     # ----------------------------------------------------------------------
@@ -134,11 +132,11 @@ class StaticSitemap(sitemaps.Sitemap):
         return list()
 
     # ----------------------------------------------------------------------
-    def changefreq(self, obj):
+    def changefreq(self, obj):  # pylint: disable=unused-argument
         return 'monthly'
 
     # ----------------------------------------------------------------------
-    def location(self, obj):
+    def location(self, obj):  # pylint: disable=unused-argument
         return self._url_mapping[obj.name]
 
     # ----------------------------------------------------------------------
@@ -147,7 +145,7 @@ class StaticSitemap(sitemaps.Sitemap):
         return super(StaticSitemap, self).get_urls(page, self._site, protocol)
 
 
-class SitemapRegistry(object):
+class SitemapRegistry:
 
     # ----------------------------------------------------------------------
     def __init__(self):
@@ -193,4 +191,4 @@ class SitemapRegistry(object):
         return dynamic_items
 
 
-sitemap_registry = SitemapRegistry()
+sitemap_registry = SitemapRegistry()  # pylint: disable=invalid-name

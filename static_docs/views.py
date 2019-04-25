@@ -29,10 +29,10 @@ from static_docs.github_client import GitHubApiClient
 RELEASE_REGEXP = re.compile(r'^Geany (?P<version>[0-9\.]+) \((?P<date>.*)\)$')
 DATE_PATTERNS_TO_BE_IGNORED = ('TBD', 'TBA', 'unreleased')
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
-class ReleaseDto(object):
+class ReleaseDto:
     """Simple data holder"""
 
     # ----------------------------------------------------------------------
@@ -68,10 +68,11 @@ class ReleaseNotesView(StaticDocsView):
     template_name = 'pages/documentation/releasenotes.html'
 
     # ----------------------------------------------------------------------
-    def get_context_data(self, version=None, **kwargs):
+    def get_context_data(self, **kwargs):
         releases = self._get_release_notes()
         release = None
 
+        version = kwargs.get('version', None)
         if version is not None:
             # search for the requested release in the list (we could index the list into a
             # dictionary but we need the index only at this point)
@@ -129,8 +130,8 @@ class ReleaseNotesView(StaticDocsView):
         match = RELEASE_REGEXP.match(line)
         if match:
             return match.group('version'), match.group('date')
-        else:
-            logger.warn('Failed parsing NEWS file: release line "%s" invalid', line)
+
+        logger.warning('Failed parsing NEWS file: release line "%s" invalid', line)
         return None, None
 
 

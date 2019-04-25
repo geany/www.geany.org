@@ -12,8 +12,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# pylint: disable=protected-access,unused-argument
 
-class NightlyBuildsRouter(object):
+
+class NightlyBuildsRouter:
     """
     A router to control all database operations on models in the
     nightlybuilds application.
@@ -47,6 +49,6 @@ class NightlyBuildsRouter(object):
         return None
 
     # ----------------------------------------------------------------------
-    def allow_migrate(self, db, app_label, model_name=None, **hints):
-        return (db != 'nightlybuilds' and app_label != 'nightlybuilds') \
-            or (db == 'nightlybuilds' and app_label == 'nightlybuilds')
+    def allow_migrate(self, database, app_label, model_name=None, **hints):
+        return (database != 'nightlybuilds' and app_label != 'nightlybuilds') \
+            or (database == 'nightlybuilds' and app_label == 'nightlybuilds')

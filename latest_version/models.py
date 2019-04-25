@@ -29,18 +29,14 @@ class LatestVersion(models.Model):
         verbose_name_plural = 'Latest Version'
 
     # ----------------------------------------------------------------------
-    def save(self):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         """Save but replace the existing row instead of adding a new one"""
-        self.id = 1
-        models.Model.save(self)
+        self.id = 1  # pylint: disable=invalid-name,attribute-defined-outside-init
+        super(LatestVersion, self).save(*args, **kwargs)
 
     # ----------------------------------------------------------------------
-    def delete(self):
+    def delete(self, using=None, keep_parents=False):
         """Never delete anything"""
-
-    # ----------------------------------------------------------------------
-    def __unicode__(self):
-        return str(self)
 
     # ----------------------------------------------------------------------
     def __str__(self):

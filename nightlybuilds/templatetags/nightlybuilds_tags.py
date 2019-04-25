@@ -20,7 +20,7 @@ from django.utils.html import format_html
 
 
 register = template.Library()
-base_dir = settings.NIGHTLYBUILDS_BASE_DIR
+BASE_DIR = settings.NIGHTLYBUILDS_BASE_DIR
 
 
 # ----------------------------------------------------------------------
@@ -32,7 +32,7 @@ def get_build_log(nightly_build, log_type):
         log = nightly_build.log_stderr
 
     if log:
-        logfile_path = os.path.join(base_dir, nightly_build.nightly_build_target.folder, log)
+        logfile_path = os.path.join(BASE_DIR, nightly_build.nightly_build_target.folder, log)
         try:
             size = os.stat(logfile_path).st_size
         except (IOError, OSError):
@@ -50,7 +50,7 @@ def get_build_log(nightly_build, log_type):
 # ----------------------------------------------------------------------
 @register.simple_tag
 def get_details(nightly_build):
-    header_txt = os.path.join(base_dir, nightly_build.nightly_build_target.folder, 'HEADER.txt')
+    header_txt = os.path.join(BASE_DIR, nightly_build.nightly_build_target.folder, 'HEADER.txt')
     if os.path.exists(header_txt):
         return format_html(
             '<a href="/{}/">Details</a>',

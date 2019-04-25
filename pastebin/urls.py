@@ -28,16 +28,31 @@ from pastebin.views import (
 
 
 urlpatterns = (  # pylint: disable=invalid-name
-    url(r'^help/$', TemplateView.as_view(template_name='pastebin/help.html'), name='snippet_help'),
-    url(r'^help/api/$', TemplateView.as_view(template_name='pastebin/api.html'), name='snippet_help_api'),
+    url(
+        r'^help/$',
+        TemplateView.as_view(template_name='pastebin/help.html'),
+        name='snippet_help'),
+    url(
+        r'^help/api/$',
+        TemplateView.as_view(template_name='pastebin/api.html'),
+        name='snippet_help_api'),
 
     url(r'^api/$', never_cache(SnippetAPIView.as_view()), name='snippet_api'),
 
     url(r'^$', never_cache(SnippetNewView.as_view()), name='snippet_new'),
     url(r'^latest/$', LatestSnippetsView.as_view(), name='snippet_list'),
-    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/$', SnippetDetailView.as_view(), name='snippet_details'),
-    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/delete/$', SnippetDeleteView.as_view(), name='snippet_delete'),
-    url(r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$', SnippetDetailRawView.as_view(), name='snippet_details_raw'),
+    url(
+        r'^(?P<snippet_id>[a-zA-Z0-9]+)/$',
+        SnippetDetailView.as_view(),
+        name='snippet_details'),
+    url(
+        r'^(?P<snippet_id>[a-zA-Z0-9]+)/delete/$',
+        SnippetDeleteView.as_view(),
+        name='snippet_delete'),
+    url(
+        r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$',
+        SnippetDetailRawView.as_view(),
+        name='snippet_details_raw'),
 )
 
 

@@ -68,7 +68,7 @@ class SnippetForm(forms.ModelForm):
         return content
 
     # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         # Set parent snippet
         parent = kwargs.pop('parent', None)
         if parent:
@@ -79,7 +79,7 @@ class SnippetForm(forms.ModelForm):
             timedelta(seconds=int(self.cleaned_data['expire_options']))
 
         # Save snippet in the db
-        forms.ModelForm.save(self, *args, **kwargs)
+        super(SnippetForm, self).save(self, *args, **kwargs)
 
         # Add snippet to the user's session
         if not self.request.session.get('snippet_list', False):

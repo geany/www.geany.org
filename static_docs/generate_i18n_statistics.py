@@ -27,7 +27,7 @@ STATISTICS_REGEXP = re.compile(
 LAST_TRANSLATOR_REGEXP = re.compile(r'^"Last-Translator: (?P<name>[\w -]+)\s*<?.+')
 
 
-class TranslationStatistics(object):
+class TranslationStatistics:
 
     # ----------------------------------------------------------------------
     def __init__(
@@ -46,7 +46,7 @@ class TranslationStatistics(object):
         self.percentage_untranslated = percentage_untranslated
 
 
-class MessageCatalog(object):
+class MessageCatalog:
 
     # ----------------------------------------------------------------------
     def __init__(self, filename, language_name, language_code, last_translator, statistics=None):
@@ -60,11 +60,11 @@ class MessageCatalog(object):
 class SimpleObjectToJSONEncoder(JSONEncoder):
 
     # ----------------------------------------------------------------------
-    def default(self, o):
+    def default(self, o):  # pylint: disable=method-hidden
         return o.__dict__
 
 
-class TranslationStatisticsGenerator(object):
+class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def __init__(self, domain, source_path, destination_path, target_filename):
@@ -116,12 +116,12 @@ class TranslationStatisticsGenerator(object):
                 env=environment,
                 cwd=self._destination_path,
                 stderr=STDOUT)
-        except CalledProcessError as e:
+        except CalledProcessError as exc:
             raise ValueError(
                 'Command: "{}" exited with code {}: {}'.format(
                     command,
-                    e.returncode,
-                    e.output))
+                    exc.returncode,
+                    exc.output))
 
     # ----------------------------------------------------------------------
     def _fetch_pot_stats(self):

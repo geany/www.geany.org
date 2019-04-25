@@ -64,7 +64,8 @@ URL_MAPPING = {
     '/Support/I18N': '/contribute/translation/',
     '/Support/IRC': '/support/irc/',
     '/Support/MailingList': '/support/mailing-lists/',
-    '/Support/PluginWishlist': 'https://github.com/geany/geany-plugins/issues?q=is%%3Aissue+label%%3Afeature+',
+    '/Support/PluginWishlist':
+        'https://github.com/geany/geany-plugins/issues?q=is%%3Aissue+label%%3Afeature+',
     '/Support/Plugins': '/support/plugins/',
     '/Support/RunningOnWindows': 'https://wiki.geany.org/howtos/win32/running',
     '/Support/VerifyGPGSignature': '/support/verify-gpg-signature/',
@@ -78,7 +79,8 @@ URL_MAPPING = {
     '/Main/20060519': '/news/geany-has-got-an-additional-developer/',
     '/Main/20060604': '/news/geany-07-released/',
     '/Main/20060608': '/news/windows-build-of-geany-07/',
-    '/Main/20060623': '/news/new-website-launched-with-some-new-content-and-new-layout-driven-by-a-wiki/',
+    '/Main/20060623':
+        '/news/new-website-launched-with-some-new-content-and-new-layout-driven-by-a-wiki/',
     '/Main/20060625': '/news/geany-071-released/',
     '/Main/20060809': '/news/geany-08-released/',
     '/Main/20060929': '/news/geany-09-released/',
@@ -150,7 +152,7 @@ URL_MAPPING = {
 }
 
 
-urlpatterns = []
+urlpatterns = []  # pylint: disable=invalid-name
 for old_url, new_url in URL_MAPPING.items():
     if old_url.startswith('/'):
         old_url = old_url[1:]

@@ -27,6 +27,8 @@ from geany.sitemaps import GeanyMainSitemap
 from nightlybuilds.views import NightlyBuildsView
 
 
+# pylint: disable=invalid-name
+
 sitemaps = {"sitemaps": {"all": GeanyMainSitemap}}
 
 
@@ -48,7 +50,7 @@ urlpatterns += (
     # use our custom sitemap implementation
     url(r"^sitemap\.xml$", sitemap, sitemaps),
 
-    # TODO, NEWS, etc.
+    # Release Notes, NEWS, etc.
     url(r"^", include("static_docs.urls")),
 
     # nightly builds

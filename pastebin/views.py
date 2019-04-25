@@ -52,8 +52,8 @@ class SnippetNewView(View):
 
     # ----------------------------------------------------------------------
     @method_decorator(check_honeypot)
-    def dispatch(self, *args, **kwargs):
-        return super(SnippetNewView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SnippetNewView, self).dispatch(request, *args, **kwargs)
 
     # ----------------------------------------------------------------------
     def get(self, request):
@@ -85,8 +85,8 @@ class SnippetDetailView(View):
 
     # ----------------------------------------------------------------------
     @method_decorator(check_honeypot)
-    def dispatch(self, *args, **kwargs):
-        return super(SnippetDetailView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SnippetDetailView, self).dispatch(request, *args, **kwargs)
 
     # ----------------------------------------------------------------------
     def get(self, request, snippet_id):
@@ -95,9 +95,9 @@ class SnippetDetailView(View):
         # load snippet
         try:
             snippet = self._fetch_snippet(snippet_id)
-        except SnippetNotFoundError as e:
+        except SnippetNotFoundError as exc:
             # 404 response with custom message
-            context = dict(message=e)
+            context = dict(message=exc)
             return TemplateResponse(request, 'errors/404.html', context=context, status=404)
 
         new_snippet_initial = dict(content=snippet.content, lexer=snippet.lexer)
@@ -187,16 +187,16 @@ class SnippetAPIView(View):
 
     # ----------------------------------------------------------------------
     @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-        return super(SnippetAPIView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SnippetAPIView, self).dispatch(request, *args, **kwargs)
 
     # ----------------------------------------------------------------------
     def post(self, request):
         try:
             controller = CreateSnippetApiController(request)
             snippet = controller.create()
-        except SnippetValidationError as e:
-            return HttpResponseBadRequest(str(e), content_type='text/plain')
+        except SnippetValidationError as exc:
+            return HttpResponseBadRequest(str(exc), content_type='text/plain')
 
         site = self._get_site(request)
         absolute_url = snippet.get_absolute_url()

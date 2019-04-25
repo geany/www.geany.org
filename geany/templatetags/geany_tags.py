@@ -20,7 +20,7 @@ from mezzanine.template import Library
 
 
 register = Library()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 class EvaluateNode(template.Node):
@@ -38,15 +38,15 @@ class EvaluateNode(template.Node):
             content_template = template.Template(content)
             rendered_content = content_template.render(context)
             context[self._target_var_name] = rendered_content
-        except (template.VariableDoesNotExist, template.TemplateSyntaxError) as e:
-            return 'Error rendering: {}'.format(e)
+        except (template.VariableDoesNotExist, template.TemplateSyntaxError) as exc:
+            return 'Error rendering: {}'.format(exc)
 
         return ''
 
 
 # ----------------------------------------------------------------------
 @register.tag(name='evaluate')
-def do_evaluate(parser, token):
+def do_evaluate(parser, token):  # pylint: disable=unused-argument
     """
     tag usage {% evaluate object.textfield %}
     """
@@ -65,8 +65,8 @@ def get_irc_userlist():
     try:
         with open(settings.IRC_USER_LIST_FILE) as file_h:
             user_list = file_h.readlines()
-    except IOError as e:
-        logger.error('An error occurred reading IRC user list: {}'.format(e), exc_info=True)
+    except IOError as exc:
+        logger.error('An error occurred reading IRC user list: {}'.format(exc), exc_info=True)
 
     # remove newline characters
     user_list = [username.strip() for username in user_list]

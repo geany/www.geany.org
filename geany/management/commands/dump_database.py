@@ -28,6 +28,12 @@ class Command(BaseCommand):
 
     # ----------------------------------------------------------------------
     def handle(self, *args, **options):
+        self._dump_main_database()
+        self._remove_sensitive_information_from_dump()
+        self._dump_nightly_builds_database()
+
+    # ----------------------------------------------------------------------
+    def _dump_main_database(self):
         print('Dump main database')
         call_command(
             'dumpdata',
@@ -38,6 +44,8 @@ class Command(BaseCommand):
             '--indent', '2',
             '--output', 'database.json')
 
+    # ----------------------------------------------------------------------
+    def _remove_sensitive_information_from_dump(self):
         # remove potential sensitive information
         with open('database.json') as data_input:
             data = load(data_input)
@@ -77,6 +85,8 @@ class Command(BaseCommand):
         with open('database.json', 'w') as output:
             dump(data, output, indent=2)
 
+    # ----------------------------------------------------------------------
+    def _dump_nightly_builds_database(self):
         # dump nightly builds database but limit the data to the last week
         # to reduce dump size
         now_a_week_ago = timezone.now() - timedelta(days=7)

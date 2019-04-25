@@ -72,7 +72,7 @@ class SnippetValidationError(Exception):
     pass
 
 
-class CreateSnippetApiController(object):
+class CreateSnippetApiController:
 
     valid_fields = ('title', 'content', 'expires', 'author', 'lexer')
 

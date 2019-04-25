@@ -85,7 +85,7 @@ class NewsPost(models.Model):
         verbose_name_plural = _('News')
 
     # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.slug:
             self.slug = slugify(self.title)
         super(NewsPost, self).save(*args, **kwargs)
@@ -95,5 +95,5 @@ class NewsPost(models.Model):
         return reverse('news_detail', kwargs={'newspost_slug': self.slug})
 
     # ----------------------------------------------------------------------
-    def __unicode__(self):
+    def __str__(self):
         return self.title

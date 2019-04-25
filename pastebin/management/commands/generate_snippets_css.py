@@ -13,7 +13,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management.base import BaseCommand
-from pygments.formatters import HtmlFormatter
+from pygments.formatters.html import HtmlFormatter
 
 
 class Command(BaseCommand):
