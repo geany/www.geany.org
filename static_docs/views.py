@@ -21,6 +21,7 @@ import re
 from django.conf import settings
 from django.http import Http404
 from django.views.generic.base import TemplateView
+from mezzanine_pagedown.filters import plain as markdown_plain
 
 from geany.decorators import cache_function, CACHE_TIMEOUT_1HOUR, CACHE_TIMEOUT_24HOURS
 from static_docs.github_client import GitHubApiClient
@@ -86,6 +87,9 @@ class ReleaseNotesView(StaticDocsView):
             # use the first element in the list which is the latest
             release = releases[0]
 
+        # convert the selected release (the one we want to display) to Markdown
+        release.release_notes = markdown_plain(release.release_notes)
+
         context = super(ReleaseNotesView, self).get_context_data(**kwargs)
         context['selected_release'] = release
         context['releases'] = releases
@@ -119,7 +123,13 @@ class ReleaseNotesView(StaticDocsView):
                 releases.append(current_release)
                 current_release_notes = list()
             else:
-                current_release_notes.append(line)
+                line = line.lstrip()  # remove any indentation
+                if line and not line.startswith('*'):
+                    # we got a section: make it bold and add an additional new line
+                    # to make Markdown recognise the following lines as list
+                    current_release_notes.append('**{}**\n'.format(line))
+                else:
+                    current_release_notes.append(line)
 
         # compress the lines of the last release (the for loop ends before)
         current_release.release_notes = '\n'.join(current_release_notes)

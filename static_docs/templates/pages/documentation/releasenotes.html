@@ -6,9 +6,7 @@
 
 <h2>Geany {{ selected_release.version }} ({{ selected_release.release_date }})</h2>
 
-<pre>
-{{ selected_release.release_notes }}
-</pre>
+{{ selected_release.release_notes|safe }}
 
 <h3>Older Releases</h3>
 <div class="row">
