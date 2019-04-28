@@ -432,7 +432,10 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_SECURE = True
 
 # django compressor
-COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter']
+COMPRESS_OFFLINE = True
 
 # django-honeypot
 HONEYPOT_FIELD_NAME = 'website'
