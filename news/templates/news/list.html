@@ -33,7 +33,8 @@ Latest news of the Geany project.
                 </a>
             </h4>
         </div>
-        <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse{% if forloop.counter0 == 0 %} in{% endif %}">
+        {# Expand all items in case JavaScript is deactivated on the client, otherwise they are collapsed later via JS #}
+        <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse in">
             <div class="panel-body list-group">
 
                 {% for newspost in by_year.list %}
@@ -61,7 +62,6 @@ Latest news of the Geany project.
 {% endfor %}
 </div>
 
-
 {% endblock %}
 
 
@@ -78,6 +78,13 @@ Latest news of the Geany project.
             $(this).parent().find(".glyphicon").removeClass("glyphicon-plus").addClass("glyphicon-minus");
         }).on('hide.bs.collapse', function(){
             $(this).parent().find(".glyphicon").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+        });
+
+        // Collapse all items except the first one
+        $("[id^=collapse]").each(function(index, element) {
+            if (index > 0) {
+                $(this).collapse('hide');
+            }
         });
     });
 </script>

@@ -4,7 +4,7 @@
 {% for newspost in recent_news_posts %}
     <li class="list-group-item">
         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-        <a href="#" data-toggle="modal" data-target="#news-modal" id="news-post-{{ newspost.slug }}">
+        <a href="{{ newspost.get_absolute_url }}" data-toggle="modal" data-target="#news-modal" id="news-post-{{ newspost.slug }}">
             {{ newspost.title }}
         </a>
         <span class="small">- {{ newspost.publish_date|date:"F Y" }}</span>
