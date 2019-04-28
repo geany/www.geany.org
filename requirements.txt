@@ -5,14 +5,13 @@ django-compressor
 django-extensions
 django-honeypot
 django-memcache-status
-gunicorn
 mezzanine-pagedown
 pygments
 pylibmc
 python-logstash-async
 pymdown-extensions
 pytz
-setproctitle
+uwsgi
 
 
 # for development

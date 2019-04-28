@@ -322,7 +322,6 @@ INSTALLED_APPS = (
 
     # 3rd party
     "honeypot",     # for pastebin
-    "gunicorn",
     "mezzanine_pagedown",
 )
 
