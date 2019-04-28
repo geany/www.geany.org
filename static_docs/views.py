@@ -121,6 +121,9 @@ class ReleaseNotesView(StaticDocsView):
             else:
                 current_release_notes.append(line)
 
+        # compress the lines of the last release (the for loop ends before)
+        current_release.release_notes = '\n'.join(current_release_notes)
+
         # filter out releases to ignore
         releases = [release for release in releases if release.version is not None]
         return releases
