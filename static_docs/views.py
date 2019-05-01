@@ -74,21 +74,7 @@ class ReleaseNotesView(StaticDocsView):
         release = None
 
         version = kwargs.get('version', None)
-        if version is not None:
-            # search for the requested release in the list (we could index the list into a
-            # dictionary but we need the index only at this point)
-            for rel in releases:
-                if rel.version == version:
-                    release = rel
-                    break
-            else:
-                raise Http404()
-        else:
-            # use the first element in the list which is the latest
-            release = releases[0]
-
-        # convert the selected release (the one we want to display) to Markdown
-        release.release_notes = markdown_plain(release.release_notes)
+        release = self._get_release_notes_for_version(releases, version=version)
 
         context = super(ReleaseNotesView, self).get_context_data(**kwargs)
         context['selected_release'] = release
@@ -146,6 +132,65 @@ class ReleaseNotesView(StaticDocsView):
 
         logger.warning('Failed parsing NEWS file: release line "%s" invalid', line)
         return None, None
+
+    # ----------------------------------------------------------------------
+    def _get_release_notes_for_version(self, releases, version=None):
+        """
+        If version is None: fetch the latest release from Github
+        If version is not None:
+          - check if the requested version has a release on Github and if it has release notes,
+            use it
+          - otherwise fetch the release notes from the already parsed NEWS file
+
+        Finally convert the release notes from Markdown.
+        """
+        if version is None:
+            release = self._get_release_from_github(version=None)
+        else:
+            # first search the release on Github
+            release = self._get_release_from_github(version=version)
+            if release is None:
+                # fallback to the NEWS file release notes
+                for rel in releases:
+                    if rel.version == version:
+                        release = rel
+                        break
+                else:
+                    raise Http404()
+
+        # convert the selected release (the one we want to display) to Markdown
+        release.release_notes = markdown_plain(release.release_notes)
+        return release
+
+    # ----------------------------------------------------------------------
+    @cache_function(CACHE_TIMEOUT_24HOURS)
+    def _get_release_from_github(self, version=None):
+        client = GitHubApiClient()
+        if version is None:
+            github_release = client.get_latest_release()
+        else:
+            tag_name = self._convert_version_to_tag_name(version)
+            github_release = client.get_release_by_tag(tag_name)
+
+        if github_release is None:
+            return None
+
+        # adapt date
+        release_datetime = datetime.strptime(github_release['published_at'], '%Y-%m-%dT%H:%M:%SZ')
+        release_date = release_datetime.strftime('%B %d, %Y')
+
+        release = ReleaseDto()
+        release.version = github_release['tag_name']
+        release.release_date = release_date
+        release.release_notes = github_release['body']
+        return release
+
+    # ----------------------------------------------------------------------
+    def _convert_version_to_tag_name(self, version):
+        if version.count('.') == 1:
+            return '{}.0'.format(version)
+
+        return version
 
 
 class ToDoView(StaticDocsView):

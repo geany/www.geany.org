@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# try to get any json implementation
 from base64 import standard_b64decode
 import logging
 
@@ -58,3 +57,29 @@ class GitHubApiClient:
             content_utf8 = standard_b64decode(content)
             return content_utf8.decode('utf-8')
         return content
+
+    # ----------------------------------------------------------------------
+    def get_release_by_tag(self, tag_name):
+        url = 'https://api.github.com/repos/{user}/{repository}/releases/tags/{tag_name}'.format(
+            user=GITHUB_USER,
+            repository=GITHUB_REPOSITORY,
+            tag_name=tag_name)
+        with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
+            response_json = response.json()
+            self._log_rate_limit(response)
+
+        if response.status_code == 404:
+            return None
+
+        return response_json
+
+    # ----------------------------------------------------------------------
+    def get_latest_release(self):
+        url = 'https://api.github.com/repos/{user}/{repository}/releases/latest'.format(
+            user=GITHUB_USER,
+            repository=GITHUB_REPOSITORY)
+        with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
+            response_json = response.json()
+            self._log_rate_limit(response)
+
+        return response_json
