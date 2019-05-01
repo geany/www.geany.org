@@ -14,6 +14,7 @@
 
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.core.cache import cache
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -26,25 +27,34 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView, View
 from honeypot.decorators import check_honeypot
 
+from geany.decorators import CACHE_TIMEOUT_24HOURS
 from pastebin.api.create import CreateSnippetApiController, SnippetValidationError
 from pastebin.forms import SnippetForm
-from pastebin.models import Snippet
+from pastebin.models import CACHE_KEY_SNIPPET_LIST_FULL, CACHE_KEY_SNIPPET_LIST_NO_CONTENT, Snippet
 
 
 # ----------------------------------------------------------------------
 def _get_snippet_list(no_content=False):
+    if no_content:
+        queryset = Snippet.objects.defer('content', 'content_highlighted')
+        cache_key = CACHE_KEY_SNIPPET_LIST_NO_CONTENT
+    else:
+        queryset = Snippet.objects.all()
+        cache_key = CACHE_KEY_SNIPPET_LIST_FULL
+
+    # snippet list in cache?
+    snippet_list = cache.get(cache_key, None)
+    if snippet_list is not None:
+        return snippet_list
+
+    # nothing in cache, fetch snippets from the database
     try:
         max_snippets = getattr(settings, 'MAX_SNIPPETS_PER_USER', 10)
-        # TODO cache the result set and clear it upon Snippet.save()
-        if no_content:
-            queryset = Snippet.objects.defer('content', 'content_highlighted')
-        else:
-            queryset = Snippet.objects.all()
-
-        snippet_list_ = queryset[:max_snippets]
+        snippet_list = list(queryset[:max_snippets])
+        cache.set(cache_key, snippet_list, CACHE_TIMEOUT_24HOURS)
     except ValueError:
-        snippet_list_ = list()
-    return snippet_list_
+        snippet_list = list()
+    return snippet_list
 
 
 class SnippetNewView(View):

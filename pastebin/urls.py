@@ -40,7 +40,7 @@ urlpatterns = (  # pylint: disable=invalid-name
     url(r'^api/$', never_cache(SnippetAPIView.as_view()), name='snippet_api'),
 
     url(r'^$', never_cache(SnippetNewView.as_view()), name='snippet_new'),
-    url(r'^latest/$', LatestSnippetsView.as_view(), name='snippet_list'),
+    url(r'^latest/$', never_cache(LatestSnippetsView.as_view()), name='snippet_list'),
     url(
         r'^(?P<snippet_id>[a-zA-Z0-9]+)/$',
         SnippetDetailView.as_view(),

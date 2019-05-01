@@ -17,6 +17,7 @@ import random
 import re
 import time
 
+from django.core.cache import cache
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -26,6 +27,8 @@ from pastebin.highlight import LEXER_DEFAULT
 
 
 CHARS = 'abcdefghijkmnopqrstuvwwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ1234567890'
+CACHE_KEY_SNIPPET_LIST_NO_CONTENT = 'snippet_list_no_content'
+CACHE_KEY_SNIPPET_LIST_FULL = 'snippet_list_full'
 
 
 # ----------------------------------------------------------------------
@@ -105,6 +108,14 @@ class Snippet(models.Model):
 
         self.content_highlighted = self.content
         super(Snippet, self).save(*args, **kwargs)
+        # invalidate cache
+        cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
+
+    # ----------------------------------------------------------------------
+    def delete(self, *args, **kwargs):  # pylint: disable=arguments-differ
+        super(Snippet, self).delete(*args, **kwargs)
+        # invalidate cache
+        cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
 
     # ----------------------------------------------------------------------
     def get_absolute_url(self):
