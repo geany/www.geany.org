@@ -20,7 +20,6 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.shortcuts import get_object_or_404, render
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -100,8 +99,6 @@ class SnippetDetailView(View):
 
     # ----------------------------------------------------------------------
     def get(self, request, snippet_id):
-        # housekeeping
-        self._clean_expired_snippets()
         # load snippet
         try:
             snippet = self._fetch_snippet(snippet_id)
@@ -122,12 +119,6 @@ class SnippetDetailView(View):
         }
 
         return render(request, self.template_name, template_context)
-
-    # ----------------------------------------------------------------------
-    def _clean_expired_snippets(self):
-        deleteable_snippets = Snippet.objects.filter(expires__lte=timezone.now())
-        if deleteable_snippets:
-            deleteable_snippets.delete()
 
     # ----------------------------------------------------------------------
     def _fetch_snippet(self, snippet_id):
