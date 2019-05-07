@@ -14,6 +14,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
+import logging
 import os
 
 from django.utils.translation import ugettext_lazy as _
@@ -332,6 +333,7 @@ INSTALLED_APPS = (
 # these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
 MIDDLEWARE = (
+    "log_request_id.middleware.RequestIDMiddleware",
     "mezzanine.core.middleware.UpdateCacheMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
@@ -455,64 +457,108 @@ IRC_USER_LIST_FILE = '/var/tmp/irc_userlist'
 #########################
 # LOGGING               #
 #########################
+logging.captureWarnings(True)  # log warnings using the logging subsystem
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '%(asctime)s %(name)s %(process)d %(threadName)s %(levelname)s %(message)s'
+            'format': '%(asctime)s %(name)s %(process)d %(threadName)s %(levelname)s [%(request_id)s] %(message)s'
         },
     },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
+        },
+        'request_id': {
+            '()': 'log_request_id.filters.RequestIDFilter'
+        },
     },
     'handlers': {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'filters': ['require_debug_true', 'request_id'],
             'formatter': 'verbose'
         },
         'mail_admins': {
             'level': 'WARN',
             'class': 'django.utils.log.AdminEmailHandler',
-            'filters': ['require_debug_false']
-        }
+            'filters': ['require_debug_false', 'request_id']
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/srv/django/log/geany_web.log',
+            'filters': ['request_id'],
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         '': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console', 'file', 'mail_admins'],
             'level': 'DEBUG',
             'propagate': False,
         },
         'root': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console', 'file', 'mail_admins'],
             'level': 'DEBUG',
             'propagate': False,
         },
         'py.warnings': {
+            'handlers': [],
             'propagate': True,
             'level': 'DEBUG',
         },
         'django': {
+            'handlers': [],
             'propagate': True,
             'level': 'DEBUG',
         },
-        'django.db': {
+        'django.db.backends': {
+            'handlers': [],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.db.backends.schema': {
+            'handlers': [],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': [],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.security': {
+            'handlers': [],
             'level': 'INFO',
             'propagate': True,
         },
         'django.template': {
+            'handlers': [],
             'level': 'INFO',
             'propagate': True,
         },
         'MARKDOWN': {
+            'handlers': [],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'PIL': {
+            'handlers': [],
             'level': 'INFO',
             'propagate': True,
         },
     }
 }
+# add "request_id" attribute to log records (read from the header set by the webserver)
+GENERATE_REQUEST_ID_IF_NOT_IN_HEADER = False
+LOG_REQUEST_ID_HEADER = 'HTTP_REQUEST_ID'
+LOG_REQUESTS = False
 
 
 ###################

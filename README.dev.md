@@ -101,6 +101,8 @@ the settings to your needs:
     INTERNAL_IPS = ("127.0.0.1",)
     ALLOWED_HOSTS = ('127.0.0.1', 'localhost')
 
+    LOGGING['handlers']['file']['filename'] = '/tmp/geany_django.log'
+
     STATIC_DOCS_GEANY_SOURCE_DIR = '/path/to/geany/source/or/just/empty'
     IRC_USER_LIST_FILE = '/path/to/irc/data/or/just/empty'
 
