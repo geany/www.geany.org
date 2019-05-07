@@ -25,7 +25,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         generator = TranslationStatisticsGenerator(
             'geany',
-            settings.STATIC_DOCS_GEANY_SOURCE_DIR,
+            settings.STATIC_DOCS_GEANY_SOURCE_TARBALL,
             settings.STATIC_DOCS_GEANY_DESTINATION_DIR,
             settings.STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME,
         )

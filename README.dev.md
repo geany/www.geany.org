@@ -103,7 +103,7 @@ the settings to your needs:
 
     LOGGING['handlers']['file']['filename'] = '/tmp/geany_django.log'
 
-    STATIC_DOCS_GEANY_SOURCE_DIR = '/path/to/geany/source/or/just/empty'
+    STATIC_DOCS_GEANY_SOURCE_TARBALL = '/path/to/geany/source/tarball/or/just/empty'
     IRC_USER_LIST_FILE = '/path/to/irc/data/or/just/empty'
 
 

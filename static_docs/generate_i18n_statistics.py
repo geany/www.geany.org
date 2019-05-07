@@ -13,9 +13,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from json import dump, JSONEncoder
-from os import listdir
+from os import listdir, makedirs
 from os.path import join, splitext
+from shutil import rmtree
 from subprocess import CalledProcessError, check_output, STDOUT
+from tempfile import TemporaryDirectory
 from time import time
 import re
 
@@ -67,11 +69,13 @@ class SimpleObjectToJSONEncoder(JSONEncoder):
 class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
-    def __init__(self, domain, source_path, destination_path, target_filename):
+    def __init__(self, domain, source_tarball, destination_path, target_filename):
         self._domain = domain
-        self._source_path = source_path
+        self._source_tarball = source_tarball
         self._destination_path = destination_path
         self._target_filename = target_filename
+        self._temp_path = None
+        self._source_path = None
         self._pot_stats = None
         self._message_catalogs = None
         self._message_catalog = None
@@ -79,6 +83,8 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def generate(self):
+        self._create_destionation_path_if_necessary()
+        self._extract_geany_source_tarball()
         self._update_pot_file()
         self._fetch_pot_stats()
         self._fetch_message_catalogs()
@@ -88,6 +94,25 @@ class TranslationStatisticsGenerator:
 
         self._factor_overall_statistics()
         self._write_overall_statistics()
+        self._remove_extracted_geany_source()
+
+    # ----------------------------------------------------------------------
+    def _create_destionation_path_if_necessary(self):
+        makedirs(self._destination_path, mode=0o755, exist_ok=True)
+
+    # ----------------------------------------------------------------------
+    def _extract_geany_source_tarball(self):
+        self._temp_path = TemporaryDirectory()
+        self._source_path = join(self._temp_path.name, 'po')
+
+        extract_command = [
+            'tar',
+            '--extract',
+            '--strip-components', '1',
+            '--directory', self._temp_path.name,
+            '--file', self._source_tarball,
+        ]
+        self._execute_command(extract_command)
 
     # ----------------------------------------------------------------------
     def _update_pot_file(self):
@@ -111,28 +136,31 @@ class TranslationStatisticsGenerator:
             srcdir=self._source_path,
             LANG='C')
         try:
-            return check_output(
+            output = check_output(
                 command,
                 env=environment,
                 cwd=self._destination_path,
                 stderr=STDOUT)
+            output_utf8 = output.decode('utf-8')
+            return output_utf8
         except CalledProcessError as exc:
             raise ValueError(
                 'Command: "{}" exited with code {}: {}'.format(
-                    command,
+                    ' '.join(command),
                     exc.returncode,
-                    exc.output))
+                    exc.output.decode('utf-8')))
 
     # ----------------------------------------------------------------------
     def _fetch_pot_stats(self):
-        self._pot_stats = self._read_po_translation_statistics(self._factor_pot_filename())
+        pot_filename = self._factor_pot_filename()
+        self._pot_stats = self._read_po_translation_statistics(pot_filename)
 
     # ----------------------------------------------------------------------
     def _read_po_translation_statistics(self, filename):
         msgfmt_command = ['msgfmt', '--statistics', filename]
         output = self._execute_command(msgfmt_command)
         # parse
-        match = STATISTICS_REGEXP.match(output.decode('utf-8'))
+        match = STATISTICS_REGEXP.match(output)
         if match:
             translated = match.group('translated')
             fuzzy = match.group('fuzzy')
@@ -217,3 +245,7 @@ class TranslationStatisticsGenerator:
         output_filename = join(self._destination_path, self._target_filename)
         with open(output_filename, 'w') as output_file:
             dump(self._overall_statistics, output_file, cls=SimpleObjectToJSONEncoder)
+
+    # ----------------------------------------------------------------------
+    def _remove_extracted_geany_source(self):
+        self._temp_path.cleanup()

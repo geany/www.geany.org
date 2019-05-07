@@ -448,7 +448,7 @@ HONEYPOT_FIELD_NAME = 'website'
 
 NIGHTLYBUILDS_BASE_DIR = '/path/to/nightly/builds'
 
-STATIC_DOCS_GEANY_SOURCE_DIR = '/home/geany/geany/geany_git/po'
+STATIC_DOCS_GEANY_SOURCE_TARBALL = '/srv/www/download.geany.org/geany_git.tar.gz'
 STATIC_DOCS_GEANY_DESTINATION_DIR = os.path.join(MEDIA_ROOT, 'i18n')
 STATIC_DOCS_GEANY_DESTINATION_URL = os.path.join(MEDIA_URL, 'i18n')
 STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME = 'i18n_statistics.json'
