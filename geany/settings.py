@@ -376,6 +376,7 @@ PAGEDOWN_MARKDOWN_EXTENSIONS = (
     'pymdownx.tasklist',
     'pymdownx.superfences',
     # markdown extensions
+    'nl2br',
     'tables',
     'toc',
 )
