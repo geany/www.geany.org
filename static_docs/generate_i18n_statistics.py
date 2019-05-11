@@ -15,7 +15,6 @@
 from json import dump, JSONEncoder
 from os import listdir, makedirs
 from os.path import join, splitext
-from shutil import rmtree
 from subprocess import CalledProcessError, check_output, STDOUT
 from tempfile import TemporaryDirectory
 from time import time
