@@ -4,9 +4,17 @@
 {% block top_menu %}
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <img src="{% static "img/geany-36x36.png" %}" class="navbar-brand">
-        <a class="navbar-brand" href="{% url "home" %}">Geany</a>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="{% static "img/geany-36x36.png" %}" class="navbar-brand">
+            <a href="{% url "home" %}" class="navbar-brand">Geany</a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar">
             {% page_menu "pages/menus/dropdown.html" %}
         </div>
     </div>

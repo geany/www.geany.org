@@ -36,6 +36,8 @@ form.new-snippet-form {
     margin-bottom: 0px;
     width: auto;
     border: none;
+    background-color: inherit; /* overwrite the color set by .form-control */
+    box-shadow: inherit; /* overwrite the shadow set by .form-control */
 }
 
 .new-snippet-form ul#id_expire_options li {
@@ -114,6 +116,7 @@ div #snippet_list li {
 div #snippet_list a {
     text-decoration: none;
     width: 100%;
+    white-space: normal;
 }
 /*
  * Embedded snippet list
