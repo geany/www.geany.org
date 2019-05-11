@@ -186,8 +186,10 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
 
 
-ADMINS = (('Enrico Tröger', 'enrico.troeger@uvena.de'),)
+ADMINS = (('Enrico Tröger', 'webmaster@geany.org'),)
 MANAGERS = ADMINS
+SERVER_EMAIL = 'webmaster@geany.org'
+DEFAULT_FROM_EMAIL = 'webmaster@geany.org'
 
 #############
 # DATABASES #
