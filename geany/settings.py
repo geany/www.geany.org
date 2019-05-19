@@ -455,7 +455,7 @@ STATIC_DOCS_GEANY_DESTINATION_DIR = os.path.join(MEDIA_ROOT, 'i18n')
 STATIC_DOCS_GEANY_DESTINATION_URL = os.path.join(MEDIA_URL, 'i18n')
 STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME = 'i18n_statistics.json'
 
-IRC_USER_LIST_FILE = '/var/tmp/irc_userlist'
+IRC_USER_LIST_FILE = '/srv/tmp/irc_userlist'
 
 
 #########################
