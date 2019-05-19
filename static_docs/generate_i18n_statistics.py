@@ -82,7 +82,7 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def generate(self):
-        self._create_destionation_path_if_necessary()
+        self._create_destination_path_if_necessary()
         self._extract_geany_source_tarball()
         self._update_pot_file()
         self._fetch_pot_stats()
@@ -96,7 +96,7 @@ class TranslationStatisticsGenerator:
         self._remove_extracted_geany_source()
 
     # ----------------------------------------------------------------------
-    def _create_destionation_path_if_necessary(self):
+    def _create_destination_path_if_necessary(self):
         makedirs(self._destination_path, mode=0o755, exist_ok=True)
 
     # ----------------------------------------------------------------------
