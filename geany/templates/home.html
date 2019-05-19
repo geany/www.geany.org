@@ -4,6 +4,28 @@
 {% block extra_head %}
 {{ block.super }}
 <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "news_feed" %}">
+<style>
+	.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+		max-height: 400px;
+	}
+	.carousel-indicators {
+		bottom: -40px;
+		top: inherit;
+		width: 60%;
+		left: 50%;
+		right: inherit;
+	}
+	.carousel-inner {
+		margin-bottom: 50px;
+	}
+	.carousel-inner img {
+		margin: auto;
+	}
+	.carousel-control.left, .carousel-control.right {
+		background-image: none;
+		color: inherit;
+	}
+</style>
 {% endblock %}
 
 {% block meta_title %}
@@ -17,54 +39,86 @@ Home
 {% block bodyblock %}
 
 	<div class="jumbotron">
-		<h1>The Flyweight IDE</h1>
+		<h1>Geany - The Flyweight IDE</h1>
 
-		<div id="GeanyScreenshots" class="carousel slide" data-ride="carousel">
-		  <ol class="carousel-indicators">
-			<li data-target="#GeanyScreenshots" data-slide-to="0" class="active"></li>
-			<li data-target="#GeanyScreenshots" data-slide-to="1"></li>
-			<li data-target="#GeanyScreenshots" data-slide-to="2"></li>
-			<li data-target="#GeanyScreenshots" data-slide-to="3"></li>
-			<li data-target="#GeanyScreenshots" data-slide-to="4"></li>
-		  </ol>
-		  <div class="carousel-inner">
-			<div class="active item">
-				<a href="{% url "page" "documentation/screenshots" %}">
-				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_main.png" 700 350 %}" alt="Main screen">
-				</a>
+		<div class="row">
+			<div class="col-sm-4">
+				<p class="text-big">
+					Geany is a powerful, stable and lightweight programmer's text editor
+					that provides tons of useful features without bogging down your
+					workflow. It runs on Windows, MacOS and Linux, is translated into
+					over 40 languages, and has built-in support for more than 50 programming
+					languages.
+					<a href="{% url 'page' 'download/releases' %}" class="btn btn-default btn-primary">
+						<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+						Download Geany {{ geany_latest_version.version }} &raquo;
+					</a>
+				</p>
 			</div>
-			<div class="item">
-				<a href="{% url "page" "documentation/screenshots" %}">
-				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_prefs.png" 700 350 %}" alt="Preferences dialog">
-				</a>
+			<div class="col-sm-8">
+				<div id="screenshot-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+				  <div>
+					  <ol class="carousel-indicators">
+						<li data-target="#screenshot-carousel" data-slide-to="0" class="active"></li>
+						<li data-target="#screenshot-carousel" data-slide-to="1"></li>
+						<li data-target="#screenshot-carousel" data-slide-to="2"></li>
+						<li data-target="#screenshot-carousel" data-slide-to="3"></li>
+						<li data-target="#screenshot-carousel" data-slide-to="4"></li>
+					  </ol>
+				  </div>
+				  <div class="carousel-inner">
+					<div class="active item">
+						<a href="{% url "page" "documentation/screenshots" %}">
+						<img
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_main.png" 500 0 %}"
+							class="img-responsive"
+							alt="Main screen">
+						</a>
+					</div>
+					<div class="item">
+						<a href="{% url "page" "documentation/screenshots" %}">
+						<img
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_prefs.png" 500 0 %}"
+							class="img-responsive"
+							alt="Preferences dialog">
+						</a>
+					</div>
+					<div class="item">
+						<a href="{% url "page" "documentation/screenshots" %}">
+						<img
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_build.png" 500 0 %}"
+							class="img-responsive"
+							alt="Build process">
+						</a>
+					</div>
+					<div class="item">
+						<a href="{% url "page" "documentation/screenshots" %}">
+						<img
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_vte.png" 500 0 %}"
+							class="img-responsive"
+							alt="Virtual terminal emulation">
+						</a>
+					</div>
+					<div class="item">
+						<a href="{% url "page" "documentation/screenshots" %}">
+						<img
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_plugins.png" 500 0 %}"
+							class="img-responsive"
+							alt="Plugin manager">
+						</a>
+					</div>
+				  </div>
+				  <a class="left carousel-control" href="#screenshot-carousel" role="button" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				  </a>
+				  <a class="right carousel-control" href="#screenshot-carousel" role="button" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				  </a>
+				</div>
 			</div>
-			<div class="item">
-				<a href="{% url "page" "documentation/screenshots" %}">
-				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_build.png" 700 350 %}" alt="Build process">
-				</a>
-			</div>
-			<div class="item">
-				<a href="{% url "page" "documentation/screenshots" %}">
-				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_vte.jpg" 700 350 %}" alt="Virtual terminal emulation">
-				</a>
-			</div>
-			<div class="item">
-				<a href="{% url "page" "documentation/screenshots" %}">
-				<img src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_plugins.png" 700 350 %}" alt="Plugin manager">
-				</a>
-			</div>
-		  </div>
 		</div>
-
-		<p>Geany is a powerful, stable and lightweight programmer's text editor
-		that provides tons of useful features without bogging down your
-		workflow. It runs on Windows, MacOS and Linux, is translated into
-		over 40 languages, and has built-in support for more than 50 programming
-		languages.
-		<a href="{% url 'page' 'download/releases' %}" class="btn btn-default btn-primary">
-				<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-				Download Geany {{ geany_latest_version.version }} &raquo;
-		</a></p>
 	</div>
 
 	<div class="row">
@@ -147,13 +201,4 @@ Home
 
 	<hr>
 
-{% endblock %}
-
-
-{% block footer_js %}
-<script>
-	$(document).ready(function(){
-		$('#GeanyScreenshots').carousel();
-	});
-</script>
 {% endblock %}
