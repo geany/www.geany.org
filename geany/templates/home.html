@@ -25,6 +25,11 @@
 		background-image: none;
 		color: inherit;
 	}
+	@media only screen and (min-width : 768px) {
+		.thumbnail-box {
+			height: 400px;
+		}
+	}
 </style>
 {% endblock %}
 
@@ -66,7 +71,7 @@ Home
 						<li data-target="#screenshot-carousel" data-slide-to="4"></li>
 					  </ol>
 				  </div>
-				  <div class="carousel-inner">
+				  <div class="carousel-inner thumbnail-box">
 					<div class="active item">
 						<a href="{% url "page" "documentation/screenshots" %}">
 						<img
