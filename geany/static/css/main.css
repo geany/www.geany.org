@@ -38,8 +38,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .jumbotron .btn {
     padding: 8px 12px;
-    margin: 20px;
-    float: right;
+    margin: 10px 20px 20px 0px;
     font-weight: 400;
     font-size: 16px;
 }
