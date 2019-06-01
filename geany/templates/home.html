@@ -179,7 +179,7 @@ Home
 		</div>
 		<div class="col-md-4">
 			<div class="feature-icon"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></div>
-			<h2>Many filetypes</h2>
+			<h2>Many Filetypes</h2>
 			<p>
 				Many supported filetypes including popular programming languages like
 				C, Java, PHP, HTML, JavaScript, Python or Perl.
@@ -188,19 +188,27 @@ Home
 				But Geany also includes support
 				for other useful filetypes like ini-style config files,
 				Diff output, SQL files and many more
-				(<a href="/about/filetypes/">get the full list</a>)
+				(<a href="{% url "page" "about/filetypes" %}">get the full list</a>)
 			</p>
 	   </div>
 		<div class="col-md-4">
-			<div class="feature-icon"><span class="glyphicon glyphicon-book" aria-hidden="true"></span></div>
-			<h2>RTFM</h2>
-			<p>Geany not only has an extensive <a href="{% url "page" "documentation/manual" %}">User Manual</a>
-			but also has a crowd-sourced <a href="http://wiki.geany.org/">Wiki</a> and full
-			<a href="http://www.geany.org/manual/reference/">Plugin API Documentation</a>. Not satisfied?</p>
-			<p>Hit us up on <a href="{% url "page" "support/mailing-lists" %}">The Mailing Lists</a> or
-			<a href="{% url "page" "support/irc" %}">IRC</a>
-			and we'll get you on track.</p>
-			<p><a class="btn btn-default" href="{% url "page" "documentation/manual" %}">To The Docs! &raquo;</a></p>
+			<div class="feature-icon"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></div>
+			<h2>Many Plugins</h2>
+			<p>
+				With Geany's plugin system, users can get more features into Geany and
+				developers can easily add new features and/or improve existing ones.
+			</p>
+			<p>
+				<div class="plugin-button-group">
+					<a class="btn btn-default" href="https://plugins.geany.org/geanyvc.html">VCS Plugin (Git, SVN, ...)</a>
+					<a class="btn btn-default" href="https://plugins.geany.org/spellcheck.html">SpellCheck</a>
+					<a class="btn btn-default" href="https://plugins.geany.org/projectorganizer.html">Project Organizer</a>
+					<a class="btn btn-default" href="https://plugins.geany.org/pohelper.html">Translation Helper</a>
+				</div>
+				<div class="plugin-button-group">
+					<a class="btn btn-primary" href="{% url "page" "support/plugins" %}">Find more plugins &raquo;</a>
+				</div>
+			</p>
 		</div>
 	</div>
 
