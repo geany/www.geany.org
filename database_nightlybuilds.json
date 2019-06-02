@@ -1,0 +1,418 @@
+[
+  [
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31564,
+      "fields": {
+        "revision": "95c0c06",
+        "glib_version": "2.50.3",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": "build_gtk224_geany_stderr.log",
+        "nightly_build_target": 15,
+        "filename": null,
+        "build_date": "2019-05-28T02:19:18Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (env: GTK 2.24)",
+        "log_stdout": "build_gtk224_geany.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31565,
+      "fields": {
+        "revision": "68cb7d2",
+        "glib_version": "2.50.3",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": "build_gtk224_plugins_stderr.log",
+        "nightly_build_target": 16,
+        "filename": null,
+        "build_date": "2019-05-28T02:23:33Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (env: GTK 2.24)",
+        "log_stdout": "build_gtk224_plugins.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31566,
+      "fields": {
+        "revision": "95c0c06",
+        "glib_version": "2.52.2",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": "build_win32_geany_stderr.log",
+        "nightly_build_target": 13,
+        "filename": "geany_win32_nightly.zip",
+        "build_date": "2019-05-28T02:25:41Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (env: Win32, cross-compile)",
+        "log_stdout": "build_win32_geany.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31567,
+      "fields": {
+        "revision": "68cb7d2",
+        "glib_version": "2.52.2",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": "build_win32_plugins_stderr.log",
+        "nightly_build_target": 14,
+        "filename": "geany_win32_nightly.zip",
+        "build_date": "2019-05-28T02:29:29Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (env: Win32, cross-compile)",
+        "log_stdout": "build_win32_plugins.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31568,
+      "fields": {
+        "revision": "95c0c06",
+        "glib_version": "2.58.3",
+        "gtk_version": "2.24.32",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 9,
+        "filename": null,
+        "build_date": "2019-05-28T02:34:39Z",
+        "compiler_version": "8",
+        "build_host": "buildbox.geany.org (cowbuilder: sid-i386)",
+        "log_stdout": "geany_1.34.1-1+20190528git95c0c06-1_sid-i386.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31569,
+      "fields": {
+        "revision": "95c0c06",
+        "glib_version": "2.58.3",
+        "gtk_version": "2.24.32",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 11,
+        "filename": null,
+        "build_date": "2019-05-28T02:39:15Z",
+        "compiler_version": "8",
+        "build_host": "buildbox.geany.org (cowbuilder: sid-amd64)",
+        "log_stdout": "geany_1.34.1-1+20190528git95c0c06-1_sid-amd64.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31570,
+      "fields": {
+        "revision": "95c0c06",
+        "glib_version": "2.50.3",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 17,
+        "filename": null,
+        "build_date": "2019-05-28T02:44:20Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (cowbuilder: stretch-i386)",
+        "log_stdout": "geany_1.34.1-1+20190528git95c0c06-1_stretch-i386.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31571,
+      "fields": {
+        "revision": "95c0c06",
+        "glib_version": "2.50.3",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 18,
+        "filename": null,
+        "build_date": "2019-05-28T02:49:17Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (cowbuilder: stretch-amd64)",
+        "log_stdout": "geany_1.34.1-1+20190528git95c0c06-1_stretch-amd64.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31572,
+      "fields": {
+        "revision": "68cb7d2",
+        "glib_version": "2.50.3",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 19,
+        "filename": null,
+        "build_date": "2019-05-28T02:56:44Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (cowbuilder: stretch-i386)",
+        "log_stdout": "geany-plugins_1.34-1+20190528git68cb7d2-1_stretch-i386.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31573,
+      "fields": {
+        "revision": "68cb7d2",
+        "glib_version": "2.50.3",
+        "gtk_version": "2.24.31",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 20,
+        "filename": null,
+        "build_date": "2019-05-28T03:04:01Z",
+        "compiler_version": "6.3.0",
+        "build_host": "buildbox.geany.org (cowbuilder: stretch-amd64)",
+        "log_stdout": "geany-plugins_1.34-1+20190528git68cb7d2-1_stretch-amd64.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31574,
+      "fields": {
+        "revision": "68cb7d2",
+        "glib_version": "2.58.3",
+        "gtk_version": "2.24.32",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 10,
+        "filename": null,
+        "build_date": "2019-05-28T03:10:51Z",
+        "compiler_version": "8",
+        "build_host": "buildbox.geany.org (cowbuilder: sid-i386)",
+        "log_stdout": "geany-plugins_1.34-1+20190528git68cb7d2-1_sid-i386.log"
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuild",
+      "pk": 31575,
+      "fields": {
+        "revision": "68cb7d2",
+        "glib_version": "2.58.3",
+        "gtk_version": "2.24.32",
+        "status": false,
+        "log_stderr": null,
+        "nightly_build_target": 12,
+        "filename": null,
+        "build_date": "2019-05-28T03:17:52Z",
+        "compiler_version": "8",
+        "build_host": "buildbox.geany.org (cowbuilder: sid-amd64)",
+        "log_stdout": "geany-plugins_1.34-1+20190528git68cb7d2-1_sid-amd64.log"
+      }
+    }
+  ],
+  [
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 1,
+      "fields": {
+        "arch": "i686",
+        "project": "geany",
+        "identifier": "archlinux32_geany",
+        "last_nightly_build": 25917,
+        "name": "ArchLinux",
+        "folder": "archlinux",
+        "active": false
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 2,
+      "fields": {
+        "arch": "i686",
+        "project": "plugins",
+        "identifier": "archlinux32_plugins",
+        "last_nightly_build": 25918,
+        "name": "ArchLinux",
+        "folder": "archlinux",
+        "active": false
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 3,
+      "fields": {
+        "arch": "x86_64",
+        "project": "geany",
+        "identifier": "archlinux64_geany",
+        "last_nightly_build": 25919,
+        "name": "ArchLinux",
+        "folder": "archlinux",
+        "active": false
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 4,
+      "fields": {
+        "arch": "x86_64",
+        "project": "plugins",
+        "identifier": "archlinux64_plugins",
+        "last_nightly_build": 25920,
+        "name": "ArchLinux",
+        "folder": "archlinux",
+        "active": false
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 9,
+      "fields": {
+        "arch": "i386",
+        "project": "geany",
+        "identifier": "deb32_sid_geany",
+        "last_nightly_build": 31568,
+        "name": "Debian Unstable (Sid)",
+        "folder": "debian",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 10,
+      "fields": {
+        "arch": "i386",
+        "project": "plugins",
+        "identifier": "deb32_sid_plugins",
+        "last_nightly_build": 31574,
+        "name": "Debian Unstable (Sid)",
+        "folder": "debian",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 11,
+      "fields": {
+        "arch": "amd64",
+        "project": "geany",
+        "identifier": "deb64_sid_geany",
+        "last_nightly_build": 31569,
+        "name": "Debian Unstable (Sid)",
+        "folder": "debian",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 12,
+      "fields": {
+        "arch": "amd64",
+        "project": "plugins",
+        "identifier": "deb64_sid_plugins",
+        "last_nightly_build": 31575,
+        "name": "Debian Unstable (Sid)",
+        "folder": "debian",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 13,
+      "fields": {
+        "arch": "i686",
+        "project": "geany",
+        "identifier": "win32_geany",
+        "last_nightly_build": 31566,
+        "name": "Windows",
+        "folder": "win32",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 14,
+      "fields": {
+        "arch": "i686",
+        "project": "plugins",
+        "identifier": "win32_plugins",
+        "last_nightly_build": 31567,
+        "name": "Windows",
+        "folder": "win32",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 15,
+      "fields": {
+        "arch": "amd64",
+        "project": "geany",
+        "identifier": "gtk224_geany",
+        "last_nightly_build": 31564,
+        "name": "Linux GTK 2.24 Test",
+        "folder": "misc",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 16,
+      "fields": {
+        "arch": "amd64",
+        "project": "plugins",
+        "identifier": "gtk224_plugins",
+        "last_nightly_build": 31565,
+        "name": "Linux GTK 2.24 Test",
+        "folder": "misc",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 17,
+      "fields": {
+        "arch": "i386",
+        "project": "geany",
+        "identifier": "deb32_stretch_geany",
+        "last_nightly_build": 31570,
+        "name": "Debian Stable (Stretch)",
+        "folder": "debian",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 18,
+      "fields": {
+        "arch": "amd64",
+        "project": "geany",
+        "identifier": "deb64_stretch_geany",
+        "last_nightly_build": 31571,
+        "name": "Debian Stable (Stretch)",
+        "folder": "debian",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 19,
+      "fields": {
+        "arch": "i386",
+        "project": "plugins",
+        "identifier": "deb32_stretch_plugins",
+        "last_nightly_build": 31572,
+        "name": "Debian Stable (Stretch)",
+        "folder": "debian",
+        "active": true
+      }
+    },
+    {
+      "model": "nightlybuilds.nightlybuildtarget",
+      "pk": 20,
+      "fields": {
+        "arch": "amd64",
+        "project": "plugins",
+        "identifier": "deb64_stretch_plugins",
+        "last_nightly_build": 31573,
+        "name": "Debian Stable (Stretch)",
+        "folder": "debian",
+        "active": true
+      }
+    }
+  ]
+]
