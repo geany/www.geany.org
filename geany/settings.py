@@ -330,6 +330,7 @@ INSTALLED_APPS = (
     # 3rd party
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
+    "mezzanine_sync_pages",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
@@ -420,6 +421,7 @@ ADMIN_MENU_ORDER = (
         "generic.ThreadedComment",
         "mezzanine_blocks.Block",
         "mezzanine_blocks.RichBlock",
+        "mezzanine_sync_pages.MezzanineSyncPages",
         (_("Media Library"), "fb_browse"),)),
     (_("Site"), (
         "sites.Site",
@@ -456,6 +458,8 @@ STATIC_DOCS_GEANY_DESTINATION_URL = os.path.join(MEDIA_URL, 'i18n')
 STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME = 'i18n_statistics.json'
 
 IRC_USER_LIST_FILE = '/srv/tmp/irc_userlist'
+
+MEZZANINE_SYNC_PAGES_DESTINATION_PATH = os.path.join(PROJECT_ROOT, 'page_content')
 
 
 #########################
