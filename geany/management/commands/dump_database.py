@@ -41,6 +41,7 @@ class Command(BaseCommand):
             '--exclude', 'sessions.session',
             '--exclude', 'admin.logentry',
             '--exclude', 'pastebin.snippet',
+            '--exclude', 'mezzanine_sync_pages.mezzaninesyncpages',
             '--indent', '2',
             '--output', 'database.json')
 
