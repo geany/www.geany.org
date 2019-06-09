@@ -126,3 +126,25 @@ div.feature-icon {
 .news-list li {
     margin-bottom: 10px;
 }
+
+
+/* basic table formatting: border and cell spacing */
+table {
+    border: 1px solid rgb(221, 221, 221);
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+table > thead > tr > th,
+table > tbody > tr > th,
+table > tfoot > tr > th,
+table > thead > tr > td,
+table > tbody > tr > td,
+table > tfoot > tr > td {
+    border: 1px solid rgb(221, 221, 221);
+    padding: 6px;
+    line-height: 1.4;
+    vertical-align: top;
+    border-top: 1px solid rgb(221, 221, 221);
+}
