@@ -10,7 +10,7 @@ Subscribe to the [Geany Devel mailing list][1] and write a short mail to the lis
 Note that you will need several tools installed on your system. In particular these are:
 
  - GIT
- - Python docutils 
+ - Python docutils
 
 The packages are named `git` and `python-docutils` on Debian and Fedora systems.
 
@@ -26,7 +26,7 @@ You will find a file called `geany.txt`, which is the basis of all documentation
 
     make geany.html
 
-in the `doc` directory to create or update the generated HTML documentation. 
+in the `doc` directory to create or update the generated HTML documentation.
 
 ### Publish your changes for review and inclusion
 

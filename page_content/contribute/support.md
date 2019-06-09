@@ -23,5 +23,5 @@ Geany's twitter stream: https://twitter.com/GeanyIDE/
 
 
   [1]: /support/mailing-lists/
-  [2]: http://irc://chat.freenode.net/geany%7C#geany
+  [2]: irc://chat.freenode.net/geany%7C#geany
   [3]: https://github.com/geany/geany/issues

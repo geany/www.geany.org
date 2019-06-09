@@ -10,7 +10,7 @@ Geany is available through the official Debian archives.
 apt-get install geany
 ```
 
-For newer versions in the Oldstable and Stable releases, check http://backports.debian.org for updated packages.
+For newer versions in the Oldstable and Stable releases, check https://backports.debian.org for updated packages.
 
 
 ## Ubuntu
@@ -51,7 +51,7 @@ You can install Geany on OpenSUSE using the normal package installation methods.
 
 ## Arch Linux
 
-Packages for Geany and Geany-Plugins for Arch Linux are available in the 
+Packages for Geany and Geany-Plugins for Arch Linux are available in the
 Community repository, so you can install it like any other package:
 
 ```
@@ -67,7 +67,7 @@ Find the Geany package in the mentioned BSD variants in `devel/geany`.
 
 There is a portable version of Geany by Oliver Krystal to carry on your USB stick and use on any Windows computer.
 
-http://portableapps.com/apps/development/geany_portable 
+https://portableapps.com/apps/development/geany_portable
 
 
 ## Find your package

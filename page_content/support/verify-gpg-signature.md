@@ -1,7 +1,7 @@
 Verifying GPG signatures of Geany and Geany-Plugins releases
 ==========
 
-First, you need to import the public GPG key used to sign the packages. You can download the used public key from: http://download.geany.org/colombanw-pubkey.txt
+First, you need to import the public GPG key used to sign the packages. You can download the used public key from: https://download.geany.org/colombanw-pubkey.txt
 
 To import the key use:
 ```Bash
@@ -24,7 +24,7 @@ The command's output should state something like "Good signature" and should ret
 
 A complete example:
 ```Bash
-wget http://download.geany.org/colombanw-pubkey.txt
+wget https://download.geany.org/colombanw-pubkey.txt
 gpg --import < colombanw-pubkey.txt
 gpg --verify geany-1.34.tar.bz2.sig geany-1.34.tar.bz2```
 ```

@@ -10,7 +10,7 @@ Geany has a plugin system which allows to get more features into Geany and devel
  - Filebrowser - Adds a file browser tab to the sidebar
  - HTML Characters - Inserts HTML character entities like '&amp;'
  - Save Actions - Provides different actions related to saving files (autosave, instantsave, backupcopy)
- - Split Window - Splits the editor view into two windows 
+ - Split Window - Splits the editor view into two windows
 
 ### The Geany-Plugins project
 
@@ -28,7 +28,7 @@ If you wrote a plugin and it should be listed here, please email the project adm
 
 ### Developer Information
 
-The Plugin API documentation is currently incomplete, but already contains useful information. Please read the [HACKING][1] file for instructions on how to generate it and any related information. The generated API documentation can also be viewed online at http://www.geany.org/manual/reference/. In case of any questions, feel free to ask us on the mailing list. 
+The Plugin API documentation is currently incomplete, but already contains useful information. Please read the [HACKING][1] file for instructions on how to generate it and any related information. The generated API documentation can also be viewed online at https://www.geany.org/manual/reference/. In case of any questions, feel free to ask us on the mailing list.
 
 
   [1]: https://raw.github.com/geany/geany/master/HACKING
