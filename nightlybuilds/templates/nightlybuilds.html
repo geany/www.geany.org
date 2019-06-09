@@ -7,25 +7,6 @@
 
 {% block meta_title %}Geany Nightly Builds{% endblock %}
 
-{% block top_menu %}
-{% if request.site_id == 1 %}
-    {# default menu on www.geany.org #}
-    {{ block.super }}
-{% else %}
-    {# empty menu for nightly.geany.org #}
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <img src="{% static "img/geany-36x36.png" %}" class="navbar-brand">
-            <a class="navbar-brand" href="http://www.geany.org/">Geany</a>
-
-            <ul class="nav navbar-nav">
-                <li><a href="/">Refresh</a></li>
-            </ul>
-        </div>
-    </div>
-{% endif %}
-{% endblock %}
-
 {% block main %}
 <div class="well">
 
