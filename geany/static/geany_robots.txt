@@ -1,0 +1,7 @@
+# robots.txt for https://www.geany.org/
+
+User-agent: *
+Crawl-delay: 20
+Allow: /
+
+Sitemap: https://www.geany.org/sitemap.xml
