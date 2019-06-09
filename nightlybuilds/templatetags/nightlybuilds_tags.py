@@ -40,7 +40,7 @@ def get_build_log(nightly_build, log_type):
         else:
             if size > 0:
                 return format_html(
-                    '<a href="/{}/{}">{}</stdout>',
+                    '<a href="https://nightly.geany.org/{}/{}">{}</stdout>',
                     nightly_build.nightly_build_target.folder,
                     log,
                     log_type)
@@ -53,7 +53,7 @@ def get_details(nightly_build):
     header_txt = os.path.join(BASE_DIR, nightly_build.nightly_build_target.folder, 'HEADER.txt')
     if os.path.exists(header_txt):
         return format_html(
-            '<a href="/{}/">Details</a>',
+            '<a href="https://nightly.geany.org/{}/">Details</a>',
             nightly_build.nightly_build_target.folder)
 
     return ''
