@@ -16,6 +16,7 @@ from __future__ import absolute_import, unicode_literals
 
 import logging
 import os
+import warnings
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -576,7 +577,15 @@ LOG_REQUESTS = False
 ###################
 SILENCED_SYSTEM_CHECKS = (
 )
-
+# ignore warnings we cannot fix:
+# FutureWarning: mezzanine/core/templatetags/mezzanine_tags.py:492:
+# mezzanine_pagedown.filters.custom needs to ensure that any untrusted inputs are properly escaped
+warnings.filterwarnings(
+    action='ignore',
+    message='^mezzanine_pagedown.filters.custom needs to ensure that any untrusted inputs.*',
+    category=FutureWarning,
+    module='mezzanine.core.templatetags.mezzanine_tags',
+    lineno=492)
 
 ##################
 # LOCAL SETTINGS #
