@@ -67,15 +67,13 @@ Home
 						<li data-target="#screenshot-carousel" data-slide-to="0" class="active"></li>
 						<li data-target="#screenshot-carousel" data-slide-to="1"></li>
 						<li data-target="#screenshot-carousel" data-slide-to="2"></li>
-						<li data-target="#screenshot-carousel" data-slide-to="3"></li>
-						<li data-target="#screenshot-carousel" data-slide-to="4"></li>
 					  </ol>
 				  </div>
 				  <div class="carousel-inner thumbnail-box">
 					<div class="active item">
 						<a href="{% url "page" "documentation/screenshots" %}">
 						<img
-							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_light_2019-05-20.png" 500 0 %}"
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/homepage/geany_dark_2019-05-20.png" 500 0 %}"
 							class="img-responsive"
 							alt="Main screen">
 						</a>
@@ -83,7 +81,7 @@ Home
 					<div class="item">
 						<a href="{% url "page" "documentation/screenshots" %}">
 						<img
-							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_dark_2019-05-20.png" 500 0 %}"
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/homepage/geany_light_php-2019-06-15.png" 500 0 %}"
 							class="img-responsive"
 							alt="Main screen with dark theme">
 						</a>
@@ -91,25 +89,9 @@ Home
 					<div class="item">
 						<a href="{% url "page" "documentation/screenshots" %}">
 						<img
-							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_build.png" 500 0 %}"
+							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/homepage/geany_windows_classic-2019-06-09.png" 500 0 %}"
 							class="img-responsive"
 							alt="Build process">
-						</a>
-					</div>
-					<div class="item">
-						<a href="{% url "page" "documentation/screenshots" %}">
-						<img
-							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_vte.png" 500 0 %}"
-							class="img-responsive"
-							alt="Virtual terminal emulation">
-						</a>
-					</div>
-					<div class="item">
-						<a href="{% url "page" "documentation/screenshots" %}">
-						<img
-							src="{{ MEDIA_URL }}{% thumbnail "uploads/screenshots/geany_plugins.png" 500 0 %}"
-							class="img-responsive"
-							alt="Plugin manager">
 						</a>
 					</div>
 				  </div>
