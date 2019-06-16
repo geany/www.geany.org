@@ -127,6 +127,13 @@ div.feature-icon {
     margin-bottom: 10px;
 }
 
+/* galery / carousel */
+.carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
+    margin-right: -55px;
+}
+.carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+    margin-left: -35px;
+}
 
 /* basic table formatting: border and cell spacing */
 table {
