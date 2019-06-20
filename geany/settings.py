@@ -600,10 +600,10 @@ warnings.filterwarnings(
 filename = os.path.join(PROJECT_APP_PATH, 'local_settings.py')  # pylint: disable=invalid-name
 if os.path.exists(filename):
     import sys
-    import imp
+    from importlib.util import module_from_spec, spec_from_file_location
     module_name = '{}.local_settings'.format(PROJECT_APP)  # pylint: disable=invalid-name
-    module = imp.new_module(module_name)  # pylint: disable=invalid-name
-    module.__file__ = filename
+    spec = spec_from_file_location(module_name, filename)  # pylint: disable=invalid-name
+    module = module_from_spec(spec)  # pylint: disable=invalid-name
     sys.modules[module_name] = module
     exec(open(filename, 'rb').read())  # pylint: disable=exec-used
 
