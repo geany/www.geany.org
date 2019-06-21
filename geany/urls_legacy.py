@@ -18,6 +18,8 @@ from django.views.generic.base import RedirectView
 
 URL_MAPPING = {
     # old urls mapped to new ones
+    '/Category/DocumentationToDo': 'https://github.com/geany/geany/issues/',
+    '/Category/Manual': '/documentation/manual/',
     '/Contribute/Developers': '/contribute/development/',
     '/Contribute/Documentation': '/contribute/documentation/',
     '/Contribute/Support': '/contribute/support/',
@@ -25,6 +27,7 @@ URL_MAPPING = {
     '/i18n/': '/contribute/translation/statistics/',
     '/Developers/Developers': '/contribute/development/',
     '/Documentation/ChangeLog': 'https://github.com/geany/geany/commits/master',  # page dropped
+    '/Documentation/Documentation': '/documentation/manual/',
     '/Documentation/FAQ': '/documentation/faq/',
     '/Documentation/FAQdata': '/documentation/faq/',
     '/Documentation/Manual': '/documentation/manual/',
@@ -36,6 +39,7 @@ URL_MAPPING = {
     '/Download/Extras': 'https://wiki.geany.org/',  # page dropped
     '/Download/Git': '/download/git/',
     '/Download/OldExtras': 'https://wiki.geany.org/',  # page dropped
+    '/Download/': '/download/releases/',
     '/Download/Releases': '/download/releases/',
     '/Download/SVN': '/download/git/',
     '/Download/ThirdPartyPackages': '/download/third-party/',
@@ -43,6 +47,7 @@ URL_MAPPING = {
     '/Gallery/Test': '/documentation/screenshots/',
     '/Geany/ChangeLog': 'https://github.com/geany/geany/commits/master',  # page dropped
     '/Geany/FAQ': '/documentation/faq/',
+    '/Geany/Screenshots': '/documentation/screenshots/',
     '/Geany/Support': '/support/',
     '/Main/About': '/about/geany/',
     '/Main/AboutThisSite': '/',
@@ -51,9 +56,11 @@ URL_MAPPING = {
     '/Main/Blog': '/news/',
     '/Main/BlogArchive': '/news/',
     '/Main/HomePage': '/',
+    '/main/homepage': '/',
     '/Main/Reviews': '/',  # page dropped
     '/Main/Thanks': '/',  # page dropped
     '/Main/WikiSandbox': '/',  # page dropped
+    '/Site/AllRecentChanges/': '/news/feed/',
     '/Support/Bugs': '/support/bugs/',
     '/Support/BuildingFromSource': 'https://www.geany.org/manual/index.html#installation',
     '/Support/BuildingOnWin32': 'https://wiki.geany.org/howtos/win32/msys2',
@@ -69,6 +76,11 @@ URL_MAPPING = {
     '/Support/Plugins': '/support/plugins/',
     '/Support/RunningOnWindows': 'https://wiki.geany.org/howtos/win32/running',
     '/Support/VerifyGPGSignature': '/support/verify-gpg-signature/',
+
+    # various old deep links (catch all)
+    '/images/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
+    '/uploads/Gallery/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
+    '/PmWiki/.*': '/',
 
     # migrated news items
     '/Main/20060117': '/news/geany-in-linuxuser/',
@@ -149,6 +161,9 @@ URL_MAPPING = {
     '/Main/20180225': '/news/geany-133-is-out/',
     '/Main/20181216': '/news/geany-134-is-out/',
     '/Main/20190104': '/news/geany-1341-is-out/',
+    '/Main/20190428': '/news/geany-135-is-out/',
+    # catch all for everything else (spiders tend to query even non-existent URLs)
+    '/Main/.*': '/news/geany-135-is-out/',
 }
 
 
