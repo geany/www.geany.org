@@ -50,7 +50,7 @@ def get_build_log(nightly_build, log_type):
 # ----------------------------------------------------------------------
 @register.simple_tag
 def get_details(nightly_build):
-    header_txt = os.path.join(BASE_DIR, nightly_build.nightly_build_target.folder, 'HEADER.txt')
+    header_txt = os.path.join(BASE_DIR, nightly_build.nightly_build_target.folder, 'header.html')
     if os.path.exists(header_txt):
         return format_html(
             '<a href="https://nightly.geany.org/{}/">Details</a>',
