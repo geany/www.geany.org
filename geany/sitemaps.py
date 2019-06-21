@@ -155,7 +155,8 @@ class SitemapRegistry:
     # ----------------------------------------------------------------------
     def add(self, generator_class, url_patterns, site_domain=None):
         if site_domain is None:
-            site_domain = settings.SITE_DOMAIN_WWW
+            site = Site.objects.get(id=settings.SITE_ID)
+            site_domain = site.domain
         sitemap_generator_item = (generator_class, url_patterns, site_domain)
         self._sitemap_generators.append(sitemap_generator_item)
 

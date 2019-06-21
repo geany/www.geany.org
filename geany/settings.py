@@ -171,9 +171,6 @@ DEBUG = False
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SITE_ID = 1
-SITE_DOMAIN_WWW = 'www.geany.org'
-SITE_DOMAIN_PASTEBIN = 'pastebin.geany.org'
-SITE_DOMAIN_NIGHTLY = 'nightly.geany.org'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
