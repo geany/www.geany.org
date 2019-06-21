@@ -27,7 +27,7 @@ def paste_code():
     fields.append(('lexer', 'python'))
     encoded_data = urllib.parse.urlencode(fields).encode('utf-8')
     request = urllib.request.Request(
-        'https://{{ request.site.domain }}{% url 'snippet_api' %}',
+        '{{ request.scheme }}://{{ request.get_host }}{% url 'snippet_api' %}',
         encoded_data,
     )
     response = urllib.request.urlopen(request)
