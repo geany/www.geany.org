@@ -18,66 +18,66 @@ from django.views.generic.base import RedirectView
 
 URL_MAPPING = {
     # old urls mapped to new ones
-    '/Category/DocumentationToDo/': 'https://github.com/geany/geany/issues/',
-    '/Category/Manual/': '/documentation/manual/',
-    '/Contribute/Developers/': '/contribute/development/',
-    '/Contribute/Documentation/': '/contribute/documentation/',
-    '/Contribute/Support/': '/contribute/support/',
-    '/Contribute/Translators/': '/contribute/translation/',
-    '/i18n/': '/contribute/translation/statistics/',
-    '/Developers/Developers/': '/contribute/development/',
-    '/Documentation/ChangeLog/': 'https://github.com/geany/geany/commits/master',  # page dropped
-    '/Documentation/Documentation/': '/documentation/manual/',
-    '/Documentation/FAQ/': '/documentation/faq/',
-    '/Documentation/FAQdata/': '/documentation/faq/',
-    '/Documentation/Manual/': '/documentation/manual/',
-    '/Documentation/Questions/': '/documentation/faq/',
-    '/Documentation/ReleaseNotes/': '/documentation/releasenotes/',
-    '/Documentation/ReleaseNotesOld/': '/documentation/releasenotes/',
-    '/Documentation/Screenshots/': '/documentation/screenshots/',
-    '/Documentation/ToDo/': 'https://github.com/geany/geany/issues/',
-    '/Download/Extras/': 'https://wiki.geany.org/',  # page dropped
-    '/Download/Git/': '/download/git/',
-    '/Download/OldExtras/': 'https://wiki.geany.org/',  # page dropped
-    '/Download/': '/download/releases/',
-    '/Download/Releases/': '/download/releases/',
-    '/Download/SVN/': '/download/git/',
-    '/Download/ThirdPartyPackages/': '/download/third-party/',
-    '/Gallery/Main/': '/documentation/screenshots/',
-    '/Gallery/Test/': '/documentation/screenshots/',
-    '/Geany/ChangeLog/': 'https://github.com/geany/geany/commits/master',  # page dropped
-    '/Geany/FAQ/': '/documentation/faq/',
-    '/Geany/Screenshots/': '/documentation/screenshots/',
-    '/Geany/Support/': '/support/',
-    '/Geany/Troubleshooting/': '/support/',
-    '/Main/About/': '/about/geany/',
-    '/Main/AboutThisSite/': '/',
-    '/Main/AllFiletypes/': '/about/filetypes/',
-    '/Main/Authors/': '/about/geany/',
-    '/Main/Blog/': '/news/',
-    '/Main/BlogArchive/': '/news/',
-    '/Main/HomePage/': '/',
-    '/main/homepage/': '/',
-    '/Main/Reviews/': '/',  # page dropped
-    '/Main/Thanks/': '/',  # page dropped
-    '/Main/WikiSandbox/': '/',  # page dropped
-    '/Site/AllRecentChanges/': '/news/feed/',
-    '/Site/Authors/': '/about/geany/',
-    '/Support/Bugs/': '/support/bugs/',
-    '/Support/BuildingFromSource/': 'https://www.geany.org/manual/index.html#installation',
-    '/Support/BuildingOnWin32/': 'https://wiki.geany.org/howtos/win32/msys2',
-    '/Support/Contributions/': '/contribute/',
-    '/Support/CrossCompile/': 'https://wiki.geany.org/howtos/win32/crosscompile',
-    '/Support/Developers/': '/contribute/development/',
-    '/Support/Hacking/': '/documentation/hacking/',
-    '/Support/I18N/': '/contribute/translation/',
-    '/Support/IRC/': '/support/irc/',
-    '/Support/MailingList/': '/support/mailing-lists/',
+    '/Category/DocumentationToDo': 'https://github.com/geany/geany/issues/',
+    '/Category/Manual': '/documentation/manual/',
+    '/Contribute/Developers': '/contribute/development/',
+    '/Contribute/Documentation': '/contribute/documentation/',
+    '/Contribute/Support': '/contribute/support/',
+    '/Contribute/Translators': '/contribute/translation/',
+    '/i18n': '/contribute/translation/statistics/',
+    '/Developers/Developers': '/contribute/development/',
+    '/Documentation/ChangeLog': 'https://github.com/geany/geany/commits/master',  # page dropped
+    '/Documentation/Documentation': '/documentation/manual/',
+    '/Documentation/FAQ': '/documentation/faq/',
+    '/Documentation/FAQdata': '/documentation/faq/',
+    '/Documentation/Manual': '/documentation/manual/',
+    '/Documentation/Questions': '/documentation/faq/',
+    '/Documentation/ReleaseNotes': '/documentation/releasenotes/',
+    '/Documentation/ReleaseNotesOld': '/documentation/releasenotes/',
+    '/Documentation/Screenshots': '/documentation/screenshots/',
+    '/Documentation/ToDo': 'https://github.com/geany/geany/issues/',
+    '/Download/Extras': 'https://wiki.geany.org/',  # page dropped
+    '/Download/Git': '/download/git/',
+    '/Download/OldExtras': 'https://wiki.geany.org/',  # page dropped
+    '/Download': '/download/releases/',
+    '/Download/Releases': '/download/releases/',
+    '/Download/SVN': '/download/git/',
+    '/Download/ThirdPartyPackages': '/download/third-party/',
+    '/Gallery/Main': '/documentation/screenshots/',
+    '/Gallery/Test': '/documentation/screenshots/',
+    '/Geany/ChangeLog': 'https://github.com/geany/geany/commits/master',  # page dropped
+    '/Geany/FAQ': '/documentation/faq/',
+    '/Geany/Screenshots': '/documentation/screenshots/',
+    '/Geany/Support': '/support/',
+    '/Geany/Troubleshooting': '/support/',
+    '/Main/About': '/about/geany/',
+    '/Main/AboutThisSite': '/',
+    '/Main/AllFiletypes': '/about/filetypes/',
+    '/Main/Authors': '/about/geany/',
+    '/Main/Blog': '/news/',
+    '/Main/BlogArchive': '/news/',
+    '/Main/HomePage': '/',
+    '/main/homepage': '/',
+    '/Main/Reviews': '/',  # page dropped
+    '/Main/Thanks': '/',  # page dropped
+    '/Main/WikiSandbox': '/',  # page dropped
+    '/Site/AllRecentChanges': '/news/feed/',
+    '/Site/Authors': '/about/geany/',
+    '/Support/Bugs': '/support/bugs/',
+    '/Support/BuildingFromSource': 'https://www.geany.org/manual/index.html#installation',
+    '/Support/BuildingOnWin32': 'https://wiki.geany.org/howtos/win32/msys2',
+    '/Support/Contributions': '/contribute/',
+    '/Support/CrossCompile': 'https://wiki.geany.org/howtos/win32/crosscompile',
+    '/Support/Developers': '/contribute/development/',
+    '/Support/Hacking': '/documentation/hacking/',
+    '/Support/I18N': '/contribute/translation/',
+    '/Support/IRC': '/support/irc/',
+    '/Support/MailingList': '/support/mailing-lists/',
     '/Support/PluginWishlist/':
         'https://github.com/geany/geany-plugins/issues?q=is%%3Aissue+label%%3Afeature+',
-    '/Support/Plugins/': '/support/plugins/',
-    '/Support/RunningOnWindows/': 'https://wiki.geany.org/howtos/win32/running',
-    '/Support/VerifyGPGSignature/': '/support/verify-gpg-signature/',
+    '/Support/Plugins': '/support/plugins/',
+    '/Support/RunningOnWindows': 'https://wiki.geany.org/howtos/win32/running',
+    '/Support/VerifyGPGSignature': '/support/verify-gpg-signature/',
 
     # migrated news items
     '/Main/20060117': '/news/geany-in-linuxuser/',
@@ -191,6 +191,12 @@ def _add_url_mappings(mapping, urlpatterns_):
             r'^{}$'.format(old_url),
             RedirectView.as_view(url=new_url, permanent=True))
         urlpatterns_.append(url_pattern)
+        # add pattern variant with trailing slash
+        if old_url[-1] != '/':
+            url_pattern = url(
+                r'^{}/$'.format(old_url),
+                RedirectView.as_view(url=new_url, permanent=True))
+            urlpatterns_.append(url_pattern)
 
 
 urlpatterns = []  # pylint: disable=invalid-name
