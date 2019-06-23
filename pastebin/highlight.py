@@ -50,14 +50,15 @@ LEXER_DEFAULT = 'text'
 
 
 class NakedHtmlFormatter(HtmlFormatter):
+    """Do not wrap the code in <div> or <code> tags (Pygments default)"""
 
     # ----------------------------------------------------------------------
     def wrap(self, source, outfile):
         return self._wrap_code(source)
 
     # ----------------------------------------------------------------------
-    def _wrap_code(self, source):
-        for code, text in source:
+    def _wrap_code(self, inner):
+        for code, text in inner:
             yield code, text
 
 
