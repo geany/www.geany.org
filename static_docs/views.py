@@ -19,6 +19,7 @@ import os.path
 import re
 
 from django.conf import settings
+from django.core.cache import cache
 from django.http import Http404
 from django.views.generic.base import TemplateView
 from mezzanine_pagedown.filters import plain as markdown_plain
@@ -29,6 +30,9 @@ from static_docs.github_client import GitHubApiClient
 
 RELEASE_REGEXP = re.compile(r'^Geany (?P<version>[0-9\.]+) \((?P<date>.*)\)$')
 DATE_PATTERNS_TO_BE_IGNORED = ('TBD', 'TBA', 'unreleased')
+
+CACHE_KEY_THEME_INDEX_MD5_HASH = 'THEME_INDEX_MD5_HASH'
+CACHE_KEY_THEME_INDEX = 'THEME_INDEX'
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -56,9 +60,9 @@ class StaticDocsView(TemplateView):
         self._file_contents = None
 
     # ----------------------------------------------------------------------
-    def _fetch_file_via_github_api(self, filename):
+    def _fetch_file_via_github_api(self, filename, user=None, repository=None):
         client = GitHubApiClient()
-        self._file_contents = client.get_file_contents(filename)
+        self._file_contents = client.get_file_contents(filename, user=user, repository=repository)
 
 
 class ReleaseNotesView(StaticDocsView):
@@ -240,3 +244,59 @@ class I18NStatisticsView(TemplateView):
             settings.STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME)
         with open(filename) as input_file:
             return json.load(input_file)
+
+
+class ThemesView(StaticDocsView):
+    """
+    Fetch the Geany-Themes index from https://github.com/geany/geany-themes/tree/master/index
+    """
+
+    template_name = "pages/download/themes.html"
+
+    # ----------------------------------------------------------------------
+    def get_context_data(self, **kwargs):
+        theme_index = self._get_theme_index()
+        context = super(ThemesView, self).get_context_data(**kwargs)
+        context['theme_index'] = theme_index
+        return context
+
+    # ----------------------------------------------------------------------
+    def _get_theme_index(self):
+        """
+        Refresh the theme index by:
+        - querying the MD5 hash from Github
+        - compare the freshly retrieved MD5 hash against the cached one
+        - load the whole theme index if:
+            - the MD5 hashes differ
+            - the MD5 hash was not retrieved yet or has been expired from cache
+            - the theme index was not retrieved yet or has been expired from cache
+        - after loading the whole theme index cache it long (24 hours)
+        - store the freshly retrieved MD5 hash in the cache
+        """
+        theme_index_md5_hash = self._query_theme_index_md5_hash()
+        cached_theme_index_md5_hash = cache.get(CACHE_KEY_THEME_INDEX_MD5_HASH)
+        theme_index = cache.get(CACHE_KEY_THEME_INDEX)
+
+        # theme index has been changed remotely?
+        if theme_index_md5_hash != cached_theme_index_md5_hash or theme_index is None:
+            logger.debug('Refresh theme index from Github (MD5: {})'.format(theme_index_md5_hash))
+            # query whole theme index
+            theme_index = self._query_parse_themes_index()
+            # cache it for later
+            cache.set(CACHE_KEY_THEME_INDEX, theme_index, CACHE_TIMEOUT_24HOURS)
+
+        # cache MD5 hash
+        cache.set(CACHE_KEY_THEME_INDEX_MD5_HASH, theme_index_md5_hash, CACHE_TIMEOUT_24HOURS)
+
+        return theme_index
+
+    # ----------------------------------------------------------------------
+    def _query_theme_index_md5_hash(self):
+        self._fetch_file_via_github_api('index/index.json.md5', repository='geany-themes')
+        return self._file_contents.strip()
+
+    # ----------------------------------------------------------------------
+    def _query_parse_themes_index(self):
+        self._fetch_file_via_github_api('index/index.json', repository='geany-themes')
+        theme_index = json.loads(self._file_contents)
+        return theme_index
