@@ -49,6 +49,7 @@ URL_MAPPING = {
     '/Geany/FAQ': '/documentation/faq/',
     '/Geany/Screenshots': '/documentation/screenshots/',
     '/Geany/Support': '/support/',
+    '/Geany/Troubleshooting': '/support/',
     '/Main/About': '/about/geany/',
     '/Main/AboutThisSite': '/',
     '/Main/AllFiletypes': '/about/filetypes/',
@@ -61,6 +62,7 @@ URL_MAPPING = {
     '/Main/Thanks': '/',  # page dropped
     '/Main/WikiSandbox': '/',  # page dropped
     '/Site/AllRecentChanges/': '/news/feed/',
+    '/Site/Authors': '/about/geany/',
     '/Support/Bugs': '/support/bugs/',
     '/Support/BuildingFromSource': 'https://www.geany.org/manual/index.html#installation',
     '/Support/BuildingOnWin32': 'https://wiki.geany.org/howtos/win32/msys2',
@@ -80,7 +82,15 @@ URL_MAPPING = {
     # various old deep links (catch all)
     '/images/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
     '/uploads/Gallery/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
-    '/PmWiki/.*': '/',
+    '/Category.*': '/',
+    '/Developers.*': '/',
+    '/Documentation.*': '/',
+    '/Download.*': '/',
+    '/Geany.*': '/',
+    '/PmWiki.*': '/',
+    '/Profiles.*': '/',
+    '/Site.*': '/',
+    '/Support.*': '/',
 
     # migrated news items
     '/Main/20060117': '/news/geany-in-linuxuser/',
