@@ -79,19 +79,6 @@ URL_MAPPING = {
     '/Support/RunningOnWindows/': 'https://wiki.geany.org/howtos/win32/running',
     '/Support/VerifyGPGSignature/': '/support/verify-gpg-signature/',
 
-    # various old deep links (catch all)
-    '/images/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
-    '/uploads/Gallery/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
-    '/Category.*': '/',
-    '/Developers.*': '/',
-    '/Documentation.*': '/',
-    '/Download.*': '/',
-    '/Geany.*': '/',
-    '/PmWiki.*': '/',
-    '/Profiles.*': '/',
-    '/Site.*': '/',
-    '/Support.*': '/',
-
     # migrated news items
     '/Main/20060117': '/news/geany-in-linuxuser/',
     '/Main/20060128': '/news/geany-05-is-out/',
@@ -172,15 +159,42 @@ URL_MAPPING = {
     '/Main/20181216': '/news/geany-134-is-out/',
     '/Main/20190104': '/news/geany-1341-is-out/',
     '/Main/20190428': '/news/geany-135-is-out/',
+}
+
+
+URL_MAPPING_CATCH_ALL = {
+    # various old deep links (catch all)
+    '/images/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
+    '/uploads/Gallery/.*.png/': '/media/uploads/screenshots/geany_light_2019-05-20.png',
+    '/Category.*': '/',
+    '/Developers.*': '/',
+    '/Documentation.*': '/',
+    '/Download.*': '/',
+    '/Geany.*': '/',
+    '/PmWiki.*': '/',
+    '/Profiles.*': '/',
+    '/Site.*': '/',
+    '/Support.*': '/',
+    '/ToDo.*': '/',
     # catch all for everything else (spiders tend to query even non-existent URLs)
     '/Main/.*': '/news/geany-135-is-out/',
 }
 
 
-urlpatterns = []  # pylint: disable=invalid-name
-for old_url, new_url in URL_MAPPING.items():
-    if old_url.startswith('/'):
-        old_url = old_url[1:]
+# ----------------------------------------------------------------------
+def _add_url_mappings(mapping, urlpatterns_):
+    for old_url, new_url in mapping.items():
+        if old_url.startswith('/'):
+            old_url = old_url[1:]
 
-    url_pattern = url(r'^{}$'.format(old_url), RedirectView.as_view(url=new_url, permanent=True))
-    urlpatterns.append(url_pattern)
+        url_pattern = url(
+            r'^{}$'.format(old_url),
+            RedirectView.as_view(url=new_url, permanent=True))
+        urlpatterns_.append(url_pattern)
+
+
+urlpatterns = []  # pylint: disable=invalid-name
+# first add specific items to let them match first
+_add_url_mappings(URL_MAPPING, urlpatterns)
+# now add catch all items
+_add_url_mappings(URL_MAPPING_CATCH_ALL, urlpatterns)
