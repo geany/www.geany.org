@@ -48,7 +48,7 @@ if settings.USE_MODELTRANSLATION:
 # Geany patterns
 urlpatterns += (
     # use our custom sitemap implementation
-    url(r"^sitemap\.xml$", sitemap, sitemaps),
+    url(r"^sitemap\.xml$", sitemap, sitemaps, name='django.contrib.sitemaps.views.sitemap'),
 
     # Release Notes, NEWS, etc.
     url(r"^", include("static_docs.urls")),
