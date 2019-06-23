@@ -582,7 +582,7 @@ warnings.filterwarnings(
     message='^mezzanine_pagedown.filters.custom needs to ensure that any untrusted inputs.*',
     category=FutureWarning,
     module='mezzanine.core.templatetags.mezzanine_tags',
-    lineno=492)
+    lineno=488)
 
 ##################
 # LOCAL SETTINGS #
