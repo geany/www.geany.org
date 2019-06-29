@@ -41,6 +41,7 @@ class GitHubApiClient:
         with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
             response_json = response.json()
             self._log_rate_limit(response)
+            self._log_request(response)
 
         # parse response
         return self._parse_fetch_file_response(response_json)
@@ -50,6 +51,14 @@ class GitHubApiClient:
         rate_limit_remaining = response.headers['X-RateLimit-Remaining']
         rate_limit = response.headers['X-RateLimit-Limit']
         logger.info('Github rate limits: %s/%s', rate_limit_remaining, rate_limit)
+
+    # ----------------------------------------------------------------------
+    def _log_request(self, response):
+        logger.info(
+            'Requesting "{} {}" took {}s'.format(
+                response.request.method,
+                response.request.url,
+                response.elapsed.total_seconds()))
 
     # ----------------------------------------------------------------------
     def _parse_fetch_file_response(self, response_json):
