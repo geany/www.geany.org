@@ -33,8 +33,14 @@ The code is licensed under the terms of the [GNU General Public Licence][3].
   - Jiří Techet (regular contributor, MacOS expert)
   - and many other contributors, translators and patch writers
 
-To contact all of us for general questions or feedback, please use the address &lt;team (at) geany (dot) org&gt;. This address will forward your email to all of us.
+## Contact
+
+To contact us for general questions or feedback, either use one of our [mailing lists][4], the [IRC channel][5] or the [Github issue tracker][6].
+
 
   [1]: /about/filetypes/
   [2]: /support/plugins/
   [3]: https://www.gnu.org/licenses/gpl-2.0.en.html
+  [4]: /support/mailing-lists
+  [5]: /support/irc
+  [6]: https://github.com/geany/geany/issues
