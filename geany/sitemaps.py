@@ -92,9 +92,10 @@ class StaticSitemap(sitemaps.Sitemap):
     priority = 0.5
 
     # ----------------------------------------------------------------------
-    def __init__(self, domain, patterns):
+    def __init__(self, domain, patterns, exclude_views=None):
         self._domain = domain
         self._patterns = patterns
+        self._exclude_views = exclude_views or list()
         self._site = None
         self._url_mapping = {}
         self._get_site()
@@ -111,7 +112,8 @@ class StaticSitemap(sitemaps.Sitemap):
     # ----------------------------------------------------------------------
     def _initialize(self):
         for pattern in self._patterns:
-            if getattr(pattern, 'name', None) is not None:
+            view_name = getattr(pattern, 'name', None)
+            if view_name is not None and view_name not in self._exclude_views:
                 url_resolved = self._resolve_url(pattern.name)
                 if url_resolved:
                     self._url_mapping[pattern.name] = url_resolved
@@ -153,11 +155,11 @@ class SitemapRegistry:
         self._static_items = None
 
     # ----------------------------------------------------------------------
-    def add(self, generator_class, url_patterns, site_domain=None):
+    def add(self, generator_class, url_patterns, site_domain=None, exclude_views=None):
         if site_domain is None:
             site = Site.objects.get(id=settings.SITE_ID)
             site_domain = site.domain
-        sitemap_generator_item = (generator_class, url_patterns, site_domain)
+        sitemap_generator_item = (generator_class, url_patterns, site_domain, exclude_views)
         self._sitemap_generators.append(sitemap_generator_item)
 
     # ----------------------------------------------------------------------
@@ -176,8 +178,11 @@ class SitemapRegistry:
     # ----------------------------------------------------------------------
     def _get_static_items(self):
         static_items = list()
-        for sitemap_generator_class, url_patterns, site_domain in self._sitemap_generators:
-            generator = sitemap_generator_class(site_domain, url_patterns)
+        for generator_class, url_patterns, site_domain, exclude_views in self._sitemap_generators:
+            generator = generator_class(
+                site_domain,
+                url_patterns,
+                exclude_views=exclude_views)
             items = generator.get_static_items()
             static_items.extend(items)
         return static_items
@@ -185,8 +190,11 @@ class SitemapRegistry:
     # ----------------------------------------------------------------------
     def _get_dynamic_items(self):
         dynamic_items = list()
-        for sitemap_generator_class, url_patterns, site_domain in self._sitemap_generators:
-            generator = sitemap_generator_class(site_domain, url_patterns)
+        for generator_class, url_patterns, site_domain, exclude_views in self._sitemap_generators:
+            generator = generator_class(
+                site_domain,
+                url_patterns,
+                exclude_views=exclude_views)
             items = generator.get_dynamic_items()
             dynamic_items.extend(items)
         return dynamic_items

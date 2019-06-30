@@ -32,4 +32,4 @@ urlpatterns = (  # pylint: disable=invalid-name
 )
 
 # register our urlpatterns to the global sitemap generator
-sitemap_registry.add(StaticSitemap, urlpatterns)
+sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['latest_version_legacy'])

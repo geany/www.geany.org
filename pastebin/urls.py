@@ -57,4 +57,4 @@ urlpatterns = (  # pylint: disable=invalid-name
 
 
 # Sitemap framework
-sitemap_registry.add(StaticSitemap, urlpatterns)
+sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['snippet_api'])
