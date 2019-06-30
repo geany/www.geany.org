@@ -1,0 +1,63 @@
+{% extends "pages/richtextpage.html" %}
+
+{% load mezzanine_tags pages_tags static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
+<style>
+    .img-thumbnail {
+        cursor: zoom-in;
+    }
+</style>
+{% endblock %}
+
+{% block richtext_content %}
+{{ block.super }}
+
+<h3>Available Themes</h3>
+
+<div class="row">
+
+{% for theme in theme_index.values|dictsort:"name" %}
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>{{ theme.name }}</strong>
+                <span class="pull-right"><a href="{{ theme.colorscheme }}">Download</a></span>
+            </div>
+            <div class="panel-body gallery">
+                <a href="{{ theme.screenshot }}" title="{{ theme.name }} - {{ theme.description }}">
+                    <img
+                        src="data:image/png;base64,{{ theme.thumbnail }}"
+                        class="img-responsive img-thumbnail center-block"
+                        alt="Thumbnail of colorscheme {{ theme.name }}" />
+                </a>
+                <div class="text-center">{{ theme.description }}</div>
+            </div>
+        </div>
+    </div>
+
+    {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+    {% endif %}
+{% endfor %}
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script src="{% static "mezzanine/js/magnific-popup.js" %}"></script>
+<script>
+$(document).ready(function() {
+    $('.gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        gallery: {
+            enabled: true,
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -14,10 +14,12 @@
 
 from django.conf.urls import url
 
-from static_docs.views import I18NStatisticsView, ReleaseNotesView, ToDoView
+from static_docs.views import I18NStatisticsView, ReleaseNotesView, ThemesView, ToDoView
 
 
 urlpatterns = (  # pylint: disable=invalid-name
+    url(r'^download/themes/$', ThemesView.as_view(), name='themes'),
+
     url(r'^documentation/todo/$', ToDoView.as_view(), name='todo'),
 
     url(r'^documentation/releasenotes/$', ReleaseNotesView.as_view(), name='releasenotes'),

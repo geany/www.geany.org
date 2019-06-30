@@ -30,15 +30,18 @@ class GitHubApiClient:
     """"""
 
     # ----------------------------------------------------------------------
-    def get_file_contents(self, filename):
-        url_parameters = dict(user=GITHUB_USER,
-                              repository=GITHUB_REPOSITORY,
+    def get_file_contents(self, filename, user=None, repository=None):
+        user = user or GITHUB_USER
+        repository = repository or GITHUB_REPOSITORY
+        url_parameters = dict(user=user,
+                              repository=repository,
                               filename=filename)
         url = 'https://api.github.com/repos/%(user)s/%(repository)s/contents/%(filename)s' % \
             url_parameters
         with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
             response_json = response.json()
             self._log_rate_limit(response)
+            self._log_request(response)
 
         # parse response
         return self._parse_fetch_file_response(response_json)
@@ -48,6 +51,14 @@ class GitHubApiClient:
         rate_limit_remaining = response.headers['X-RateLimit-Remaining']
         rate_limit = response.headers['X-RateLimit-Limit']
         logger.info('Github rate limits: %s/%s', rate_limit_remaining, rate_limit)
+
+    # ----------------------------------------------------------------------
+    def _log_request(self, response):
+        logger.info(
+            'Requesting "{} {}" took {}s'.format(
+                response.request.method,
+                response.request.url,
+                response.elapsed.total_seconds()))
 
     # ----------------------------------------------------------------------
     def _parse_fetch_file_response(self, response_json):
