@@ -33,18 +33,32 @@ class GitHubApiClient:
     def get_file_contents(self, filename, user=None, repository=None):
         user = user or GITHUB_USER
         repository = repository or GITHUB_REPOSITORY
-        url_parameters = dict(user=user,
-                              repository=repository,
-                              filename=filename)
-        url = 'https://api.github.com/repos/%(user)s/%(repository)s/contents/%(filename)s' % \
-            url_parameters
-        with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
-            response_json = response.json()
-            self._log_rate_limit(response)
-            self._log_request(response)
+        url = '{api_base_url}repos/{user}/{repository}/contents/{filename}'.format(
+            api_base_url=GITHUB_API_URL,
+            user=user,
+            repository=repository,
+            filename=filename)
+        response = self._request(url)
+        response_json = response.json()
 
         # parse response
         return self._parse_fetch_file_response(response_json)
+
+    # ----------------------------------------------------------------------
+    def _request(self, url, status_404_expected=False):
+        try:
+            with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
+                self._log_rate_limit(response)
+                self._log_request(response)
+                # error out on 4xx and 5xx status codes
+                response.raise_for_status()
+        except requests.exceptions.HTTPError as exc:
+            if exc.response.status_code == 404 and status_404_expected:
+                return None
+            else:
+                raise
+
+        return response
 
     # ----------------------------------------------------------------------
     def _log_rate_limit(self, response):
@@ -71,26 +85,26 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def get_release_by_tag(self, tag_name):
-        url = 'https://api.github.com/repos/{user}/{repository}/releases/tags/{tag_name}'.format(
+        url = '{api_base_url}repos/{user}/{repository}/releases/tags/{tag_name}'.format(
+            api_base_url=GITHUB_API_URL,
             user=GITHUB_USER,
             repository=GITHUB_REPOSITORY,
             tag_name=tag_name)
-        with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
+
+        response = self._request(url, status_404_expected=True)
+        if response:
             response_json = response.json()
-            self._log_rate_limit(response)
+            return response_json
 
-        if response.status_code == 404:
-            return None
-
-        return response_json
+        return None
 
     # ----------------------------------------------------------------------
     def get_latest_release(self):
-        url = 'https://api.github.com/repos/{user}/{repository}/releases/latest'.format(
+        url = '{api_base_url}repos/{user}/{repository}/releases/latest'.format(
+            api_base_url=GITHUB_API_URL,
             user=GITHUB_USER,
             repository=GITHUB_REPOSITORY)
-        with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
-            response_json = response.json()
-            self._log_rate_limit(response)
 
+        response = self._request(url)
+        response_json = response.json()
         return response_json
