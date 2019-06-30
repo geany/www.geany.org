@@ -48,8 +48,8 @@ class GitHubApiClient:
     def _request(self, url, status_404_expected=False):
         try:
             with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
+                self._log_request(response, status_404_expected)
                 self._log_rate_limit(response)
-                self._log_request(response)
                 # error out on 4xx and 5xx status codes
                 response.raise_for_status()
         except requests.exceptions.HTTPError as exc:
@@ -62,17 +62,40 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def _log_rate_limit(self, response):
-        rate_limit_remaining = response.headers['X-RateLimit-Remaining']
+        rate_limit_remaining = int(response.headers['X-RateLimit-Remaining'])
         rate_limit = response.headers['X-RateLimit-Limit']
-        logger.info('Github rate limits: %s/%s', rate_limit_remaining, rate_limit)
+        log_message = 'Github rate limits: {}/{}'.format(rate_limit_remaining, rate_limit)
+        if rate_limit_remaining > 0:
+            logger.info(log_message)
+        else:
+            logger.warning(log_message)
 
     # ----------------------------------------------------------------------
-    def _log_request(self, response):
-        logger.info(
-            'Requesting "{} {}" took {}s'.format(
-                response.request.method,
-                response.request.url,
-                response.elapsed.total_seconds()))
+    def _log_request(self, response, status_404_expected):
+        # try to parse response as JSON (if it is a API error) and set the message
+        # as reason or just use the plain text from the response
+        if response.status_code >= 400:
+            try:
+                response_json = response.json()
+                reason = response_json.get('message')
+            except ValueError:
+                reason = response.text()
+        else:
+            reason = response.reason
+
+        log_message = 'Requesting "{} {}" took {}s: {} ({})'.format(
+            response.request.method,
+            response.request.url,
+            response.elapsed.total_seconds(),
+            response.status_code,
+            reason)
+
+        if response.status_code == 200:
+            logger.info(log_message)
+        elif response.status_code == 404 and status_404_expected:
+            logger.info(log_message)
+        else:
+            logger.warning(log_message)
 
     # ----------------------------------------------------------------------
     def _parse_fetch_file_response(self, response_json):
