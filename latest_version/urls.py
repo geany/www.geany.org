@@ -19,11 +19,16 @@ from geany.sitemaps import sitemap_registry, StaticSitemap
 
 
 urlpatterns = (  # pylint: disable=invalid-name
-    # compat / special url for the UpdateChecker Geany plugin
+    # special url for the UpdateChecker Geany plugin
+    url(
+        r'^service/version/',
+        TemplateView.as_view(template_name='latest_version.txt', content_type='text/plain'),
+        name='latest_version'),
+    # legacy url for the UpdateChecker Geany plugin
     url(
         r'^service/version.php',
         TemplateView.as_view(template_name='latest_version.txt', content_type='text/plain'),
-        name='latest_version'),
+        name='latest_version_legacy'),
 )
 
 # register our urlpatterns to the global sitemap generator
