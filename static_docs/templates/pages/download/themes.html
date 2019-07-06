@@ -5,8 +5,10 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
 <style>
-    .img-thumbnail {
+    .img-rounded {
         cursor: zoom-in;
+        box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.5);
+        margin-bottom: 5px;
     }
 </style>
 {% endblock %}
@@ -29,7 +31,7 @@
                 <a href="{{ theme.screenshot }}" title="{{ theme.name }} - {{ theme.description }}">
                     <img
                         src="data:image/png;base64,{{ theme.thumbnail }}"
-                        class="img-responsive img-thumbnail center-block"
+                        class="img-responsive img-rounded center-block"
                         alt="Thumbnail of colorscheme {{ theme.name }}" />
                 </a>
                 <div class="text-center">{{ theme.description }}</div>
