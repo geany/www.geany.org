@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import timedelta
 from json import dump, load
 from os import unlink
 
 from django.contrib.auth.hashers import make_password
 from django.core.management import BaseCommand, call_command
-from django.utils import timezone
+from django.db.models import F
 
 from nightlybuilds.models import NightlyBuild
 
@@ -88,12 +87,12 @@ class Command(BaseCommand):
 
     # ----------------------------------------------------------------------
     def _dump_nightly_builds_database(self):
-        # dump nightly builds database but limit the data to the last week
-        # to reduce dump size
-        now_a_week_ago = timezone.now() - timedelta(days=7)
+        # query the last nightly build for each build target for the dump
+        # (dumping all builds would be too large)
         queryset = NightlyBuild.objects.\
-                filter(build_date__gte=now_a_week_ago).\
-                only('nightly_build_id')
+            prefetch_related('nightly_build_target').\
+            filter(nightly_build_target__last_nightly_build_id=F('nightly_build_id')).\
+            order_by('nightly_build_target__project', 'nightly_build_target__identifier')
         pks = [str(item.nightly_build_id) for item in queryset]
 
         database_nightlybuilds_filename = 'tmp_database_nightlybuilds.json'
@@ -122,7 +121,7 @@ class Command(BaseCommand):
             for filename in filenames:
                 with open(filename) as infile:
                     data = load(infile)
-                    records.append(data)
+                    records.extend(data)
 
             dump(records, output, indent=2)
 
