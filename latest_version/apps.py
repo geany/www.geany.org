@@ -12,14 +12,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import url
-
-from news.feeds import LatestNewsPostsFeed
-from news.views import NewsDetailView, NewsListView
+from django.apps import AppConfig
 
 
-urlpatterns = (  # pylint: disable=invalid-name
-    url(r'^$', NewsListView.as_view(), name='news_list'),
-    url(r'^feed/$', LatestNewsPostsFeed(), name='news_feed'),
-    url(r'^(?P<newspost_slug>.+)/$', NewsDetailView.as_view(), name='news_detail'),
-)
+class LatestVersionAppConfig(AppConfig):
+    name = 'latest_version'
+    verbose_name = "LatestVersion"
+
+    # ----------------------------------------------------------------------
+    def ready(self):
+        # register our urlpatterns to the global sitemap generator
+        from geany.sitemaps import sitemap_registry, StaticSitemap
+        from latest_version.urls import urlpatterns
+        sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['latest_version_legacy'])

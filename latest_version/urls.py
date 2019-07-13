@@ -15,8 +15,6 @@
 from django.conf.urls import url
 from django.views.generic import TemplateView
 
-from geany.sitemaps import sitemap_registry, StaticSitemap
-
 
 urlpatterns = (  # pylint: disable=invalid-name
     # special url for the UpdateChecker Geany plugin
@@ -30,6 +28,3 @@ urlpatterns = (  # pylint: disable=invalid-name
         TemplateView.as_view(template_name='latest_version.txt', content_type='text/plain'),
         name='latest_version_legacy'),
 )
-
-# register our urlpatterns to the global sitemap generator
-sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['latest_version_legacy'])

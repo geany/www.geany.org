@@ -16,7 +16,6 @@ from django.conf.urls import url
 from django.views.decorators.cache import never_cache
 from django.views.generic.base import TemplateView
 
-from geany.sitemaps import sitemap_registry, StaticSitemap
 from pastebin.views import (
     LatestSnippetsView,
     SnippetAPIView,
@@ -54,7 +53,3 @@ urlpatterns = (  # pylint: disable=invalid-name
         SnippetDetailRawView.as_view(),
         name='snippet_details_raw'),
 )
-
-
-# Sitemap framework
-sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['snippet_api'])

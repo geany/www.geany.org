@@ -318,17 +318,17 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
 
     # we
-    "geany",
-    "news",
-    "latest_version",
-    "static_docs",
-    "pastebin",         # pastebin.geany.org
-    "nightlybuilds",    # nightly.geany.org
+    "geany.apps.GeanyAppConfig",
+    "news.apps.NewsAppConfig",
+    "latest_version.apps.LatestVersionAppConfig",
+    "static_docs.apps.StaticDocsAppConfig",
+    "pastebin.apps.PastebinAppConfig",
+    "nightlybuilds.apps.NightlyBuildsAppConfig",
 
     # 3rd party
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
-    "mezzanine_sync_pages",
+    "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,

@@ -12,14 +12,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import url
-
-from news.feeds import LatestNewsPostsFeed
-from news.views import NewsDetailView, NewsListView
+from django.apps import AppConfig
 
 
-urlpatterns = (  # pylint: disable=invalid-name
-    url(r'^$', NewsListView.as_view(), name='news_list'),
-    url(r'^feed/$', LatestNewsPostsFeed(), name='news_feed'),
-    url(r'^(?P<newspost_slug>.+)/$', NewsDetailView.as_view(), name='news_detail'),
-)
+class PastebinAppConfig(AppConfig):
+    name = 'pastebin'
+    verbose_name = "Pastebin"
+
+    # ----------------------------------------------------------------------
+    def ready(self):
+        # Sitemap framework
+        from geany.sitemaps import sitemap_registry, StaticSitemap
+        from pastebin.urls import urlpatterns
+        sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['snippet_api'])
