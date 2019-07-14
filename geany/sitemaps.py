@@ -153,12 +153,10 @@ class SitemapRegistry:
     def __init__(self):
         self._sitemap_generators = list()
         self._static_items = None
+        self._site = None
 
     # ----------------------------------------------------------------------
     def add(self, generator_class, url_patterns, site_domain=None, exclude_views=None):
-        if site_domain is None:
-            site = Site.objects.get(id=settings.SITE_ID)
-            site_domain = site.domain
         sitemap_generator_item = (generator_class, url_patterns, site_domain, exclude_views)
         self._sitemap_generators.append(sitemap_generator_item)
 
@@ -177,27 +175,35 @@ class SitemapRegistry:
 
     # ----------------------------------------------------------------------
     def _get_static_items(self):
-        static_items = list()
+        return self._get_items('get_static_items')
+
+    # ----------------------------------------------------------------------
+    def _get_items(self, item_generator_name):
+        items = list()
         for generator_class, url_patterns, site_domain, exclude_views in self._sitemap_generators:
+            site_domain = self._get_site_domain_or_default(site_domain)
             generator = generator_class(
                 site_domain,
                 url_patterns,
                 exclude_views=exclude_views)
-            items = generator.get_static_items()
-            static_items.extend(items)
-        return static_items
+            item_generator = getattr(generator, item_generator_name)
+            generated_items = item_generator()
+            items.extend(generated_items)
+        return items
+
+    # ----------------------------------------------------------------------
+    def _get_site_domain_or_default(self, site_domain):
+        if site_domain is None:
+            if self._site is None:
+                self._site = Site.objects.get(id=settings.SITE_ID)
+
+            site_domain = self._site.domain
+
+        return site_domain
 
     # ----------------------------------------------------------------------
     def _get_dynamic_items(self):
-        dynamic_items = list()
-        for generator_class, url_patterns, site_domain, exclude_views in self._sitemap_generators:
-            generator = generator_class(
-                site_domain,
-                url_patterns,
-                exclude_views=exclude_views)
-            items = generator.get_dynamic_items()
-            dynamic_items.extend(items)
-        return dynamic_items
+        return self._get_items('get_dynamic_items')
 
 
 sitemap_registry = SitemapRegistry()  # pylint: disable=invalid-name
