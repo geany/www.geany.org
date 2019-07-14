@@ -15,8 +15,18 @@ extra packages installed on your system.
 The code requires Python 3.5 or higher.
 
 
-Prepare your system
--------------------
+Get the code
+------------
+
+Perform a usual clone of the www.geany.org repository from Github:
+
+    git clone git://github.com/geany/www.geany.org
+
+
+Local setup using virtualenv
+----------------------------
+
+### Prepare your system
 
 To ease package handling and to get a clean environment, we use
 virtualenv. Into the virtualenv we will install Django, Mezzanine and a couple of
@@ -31,16 +41,7 @@ packages:
     apt-get install python3-venv python3-pip python3-dev build-essential libmysqlclient-dev libmemcached-dev
 
 
-Get the code
-------------
-
-Perform a usual clone of the www.geany.org repository from Github:
-
-    git clone git://github.com/geany/www.geany.org
-
-
-Setting up a virtualenv
------------------------
+### Setting up a virtualenv
 
 Change into the freshly cloned repository directory and execute the following commands
 to create a new virtualenv and install required Python packages:
@@ -55,8 +56,7 @@ This will setup a new virtualenv, upgrade the Python package manager
 pip and install required packages for the website.
 
 
-Create a local config
----------------------
+### Create a local config
 
 Use a text editor of choice (we all know what this would be...) and create a new file
 *local_settings.py* in *www.geany.org/geany/* (next to the existing *settings.py*).
@@ -132,8 +132,7 @@ The database dump contains a default admin user:
     password: change-me
 
 
-Start the development server
-----------------------------
+### Start the development server
 
 After you set up everything as described above, you are ready
 to start the development server to actually do something:
@@ -152,8 +151,62 @@ to reload the changed file(s). This is very helpful.
 To stop the server, simply interrupt it with *Ctrl-C*.
 
 
+Local setup using Docker
+------------------------
+
+Alternatively, a Dockerfile is provided to build a Docker image
+and to run the website in a Docker container.
+This is the easiest way to get a local environment running.
+
+### Local config
+
+When using the Docker image, a prepared local settings file is
+used with already adjusted settings for running in a Docker container.
+This file is located at `docker/local_settings.docker.py`.
+
+
+### Build container image
+
+First, you need to build the image:
+
+    make docker-build
+
+This will take some time but is only necessary once.
+
+Note: before building the image, carefully review the Dockerfile
+and especially make sure you use a base image you can trust.
+
+
+### Start the container
+
+After the image is built, you can start the container:
+
+    make docker-run
+
+On the first run, the database is setup, screenshots are downloaded to be
+locally available as well as a few more preparations.
+
+Once running, you can open the resulting site in your browser by pointing it
+to http://localhost:8000.
+
+Basically now you are done and you can start improving the website.
+A little detail you might notice: once you change any .py file
+which is knwon by Django, the development server will restart automatically
+to reload the changed file(s). This is very helpful.
+
+To stop the container, simply interrupt it with *Ctrl-C*.
+
+### Cleanup
+
+All files created on first container startup are stored in `docker/data`.
+To start from scratch (e.g. with a fresh database, no uploads, etc.), simply
+delete this directory or run:
+
+    make docker-clean
+
+
 Management Commands
------------------------
+-------------------
 
 In addition to the usual Django management commands (for a
 list run `python manage.py`), the Geany apps provide a few more.

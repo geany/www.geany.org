@@ -594,7 +594,9 @@ warnings.filterwarnings(
 
 # Instead of doing "from .local_settings import *", we use exec so that
 # local_settings has full access to everything defined in this module.
-filename = os.path.join(PROJECT_APP_PATH, 'local_settings.py')  # pylint: disable=invalid-name
+# pylint: disable=invalid-name
+local_settings_file_name = os.environ.get('LOCAL_SETTINGS_PY', 'local_settings.py')
+filename = os.path.join(PROJECT_APP_PATH, local_settings_file_name)  # pylint: disable=invalid-name
 if os.path.exists(filename):
     import sys
     from importlib.util import module_from_spec, spec_from_file_location

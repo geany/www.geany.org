@@ -1,0 +1,43 @@
+**/*.pyc
+**/__pycache__
+*.egg
+*.egg-info
+*.pyc
+*.pyd
+*.pyo
+*.swp
+.Python
+.cache
+.coverage
+.coverage
+.coverage.*
+.dockerignore
+.eggs
+.git
+.gitignore
+.tox
+.venv
+build
+dist
+docker/data
+docs/_build
+env
+venv
+
+
+# MacOS / Windows stuff
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.DS_Store
+.AppleDouble
+.LSOverride
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
