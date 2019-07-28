@@ -312,7 +312,6 @@ INSTALLED_APPS = (
     "mezzanine.core",
     "mezzanine.generic",
     "mezzanine.pages",
-    "mezzanine.blog",
     "mezzanine.forms",
     "mezzanine.galleries",
     "mezzanine.twitter",
@@ -414,7 +413,6 @@ DASHBOARD_TAGS = (
 ADMIN_MENU_ORDER = (
     (_("Content"), (
         "pages.Page",
-        "blog.BlogPost",
         "news.NewsPost",
         "generic.ThreadedComment",
         "mezzanine_blocks.Block",
