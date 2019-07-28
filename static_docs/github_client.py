@@ -79,7 +79,7 @@ class GitHubApiClient:
                 response_json = response.json()
                 reason = response_json.get('message')
             except ValueError:
-                reason = response.text()
+                reason = response.text
         else:
             reason = response.reason
 
