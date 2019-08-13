@@ -323,11 +323,13 @@ INSTALLED_APPS = (
     "static_docs.apps.StaticDocsAppConfig",
     "pastebin.apps.PastebinAppConfig",
     "nightlybuilds.apps.NightlyBuildsAppConfig",
+    "urlshortener.apps.UrlShortenerAppConfig",
 
     # 3rd party
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
+    "shortener.apps.ShortenerConfig",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,

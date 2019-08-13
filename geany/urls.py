@@ -62,6 +62,9 @@ urlpatterns += (
     # Pastebin
     url(r"^p/", include("pastebin.urls")),
 
+    # URL Shortener
+    url(r'^s/', include('urlshortener.urls')),
+
     # /news/ News
     url(r"^news/", include("news.urls")),
 
