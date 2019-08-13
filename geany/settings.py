@@ -329,7 +329,7 @@ INSTALLED_APPS = (
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
-    "shortener.apps.ShortenerConfig",
+    "shortener",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
