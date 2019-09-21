@@ -24,7 +24,7 @@ from babel import Locale
 
 
 STATISTICS_REGEXP = re.compile(
-    r'(?P<translated>\d+) translated messages(, (?P<fuzzy>\d+) fuzzy translations)?(, (?P<untranslated>\d+) untranslated messages)?')  # noqa: E501 pylint: disable=line-too-long
+    r'(?P<translated>\d+) translated messages?(, (?P<fuzzy>\d+) fuzzy translations?)?(, (?P<untranslated>\d+) untranslated messages?)?')  # noqa: E501 pylint: disable=line-too-long
 LAST_TRANSLATOR_REGEXP = re.compile(r'^"Last-Translator: (?P<name>[\w -]+)\s*<?.+')
 
 
