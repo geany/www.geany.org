@@ -25,20 +25,20 @@ For more information about translating Geany, please see
     {% for language_data in i18n_statistics.catalog_statistics|dictsort:"language_name" %}
         <tr>
             <td class="col-md-4"><a href="{{ static_docs_geany_destination_url }}/{{ language_data.filename }}">{{ language_data.language_name }}</a> ({{ language_data.last_translator }})</td>
-            <td class="col-md-1">{{ language_data.statistics.translated }} ({{ language_data.statistics.percentage_translated|floatformat:0 }} %)</td>
-            <td class="col-md-1">{{ language_data.statistics.fuzzy }} ({{ language_data.statistics.percentage_fuzzy|floatformat:0 }} %)</td>
-            <td class="col-md-1">{{ language_data.statistics.untranslated }} ({{ language_data.statistics.percentage_untranslated|floatformat:0 }} %)</td>
+            <td class="col-md-1">{{ language_data.statistics.translated }} ({{ language_data.statistics.percentage_translated|floatformat:1 }} %)</td>
+            <td class="col-md-1">{{ language_data.statistics.fuzzy }} ({{ language_data.statistics.percentage_fuzzy|floatformat:1 }} %)</td>
+            <td class="col-md-1">{{ language_data.statistics.untranslated }} ({{ language_data.statistics.percentage_untranslated|floatformat:1 }} %)</td>
             <td class="col-md-3 hidden-xs">
                 <div class="progress progress-striped">
                     <div class="progress-bar progress-bar-success" style="width: {{ language_data.statistics.percentage_translated }}%">
-                        <span class="sr-only">Translated {{ language_data.statistics.percentage_translated|floatformat:0 }} %</span>
-                        {{ language_data.statistics.percentage_translated|floatformat:0 }} %
+                        <span class="sr-only">Translated {{ language_data.statistics.percentage_translated|floatformat:1 }} %</span>
+                        {{ language_data.statistics.percentage_translated|floatformat:1 }} %
                     </div>
                     <div class="progress-bar progress-bar-warning" style="width: {{ language_data.statistics.percentage_fuzzy }}%">
-                        <span class="sr-only">Fuzzy {{ language_data.statistics.percentage_fuzzy|floatformat:0 }} %</span>
+                        <span class="sr-only">Fuzzy {{ language_data.statistics.percentage_fuzzy|floatformat:1 }} %</span>
                     </div>
                     <div class="progress-bar progress-bar-danger" style="width: {{ language_data.statistics.percentage_untranslated }}%">
-                        <span class="sr-only">Untranslated {{ language_data.statistics.percentage_untranslated|floatformat:0 }} %</span>
+                        <span class="sr-only">Untranslated {{ language_data.statistics.percentage_untranslated|floatformat:1 }} %</span>
                     </div>
                 </div>
             </td>
