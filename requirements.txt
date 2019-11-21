@@ -6,7 +6,6 @@ django-extensions
 django-honeypot
 django-link-shortener
 django-log-request-id
-django-memcache-status
 mezzanine-pagedown
 mezzanine-sync-pages
 pygments

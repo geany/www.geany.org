@@ -22,6 +22,7 @@ class NewsAppConfig(AppConfig):
     # ----------------------------------------------------------------------
     def ready(self):
         # register our urlpatterns to the global sitemap generator
+        # pylint: disable=import-outside-toplevel
         from geany.sitemaps import sitemap_registry
         from news.sitemaps import NewsPostSitemap
         from news.urls import urlpatterns

@@ -390,7 +390,6 @@ PAGEDOWN_MARKDOWN_EXTENSIONS = (
 OPTIONAL_APPS = (
     "debug_toolbar",
     "django_extensions",
-    "memcache_status",
     "compressor",
     PACKAGE_NAME_FILEBROWSER,
     PACKAGE_NAME_GRAPPELLI,

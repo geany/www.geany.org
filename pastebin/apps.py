@@ -22,6 +22,7 @@ class PastebinAppConfig(AppConfig):
     # ----------------------------------------------------------------------
     def ready(self):
         # Sitemap framework
+        # pylint: disable=import-outside-toplevel
         from geany.sitemaps import sitemap_registry, StaticSitemap
         from pastebin.urls import urlpatterns
         sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['snippet_api'])

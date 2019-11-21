@@ -22,6 +22,7 @@ class LatestVersionAppConfig(AppConfig):
     # ----------------------------------------------------------------------
     def ready(self):
         # register our urlpatterns to the global sitemap generator
+        # pylint: disable=import-outside-toplevel
         from geany.sitemaps import sitemap_registry, StaticSitemap
         from latest_version.urls import urlpatterns
         sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['latest_version_legacy'])

@@ -35,7 +35,7 @@ def get_build_log(nightly_build, log_type):
         logfile_path = os.path.join(BASE_DIR, nightly_build.nightly_build_target.folder, log)
         try:
             size = os.stat(logfile_path).st_size
-        except (IOError, OSError):
+        except OSError:
             pass
         else:
             if size > 0:
