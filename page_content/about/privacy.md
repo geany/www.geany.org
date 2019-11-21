@@ -6,7 +6,7 @@ Responsible for the protection of personal data is:
 Geany e.V.
 Represented by Enrico Tröger
 eMail: enrico [dot] troeger [at] uvena.de
-PGP Key: 4579 90C8 6F91 F33D E05E BF1B CC03 633F 7009 90F2
+PGP Key: 51A0 918F EF34 3906 6BEB 87F4 5793 47E6 C71A 77FA
 ```
 
 This website can be used without providing any personal data.
