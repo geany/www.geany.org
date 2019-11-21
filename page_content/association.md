@@ -11,7 +11,14 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
-* None planned
+##### Geany e.V. General Assembly 2019
+Date: 24th November 2019 - 14:00 CET
+Location: Remote (via Mumble)
+Audience: association members
+Agenda:
+
+* General report
+* Financial report
 
 
 #### Past meetings
@@ -67,5 +74,5 @@ Enrico Tröger - enrico [dot] troeger [at] uvena.de
 Frank Lanitz - frank [at] lanitz [dot] info
 Silvio Knizek - silvio [dot] knizek [at] gmx [dot] de
 
-For members communication, there is a mailing list at 
+For members communication, there is a mailing list at
 https://lists.geany.org/cgi-bin/mailman/listinfo/association-members.
