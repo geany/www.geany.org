@@ -11,6 +11,10 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
+* None planned
+
+#### Past meetings
+
 ##### Geany e.V. General Assembly 2019
 Date: 24th November 2019 - 14:00 CET
 Location: Remote (via Mumble)
@@ -19,9 +23,6 @@ Agenda:
 
 * General report
 * Financial report
-
-
-#### Past meetings
 
 ##### Geany e.V. General Assembly 2018
 Date: 3rd November 2018 - 16:00 CET
