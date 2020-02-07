@@ -20,7 +20,7 @@ Bank transfer to the [Geany e.V.][8] account is the preferred way for donating m
 
 Your options:
 
-  - Bank transfer:
+  - Bank transfer (SEPA / EUR):
     Account holder: Geany e.V.
     IBAN: DE94830944950003429687
     BIC: GENODEF1ETK
