@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from base64 import standard_b64decode
+from base64 import standard_b64decode, standard_b64encode
 import logging
 
 import requests
@@ -30,6 +30,10 @@ class GitHubApiClient:
     """"""
 
     # ----------------------------------------------------------------------
+    def __init__(self, auth_token=None):
+        self._auth_token = auth_token
+
+    # ----------------------------------------------------------------------
     def get_file_contents(self, filename, user=None, repository=None):
         user = user or GITHUB_USER
         repository = repository or GITHUB_REPOSITORY
@@ -45,9 +49,14 @@ class GitHubApiClient:
         return self._parse_fetch_file_response(response_json)
 
     # ----------------------------------------------------------------------
-    def _request(self, url, status_404_expected=False):
+    def _request(self, url, status_404_expected=False, auth_token=None):
+        request_args = dict(timeout=HTTP_REQUEST_TIMEOUT, stream=False)
+        if self._auth_token is not None:
+            authorization_header = self._factor_authorization_header()
+            request_args['headers'] = authorization_header
+
         try:
-            with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, stream=False) as response:
+            with requests.get(url, **request_args) as response:
                 self._log_request(response, status_404_expected)
                 self._log_rate_limit(response)
                 # error out on 4xx and 5xx status codes
@@ -59,6 +68,13 @@ class GitHubApiClient:
                 raise
 
         return response
+
+    # ----------------------------------------------------------------------
+    def _factor_authorization_header(self):
+        auth = '{}:x-oauth-basic'.format(self._auth_token)
+        auth = auth.encode('ascii')
+        basic_auth_value = 'Basic {}'.format(standard_b64encode(auth).decode())
+        return {'Authorization': basic_auth_value}
 
     # ----------------------------------------------------------------------
     def _log_rate_limit(self, response):

@@ -61,7 +61,7 @@ class StaticDocsView(TemplateView):
 
     # ----------------------------------------------------------------------
     def _fetch_file_via_github_api(self, filename, user=None, repository=None):
-        client = GitHubApiClient()
+        client = GitHubApiClient(auth_token=settings.STATIC_DOCS_GITHUB_API_TOKEN)
         self._file_contents = client.get_file_contents(filename, user=user, repository=repository)
 
 
@@ -169,7 +169,7 @@ class ReleaseNotesView(StaticDocsView):
     # ----------------------------------------------------------------------
     @cache_function(CACHE_TIMEOUT_24HOURS)
     def _get_release_from_github(self, version=None):
-        client = GitHubApiClient()
+        client = GitHubApiClient(auth_token=settings.STATIC_DOCS_GITHUB_API_TOKEN)
         if version is None:
             github_release = client.get_latest_release()
         else:
