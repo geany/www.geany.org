@@ -49,7 +49,7 @@ class GitHubApiClient:
         return self._parse_fetch_file_response(response_json)
 
     # ----------------------------------------------------------------------
-    def _request(self, url, status_404_expected=False, auth_token=None):
+    def _request(self, url, status_404_expected=False):
         request_args = dict(timeout=HTTP_REQUEST_TIMEOUT, stream=False)
         if self._auth_token is not None:
             authorization_header = self._factor_authorization_header()
