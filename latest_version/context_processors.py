@@ -12,12 +12,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from mezzanine.conf import settings
+
 from geany.decorators import cache_function, CACHE_TIMEOUT_1HOUR
 from latest_version.models import LatestVersion
+from latest_version.releases import ReleaseVersionsProvider
 
 
 # ----------------------------------------------------------------------
 @cache_function(CACHE_TIMEOUT_1HOUR, ignore_arguments=True)
 def latest_version(request):
     geany_latest_version = LatestVersion.objects.get(id=1)
-    return dict(geany_latest_version=geany_latest_version)
+
+    release_versions_provider = ReleaseVersionsProvider(
+        settings.LATEST_VERSION_RELEASES_DIRECTORY,
+        fallback_version=geany_latest_version.version)
+    release_versions = release_versions_provider.provide()
+
+    return dict(
+        geany_latest_version=geany_latest_version,
+        release_versions=release_versions)

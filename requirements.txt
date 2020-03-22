@@ -8,6 +8,7 @@ django-link-shortener
 django-log-request-id
 mezzanine-pagedown
 mezzanine-sync-pages
+packaging
 pygments
 pylibmc
 python-logstash-async

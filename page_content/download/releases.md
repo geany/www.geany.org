@@ -3,10 +3,10 @@ Releases
 
 Distribution      | File          | GPG Signature | GPG Key
 ----------------- | ------------- | ------------- | -------------
-Source (tar.gz)   | [geany-{{ geany_latest_version.version }}.tar.gz](https://download.geany.org/geany-{{ geany_latest_version.version }}.tar.gz) | [geany-{{ geany_latest_version.version }}.tar.gz.sig](https://download.geany.org/geany-{{ geany_latest_version.version }}.tar.gz.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
-Source (tar.bz2)  | [geany-{{ geany_latest_version.version }}.tar.bz2](https://download.geany.org/geany-{{ geany_latest_version.version }}.tar.bz2) | [geany-{{ geany_latest_version.version }}.tar.bz2.sig](https://download.geany.org/geany-{{ geany_latest_version.version }}.tar.bz2.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
-Windows           | [geany-{{ geany_latest_version.version }}_setup.exe](https://download.geany.org/geany-{{ geany_latest_version.version }}_setup.exe) | [geany-{{ geany_latest_version.version }}_setup.exe.sig](https://download.geany.org/geany-{{ geany_latest_version.version }}_setup.exe.sig) ([Instructions][4]) | [eht16-pubkey.txt][2]
-Mac OSX           | [geany-{{ geany_latest_version.version }}_osx.dmg](https://download.geany.org/geany-{{ geany_latest_version.version }}_osx.dmg) | - | -
+Source (tar.gz)   | [{{ release_versions.source_gzip_version }}](https://download.geany.org/{{ release_versions.source_gzip_version }}) | [{{ release_versions.source_gzip_version }}.sig](https://download.geany.org/{{ release_versions.source_gzip_version }}.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
+Source (tar.bz2)  | [{{ release_versions.source_bzip2_version }}](https://download.geany.org/{{ release_versions.source_bzip2_version }}) | [{{ release_versions.source_bzip2_version }}.sig](https://download.geany.org/{{ release_versions.source_bzip2_version }}.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
+Windows           | [{{ release_versions.windows_version }}](https://download.geany.org/{{ release_versions.windows_version }}) | [{{ release_versions.windows_version }}.sig](https://download.geany.org/{{ release_versions.windows_version }}.sig) ([Instructions][4]) | [eht16-pubkey.txt][2]
+Mac OSX           | [{{ release_versions.macos_version }}](https://download.geany.org/{{ release_versions.macos_version }}) | - | -
 
 [Release notes for Geany {{ geany_latest_version.version }}][3]
 

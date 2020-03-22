@@ -456,6 +456,8 @@ STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME = 'i18n_statistics.json'
 
 IRC_USER_LIST_FILE = '/srv/tmp/irc_userlist'
 
+LATEST_VERSION_RELEASES_DIRECTORY = '/srv/www/download.geany.org'
+
 MEZZANINE_SYNC_PAGES_DESTINATION_PATH = os.path.join(PROJECT_ROOT, 'page_content')
 
 
