@@ -464,6 +464,14 @@ MEZZANINE_SYNC_PAGES_DESTINATION_PATH = os.path.join(PROJECT_ROOT, 'page_content
 #########################
 # LOGGING               #
 #########################
+def skip_404_not_found(record):
+    # filter 404 Not Found log messages and ignore them to prevent sending lots of mails
+    # via AdminEmailHandler
+    if record.name == 'django.request' and getattr(record, 'status_code', 0) == 404:
+        return False
+    return True
+
+
 logging.captureWarnings(True)  # log warnings using the logging subsystem
 LOGGING = {
     'version': 1,
@@ -485,6 +493,10 @@ LOGGING = {
         'request_id': {
             '()': 'log_request_id.filters.RequestIDFilter'
         },
+        'skip_404_not_found': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': skip_404_not_found,
+        }
     },
     'handlers': {
         'console': {
@@ -496,7 +508,7 @@ LOGGING = {
         'mail_admins': {
             'level': 'WARN',
             'class': 'django.utils.log.AdminEmailHandler',
-            'filters': ['require_debug_false', 'request_id']
+            'filters': ['require_debug_false', 'request_id', 'skip_404_not_found']
         },
         'file': {
             'level': 'DEBUG',
