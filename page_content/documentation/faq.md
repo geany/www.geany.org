@@ -86,20 +86,48 @@ for remote files, so there is no need to disable this setting with Geany 0.16.
 
 ## How can I change the language of the user interface?
 
-On Windows: Download https://download.geany.org/contrib/geany_english.bat 
-and put it into the `bin` subdirectory in the folder where you have Geany installed, 
-next to Geany.exe. Then open the file, edit the line `set LANG=C` and replace C 
-with your the language code of your locale (e.g. 'nl for Dutch, 'pt_BR' for 
-'Portuguese Brazilian'). Save the file and execute it. It should start Geany 
-with the desired language assuming there is an exising translation. 
+On Windows: The easiest way is to change the Geany shortcut that was created
+during the installation. It is recommended to create a copy of the Geany
+shortcut for the desired UI language.
+
+For example, to force an English UI (`en`) right-click to select the
+Shortcut's Properties and in the `Target` field put:
+
+```
+  cmd.exe /c "set ^"LANG=en^" & start /D ^"C:\installed-path\Geany\bin\^" geany.exe"
+```
+
+Adjust the `C:\installed-path\Geany` according to your Geany installation.
+Take care to put the `^"` (carrot-quote) as shown. This is the way to escape
+the quotes-within-the-quotes. There's a space before `geany.exe`.
+
+Optionally, click on `Change Icon ...` and browse to the Geany installation
+folder, then to the Geany executable file: `bin\geany.exe`. Click on the
+"Magic Lamp" icon.
+
+Accept the Property changes; if Windows requires, confirm as Administrator.
+In general, this could be also done on user-level without need for
+Administrator rights.
+
+Alternatively, you may download https://download.geany.org/contrib/geany_english.bat
+and put it into the `bin` subdirectory in the folder where you have Geany installed,
+next to Geany.exe. Then open the file, edit the line `set LANG=C` and replace C
+with your the language code of your locale (e.g. 'nl for Dutch, 'pt_BR' for
+'Portuguese Brazilian'). Save the file and execute it. It should start Geany
+with the desired language assuming there is an existing translation.
 See also the [list of available translations][6].
 
 On non-Windows systems: Simply start Geany like this:
 
 `LANG=C geany`
 
-and of course, change "C" to your language code (see above) or set 
+and of course, change "C" to your language code (see above) or set
 your locale specific environment variables accordingly.
+
+If your system supports launcher shortcuts (for example, `.desktop` files),
+then Geany's shortcut can be updated (created a new one) to add the `LANG`
+setting as shown above. In case of `.desktop` files, this usually goes into
+`Exec` line.
 
 
 ## I get build errors after updating from Git, why?
