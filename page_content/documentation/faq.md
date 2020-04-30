@@ -99,7 +99,7 @@ Shortcut's Properties and in the `Target` field put:
 
 Adjust the `C:\installed-path\Geany` according to your Geany installation.
 Take care to put the `^"` (carrot-quote) as shown. This is the way to escape
-the quotes-within-the-quotes. There's a space before `geany.exe`.
+the quotes-within-the-quotes. There is a blank space before `geany.exe`.
 
 Optionally, click on `Change Icon ...` and browse to the Geany installation
 folder, then to the Geany executable file: `bin\geany.exe`. Click on the
@@ -127,7 +127,7 @@ your locale specific environment variables accordingly.
 If your system supports launcher shortcuts (for example, `.desktop` files),
 then Geany's shortcut can be updated (created a new one) to add the `LANG`
 setting as shown above. In case of `.desktop` files, this usually goes into
-`Exec` line.
+the `Exec` line.
 
 
 ## I get build errors after updating from Git, why?
