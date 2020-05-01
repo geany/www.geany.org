@@ -90,8 +90,8 @@ On Windows: The easiest way is to change the Geany shortcut that was created
 during the installation. It is recommended to create a copy of the Geany
 shortcut for the desired UI language.
 
-For example, to force an English UI (`en`) right-click to select the
-Shortcut's Properties and in the `Target` field put:
+To force English (`en`) UI language, for example, right-click on Geany shortcut
+to open the Shortcut Properties dialog and in the `Target` field put:
 
 ```
   cmd.exe /c "set ^"LANG=en^" & start /D ^"C:\installed-path\Geany\bin\^" geany.exe"
