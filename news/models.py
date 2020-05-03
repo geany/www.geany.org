@@ -85,7 +85,7 @@ class NewsPost(models.Model):
         verbose_name_plural = _('News')
 
     # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if not self.slug:
             self.slug = slugify(self.title)
         super(NewsPost, self).save(*args, **kwargs)

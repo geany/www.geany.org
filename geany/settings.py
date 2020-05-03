@@ -602,6 +602,12 @@ warnings.filterwarnings(
     category=FutureWarning,
     module='mezzanine.core.templatetags.mezzanine_tags',
     lineno=481)
+warnings.filterwarnings(
+    action='ignore',
+    message='^mezzanine_pagedown.filters.custom needs to ensure that any untrusted inputs.*',
+    category=FutureWarning,
+    module='mezzanine.core.templatetags.mezzanine_tags',
+    lineno=487)
 
 ##################
 # LOCAL SETTINGS #

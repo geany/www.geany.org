@@ -100,7 +100,7 @@ class Snippet(models.Model):
         return self.content_highlighted.splitlines()
 
     # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if not self.pk and not self.secret_id:
             self.secret_id = generate_secret_id()
         if not self.published:
@@ -112,7 +112,7 @@ class Snippet(models.Model):
         cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
 
     # ----------------------------------------------------------------------
-    def delete(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def delete(self, *args, **kwargs):  # pylint: disable=signature-differs
         super(Snippet, self).delete(*args, **kwargs)
         # invalidate cache
         cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])

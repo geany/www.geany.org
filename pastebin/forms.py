@@ -68,7 +68,7 @@ class SnippetForm(forms.ModelForm):
         return content
 
     # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         # Set parent snippet
         parent = kwargs.pop('parent', None)
         if parent:
