@@ -1,4 +1,4 @@
-Django<2.1
+Django<3.0,>=2.2
 babel
 mysqlclient
 django-compressor
@@ -6,7 +6,6 @@ django-extensions
 django-honeypot
 django-link-shortener
 django-log-request-id
-mezzanine-pagedown
 mezzanine-sync-pages
 packaging
 pygments
@@ -21,7 +20,11 @@ uwsgi
 django-debug-toolbar
 
 # Mezzanine from GIT
-# https://github.com/stephenmcd/mezzanine/issues/1899
-git+https://github.com/stephenmcd/filebrowser-safe.git
-git+https://github.com/stephenmcd/grappelli-safe.git
-git+https://github.com/eht16/mezzanine.git@issue1899_keyword_update_with_django2_0#egg=mezzanine
+# https://github.com/stephenmcd/mezzanine/pull/1956
+git+https://github.com/fermorltd/filebrowser-safe.git@2.2-compat#egg=filebrowser-safe
+git+https://github.com/fermorltd/grappelli-safe.git@2.2-compat#egg=grappelli-safe
+git+https://github.com/fermorltd/mezzanine.git@2.2-compat#egg=mezzanine
+
+# mezzanine-pagedown from GIT with Django >= 2.1 fix
+# https://github.com/akhayyat/mezzanine-pagedown/pull/1
+git+https://github.com/eht16/mezzanine-pagedown.git@django-2.1#egg=mezzanine-pagedown

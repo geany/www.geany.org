@@ -302,6 +302,7 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.contrib.messages",
     "django.contrib.redirects",
     "django.contrib.sessions",
     "django.contrib.sites",
@@ -564,6 +565,11 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
+        'django.utils.autoreload': {
+            'handlers': [],
+            'level': 'INFO',
+            'propagate': True,
+        },
         'MARKDOWN': {
             'handlers': [],
             'level': 'INFO',
@@ -595,7 +601,7 @@ warnings.filterwarnings(
     message='^mezzanine_pagedown.filters.custom needs to ensure that any untrusted inputs.*',
     category=FutureWarning,
     module='mezzanine.core.templatetags.mezzanine_tags',
-    lineno=488)
+    lineno=481)
 
 ##################
 # LOCAL SETTINGS #
