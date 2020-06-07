@@ -14,6 +14,14 @@ extra packages installed on your system.
 
 The code requires Python 3.5 or higher.
 
+All Python related dependencies are listed in `requirements.txt` and can
+be installed via `pip` (see below).
+Unfortunately, the last official release of the used CMS Mezzanine supports
+only Django up to 2.0. To use more recent versions of Django, the `requirements.txt`
+refers to a development branch of Mezzanine (and its dependencies
+filebrowser-safe and grappelli-safe) with support for Django 2.2.
+Ideally, a new official Mezzanine release will obsolete the need to
+depend on branches instead releases.
 
 Get the code
 ------------
