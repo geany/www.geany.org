@@ -30,8 +30,7 @@ RELEASE_TYPES = {
         'fallback_filename': 'geany-{version}.tar.gz'
     },
     RELEASE_TYPE_SOURCE_BZIP2: {
-        # ~'pattern': re.compile(r'^geany-([0-9\.\-]+).tar.bz2$'),
-        'pattern': re.compile(r'^gany-([0-9\.\-]+).tar.bz2$'),
+        'pattern': re.compile(r'^geany-([0-9\.\-]+).tar.bz2$'),
         'fallback_filename': 'geany-{version}.tar.bz2'
     },
     RELEASE_TYPE_WINDOWS: {
