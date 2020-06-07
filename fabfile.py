@@ -20,10 +20,9 @@ from fabric import task
 DJANGO_HOME = '/srv/django'
 PROJECT_DIRECTORY = join(DJANGO_HOME, 'www.geany.org')
 PROJECT_VENV_BIN = join(PROJECT_DIRECTORY, 'venv/bin')
-UWSGI_COMMAND = join(PROJECT_VENV_BIN, 'uwsgi')
-UWSGI_MASTER_FIFO = join(DJANGO_HOME, 'run/www.geany.org.fifo')
 PYTHON_COMMAND = join(PROJECT_VENV_BIN, 'python')
 MANAGE_PY = join(PROJECT_DIRECTORY, 'manage.py')
+SYSTEMD_SERVICE_NAME = 'geany.org.service'
 SUDO_USER = 'django'
 REMOTE_HOST = ['geany.org']
 
@@ -74,5 +73,5 @@ def deploy(connection):
     # clear the cache
     _sudo_django_manage_command(connection, 'clear_cache')
 
-    # trigger UWSGI chain reload
-    _sudo_in_project_directory(connection, 'echo c > {}'.format(UWSGI_MASTER_FIFO))
+    # restart UWSGI process
+    _sudo_in_project_directory(connection, 'systemctl restart {}'.format(SYSTEMD_SERVICE_NAME))
