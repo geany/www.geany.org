@@ -11,6 +11,7 @@ Geany supports a variety of many different filestypes. Here is (not necessarily 
   - Asciidoc
   - ASM
   - Batch
+  - BibTeX
   - C
   - C#
   - C++
@@ -36,18 +37,21 @@ Geany supports a variety of many different filestypes. Here is (not necessarily 
   - GLSL
   - Go
   - Graphviz
+  - Groovy
   - Haskell
   - Haxe
   - HTML
   - Java
   - Javascript
   - JSON
+  - Kotlin
   - LaTeX
   - Lisp
   - Lua
   - Make
   - Markdown
   - Matlab/Octave
+  - Nim
   - NSIS
   - Objective-C
   - Pascal
@@ -63,8 +67,10 @@ Geany supports a variety of many different filestypes. Here is (not necessarily 
   - Scala
   - Sh
   - SQL
+  - Swift
   - Tcl
   - Txt2tags
+  - TypeScript
   - Vala
   - Verilog
   - VHDL
