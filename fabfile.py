@@ -74,4 +74,4 @@ def deploy(connection):
     _sudo_django_manage_command(connection, 'clear_cache')
 
     # restart UWSGI process
-    _sudo_in_project_directory(connection, 'systemctl restart {}'.format(SYSTEMD_SERVICE_NAME))
+    _sudo_in_project_directory(connection, 'sudo systemctl restart {}'.format(SYSTEMD_SERVICE_NAME))
