@@ -86,7 +86,13 @@ for remote files, so there is no need to disable this setting with Geany 0.16.
 
 ## How can I change the language of the user interface?
 
-On Windows: The easiest way is to change the Geany shortcut that was created
+On Windows:
+
+The default way to use English instead of your system's locale is to deselect the "Language Files" (aka translations) option when running the Windows installer.
+
+In the case that you have already installed Geany, there are a few possible workarounds to consider:
+
+The easiest way is to change the Geany shortcut that was created
 during the installation. It is recommended to create a copy of the Geany
 shortcut for the desired UI language.
 
@@ -117,7 +123,9 @@ with your the language code of your locale (e.g. 'nl for Dutch, 'pt_BR' for
 with the desired language assuming there is an existing translation.
 See also the [list of available translations][6].
 
-On non-Windows systems: Simply start Geany like this:
+On non-Windows systems:
+
+Simply start Geany like this:
 
 `LANG=C geany`
 
