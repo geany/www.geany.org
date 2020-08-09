@@ -56,13 +56,6 @@ There is a tool for configuring color schemes, and a set of
 dark color schemes available can be found in the [Wiki][4].
 
 
-## The vertical scrollbar scrolls over the document and doesn't stop at the last line. What's wrong?
-
-For Geany 0.13 and 0.14, this is enabled by default and allows appending text with the
-last lines drawn at the top of the view.
-Since Geany 0.15, it is off by default and you can configure it in Geany's preferences dialog.
-
-
 ## How can I contribute to Geany?
 
 See [Contribute to Development][5].
@@ -83,8 +76,7 @@ such as Nautilus.
 To avoid slow responsiveness, it is recommended to disable checking files
 for changes to not query the file's modification time. To do so, open the
 preferences dialog and set `Disk check timeout` in the Files tab to 0 which
-will disable it at all. Since Geany 0.16 disk file changes are always disabled
-for remote files, so there is no need to disable this setting with Geany 0.16.
+will disable it at all.
 
 
 ## How can I change the language of the user interface?
@@ -149,15 +141,6 @@ It's possible it's a bug, but first try this:
 	./autogen.sh
 
 If there are still errors, contact the mailing list.
-
-
-## Since Geany 0.16, GTK/GLib symbol completion is broken, why?
-
-The symbol completion data for GTK/GLib symbols are just not in the default distribution anymore.
-Instead they can be downloaded separately besides other tag files.
-
-For details about this change and download information, see
-[GTK symbol completion data removed from Geany 0.16][7].
 
 
 ## How can I use `urxvt` or `konsole` as terminal application when executing files?
