@@ -11,6 +11,29 @@ of the core project developers to make it do so.
 And if really necessary, there is a Vim-mode plugin: https://plugins.geany.org/vimode.html
 
 
+## Geany does not display underscores anymore
+
+On some systems in combination with some fonts (e.g. "DejaVu Sans Mono" on Ubuntu but
+also others), Geany does not properly display underscore (`_`) as well as other
+characters which are drawn at the very top or the very bottom of the line.
+
+There are a couple of ways to work around the issue:
+
+  - try to choose another font
+  - change the line height via: `Tools` -> `Configuration Files` -> `filetypes.common`
+    and add or update the following section:
+
+		[styling]
+		line_height=1;1;
+
+    This will add a little extra space at the top (first value) and bottom (second value)
+    on each line (see https://www.geany.org/manual/dev/index.html for more details).
+
+
+Future versions of Geany (probably Geany 1.37) will fix the issue permanently.
+More details and current progress can be tracked in https://github.com/geany/geany/issues/2502.
+
+
 ## Can Geany show me multiple files at the same time?
 
 Geany provides a tabbed main editor window, but does not support
@@ -76,7 +99,7 @@ such as Nautilus.
 To avoid slow responsiveness, it is recommended to disable checking files
 for changes to not query the file's modification time. To do so, open the
 preferences dialog and set `Disk check timeout` in the Files tab to 0 which
-will disable it at all.
+will disable it.
 
 
 ## How can I change the language of the user interface?
