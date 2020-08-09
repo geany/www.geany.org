@@ -428,7 +428,7 @@ ADMIN_MENU_ORDER = (
     (_("Geany"), (
         "latest_version.LatestVersion",
     )),
-    (_("Users"), ("auth.User", "auth.Group",)))
+    (_("Users"), ("auth.User", "auth.Group",)))  # pylint: disable=hard-coded-auth-user
 
 # django-debug-toolbar
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
@@ -623,8 +623,8 @@ warnings.filterwarnings(
 local_settings_file_name = os.environ.get('LOCAL_SETTINGS_PY', 'local_settings.py')
 filename = os.path.join(PROJECT_APP_PATH, local_settings_file_name)  # pylint: disable=invalid-name
 if os.path.exists(filename):
-    import sys
     from importlib.util import module_from_spec, spec_from_file_location
+    import sys
     module_name = '{}.local_settings'.format(PROJECT_APP)  # pylint: disable=invalid-name
     spec = spec_from_file_location(module_name, filename)  # pylint: disable=invalid-name
     module = module_from_spec(spec)  # pylint: disable=invalid-name
