@@ -27,7 +27,7 @@ For reverse incremental search, start a forward search then use your key for `Fi
 
 ## Can I add custom filetypes by creating a filetypes.foo configuration file?
 
-You can add a filetypes.Name.conf file with Geany 0.19 and use an existing
+You can add a `filetypes.Name.conf` file and use an existing
 filetype's syntax highlighting and tag parsing.
 See https://www.geany.org/manual/index.html#custom-filetypes.
 
@@ -39,8 +39,10 @@ Please see the [HACKING][1] document.
 
 ## Can I extend Geany myself?
 
-Yes! You can write your own plugins in C. You can also write Lua scripts
-for Geany using the Lua plugin. See the [Plugins][2] page.
+Yes! You can write your own plugins in C, in Lua (using the [GeanyLua][10] plugin)
+or in Python (using the [GeanyPy][11] plugin).
+For more information about plugins, see the [Plugins][2] page.
+
 Also note the `Format->Send Selection` to command is useful for
 piping text through a script/external program.
 
@@ -74,8 +76,9 @@ This is even better because the remote filesystem will become available
 for all your applications transparently.
 
 If you have GVfs (Gnome >= 2.22) you may already have a Fuse mountpoint
-in `~/.gvfs/` which you can tell Geany to open remote files from, after
-mounting the connection from a Gnome program such as nautilus.
+in `~/.gvfs/` (or `/run/user/<uid>/gvfs`) which you can tell Geany to
+open remote files from, after mounting the connection from a Gnome program
+such as Nautilus.
 
 To avoid slow responsiveness, it is recommended to disable checking files
 for changes to not query the file's modification time. To do so, open the
@@ -101,9 +104,7 @@ shortcut for the desired UI language.
 To force English (`en`) UI language, for example, right-click on Geany shortcut
 to open the Shortcut Properties dialog and in the `Target` field put:
 
-```
-  cmd.exe /c "set ^"LANG=en^" & start /D ^"C:\installed-path\Geany\bin\^" geany.exe"
-```
+	cmd.exe /c "set ^"LANG=en^" & start /D ^"C:\installed-path\Geany\bin\^" geany.exe"
 
 Adjust the `C:\installed-path\Geany` according to your Geany installation.
 Take care to put the `^"` (carrot-quote) as shown. This is the way to escape
@@ -144,10 +145,8 @@ the `Exec` line.
 
 It's possible it's a bug, but first try this:
 
-```
 	make distclean
 	./autogen.sh
-```
 
 If there are still errors, contact the mailing list.
 
@@ -161,7 +160,7 @@ For details about this change and download information, see
 [GTK symbol completion data removed from Geany 0.16][7].
 
 
-## How can I use urxvt or konsole as terminal application when executing files?
+## How can I use `urxvt` or `konsole` as terminal application when executing files?
 
 Open the preferences tab, Tools tab and enter the following
 command in the field Terminal:
@@ -198,7 +197,7 @@ Please first have a look at our [comprehensive manual][3].
 If that doesn't answer your question, the quickest and best way is to ask on the [mailing list][9].
 
 
-[1]: /documentation/hacking/
+[1]: https://geany.org/manual/hacking.html#adding-a-filetype
 [2]: /support/plugins/
 [3]: /documentation/manual/
 [4]: https://wiki.geany.org/
@@ -207,4 +206,5 @@ If that doesn't answer your question, the quickest and best way is to ask on the
 [7]: /news/gtk-symbol-completion-data-removed-from-geany-016/
 [8]: https://www.geany.org/manual/index.html#indentation
 [9]: /support/mailing-lists/
-
+[10]: https://plugins.geany.org/geanylua/geanylua-index.html
+[11]: https://plugins.geany.org/geanypy.html
