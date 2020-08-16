@@ -59,13 +59,26 @@ class SnippetForm(forms.ModelForm):
         self.fields['author'].initial = self.request.session.get('author', '')
 
     # ----------------------------------------------------------------------
-    def clean_content(self):
-        content = self.cleaned_data.get('content')
-        if content:
+    def _clean_field(self, field_name):
+        value = self.cleaned_data.get(field_name)
+        if value:
             regex = Spamword.objects.get_regex()
-            if regex.findall(content.lower()):
+            if regex.findall(value.lower()):
                 raise forms.ValidationError('This snippet was identified as SPAM.')
-        return content
+
+        return value
+
+    # ----------------------------------------------------------------------
+    def clean_author(self):
+        return self._clean_field('author')
+
+    # ----------------------------------------------------------------------
+    def clean_content(self):
+        return self._clean_field('content')
+
+    # ----------------------------------------------------------------------
+    def clean_title(self):
+        return self._clean_field('title')
 
     # ----------------------------------------------------------------------
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
