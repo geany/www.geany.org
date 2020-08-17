@@ -20,12 +20,17 @@ from tempfile import TemporaryDirectory
 from time import time
 import re
 
-from babel import Locale
+from babel import Locale, UnknownLocaleError
 
 
 STATISTICS_REGEXP = re.compile(
     r'(?P<translated>\d+) translated messages?(, (?P<fuzzy>\d+) fuzzy translations?)?(, (?P<untranslated>\d+) untranslated messages?)?')  # noqa: E501 pylint: disable=line-too-long
 LAST_TRANSLATOR_REGEXP = re.compile(r'^"Last-Translator: (?P<name>[\w -]+)\s*<?.+')
+
+# fallback language names for locales not (yet) supported by Babel
+KNOWN_LANGUAGE_NAMES = {
+    'ie': 'Interlingue',
+}
 
 
 class TranslationStatistics:
@@ -202,8 +207,11 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def _read_language_name(self, locale):
-        locale = Locale.parse(locale)
-        return locale.get_display_name(locale='en')
+        try:
+            locale = Locale.parse(locale)
+            return locale.get_display_name(locale='en')
+        except UnknownLocaleError:
+            return KNOWN_LANGUAGE_NAMES.get(locale)
 
     # ----------------------------------------------------------------------
     def _update_message_catalog(self):
