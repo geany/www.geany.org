@@ -12,7 +12,7 @@ and uses Mezzanine (http://mezzanine.jupo.org/) for content management.
 As Django is based on Python, first of all you need Python and a couple of
 extra packages installed on your system.
 
-The code requires Python 3.5 or higher.
+The code requires Python 3.6 or higher.
 
 All Python related dependencies are listed in `requirements.txt` and can
 be installed via `pip` (see below).
