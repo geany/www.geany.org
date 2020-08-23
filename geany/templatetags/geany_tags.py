@@ -52,9 +52,9 @@ def do_evaluate(parser, token):  # pylint: disable=unused-argument
     """
     try:
         _, variable, _, target_var_name = token.split_contents()
-    except ValueError:
+    except ValueError as exc:
         raise template.TemplateSyntaxError(
-            '{!r} tag requires a single argument'.format(token.contents.split()[1]))
+            '{!r} tag requires a single argument'.format(token.contents.split()[1])) from exc
     return EvaluateNode(variable, target_var_name)
 
 

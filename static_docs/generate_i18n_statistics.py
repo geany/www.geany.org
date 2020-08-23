@@ -152,7 +152,7 @@ class TranslationStatisticsGenerator:
                 'Command: "{}" exited with code {}: {}'.format(
                     ' '.join(command),
                     exc.returncode,
-                    exc.output.decode('utf-8')))
+                    exc.output.decode('utf-8'))) from exc
 
     # ----------------------------------------------------------------------
     def _fetch_pot_stats(self):

@@ -124,12 +124,14 @@ class SnippetDetailView(View):
     def _fetch_snippet(self, snippet_id):
         try:
             snippet = Snippet.objects.get(secret_id=snippet_id)
-        except MultipleObjectsReturned:
+        except MultipleObjectsReturned as exc:
             raise SnippetNotFoundError(
-                _('Multiple snippets exist for this slug. This should never happen.'))
-        except ObjectDoesNotExist:
+                _('Multiple snippets exist for this slug. This should never happen.')
+            ) from exc
+        except ObjectDoesNotExist as exc:
             raise SnippetNotFoundError(
-                _('This snippet does not exist anymore. Probably its lifetime is expired.'))
+                _('This snippet does not exist anymore. Probably its lifetime is expired.')
+            ) from exc
         else:
             return snippet
 
