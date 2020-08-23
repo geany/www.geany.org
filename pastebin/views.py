@@ -62,7 +62,7 @@ class SnippetNewView(View):
     # ----------------------------------------------------------------------
     @method_decorator(check_honeypot)
     def dispatch(self, request, *args, **kwargs):
-        return super(SnippetNewView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     # ----------------------------------------------------------------------
     def get(self, request):
@@ -95,7 +95,7 @@ class SnippetDetailView(View):
     # ----------------------------------------------------------------------
     @method_decorator(check_honeypot)
     def dispatch(self, request, *args, **kwargs):
-        return super(SnippetDetailView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     # ----------------------------------------------------------------------
     def get(self, request, snippet_id):
@@ -139,7 +139,7 @@ class SnippetDetailRawView(SnippetDetailView):
 
     # ----------------------------------------------------------------------
     def get(self, request, snippet_id):
-        response = super(SnippetDetailRawView, self).get(request, snippet_id)
+        response = super().get(request, snippet_id)
         # set content type
         response['Content-Type'] = 'text/plain;charset=UTF-8'
         return response
@@ -178,7 +178,7 @@ class LatestSnippetsView(TemplateView):
     def get_context_data(self, **kwargs):
         snippet_list_ = _get_snippet_list()
 
-        context = super(LatestSnippetsView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['snippets_max'] = getattr(settings, 'MAX_SNIPPETS_PER_USER', 10)
         context['snippet_list'] = snippet_list_
         return context
@@ -189,7 +189,7 @@ class SnippetAPIView(View):
     # ----------------------------------------------------------------------
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super(SnippetAPIView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     # ----------------------------------------------------------------------
     def post(self, request):

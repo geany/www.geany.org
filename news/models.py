@@ -88,7 +88,7 @@ class NewsPost(models.Model):
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if not self.slug:
             self.slug = slugify(self.title)
-        super(NewsPost, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     # ----------------------------------------------------------------------
     def get_absolute_url(self):

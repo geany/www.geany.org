@@ -32,7 +32,7 @@ class LatestVersion(models.Model):
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         """Save but replace the existing row instead of adding a new one"""
         self.id = 1  # pylint: disable=invalid-name,attribute-defined-outside-init
-        super(LatestVersion, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     # ----------------------------------------------------------------------
     def delete(self, using=None, keep_parents=False):

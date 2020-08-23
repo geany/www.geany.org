@@ -107,13 +107,13 @@ class Snippet(models.Model):
             self.published = timezone.now()
 
         self.content_highlighted = self.content
-        super(Snippet, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         # invalidate cache
         cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
 
     # ----------------------------------------------------------------------
     def delete(self, *args, **kwargs):  # pylint: disable=signature-differs
-        super(Snippet, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
         # invalidate cache
         cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
 

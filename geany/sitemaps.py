@@ -43,7 +43,7 @@ class GeanyMainSitemap(DisplayableSitemap):
 
     # ----------------------------------------------------------------------
     def items(self):
-        items = super(GeanyMainSitemap, self).items()
+        items = super().items()
         additional_app_items = self._get_additional_app_items()
         items.extend(additional_app_items)
         return items
@@ -144,7 +144,7 @@ class StaticSitemap(sitemaps.Sitemap):
     # ----------------------------------------------------------------------
     def get_urls(self, page=1, site=None, protocol=None):
         # pass our site to the parent as we know better which site we are on
-        return super(StaticSitemap, self).get_urls(page, self._site, protocol)
+        return super().get_urls(page, self._site, protocol)
 
 
 class SitemapRegistry:

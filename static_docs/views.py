@@ -56,7 +56,7 @@ class StaticDocsView(TemplateView):
 
     # ----------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
-        super(StaticDocsView, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._file_contents = None
 
     # ----------------------------------------------------------------------
@@ -80,7 +80,7 @@ class ReleaseNotesView(StaticDocsView):
         version = kwargs.get('version', None)
         release = self._get_release_notes_for_version(releases, version=version)
 
-        context = super(ReleaseNotesView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['selected_release'] = release
         context['releases'] = releases
         return context
@@ -207,7 +207,7 @@ class ToDoView(StaticDocsView):
     # ----------------------------------------------------------------------
     def get_context_data(self, **kwargs):
         todo = self._get_todo()
-        context = super(ToDoView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['todo'] = todo
         return context
 
@@ -229,7 +229,7 @@ class I18NStatisticsView(TemplateView):
     # ----------------------------------------------------------------------
     def get_context_data(self, **kwargs):
         i18n_statistics = self._get_i18n_statistics()
-        context = super(I18NStatisticsView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['i18n_statistics'] = i18n_statistics
         context['generated_datetime'] = datetime.utcfromtimestamp(
             i18n_statistics['generated_timestamp'])
@@ -256,7 +256,7 @@ class ThemesView(StaticDocsView):
     # ----------------------------------------------------------------------
     def get_context_data(self, **kwargs):
         theme_index = self._get_theme_index()
-        context = super(ThemesView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['theme_index'] = theme_index
         return context
 

@@ -92,7 +92,7 @@ class SnippetForm(forms.ModelForm):
             timedelta(seconds=int(self.cleaned_data['expire_options']))
 
         # Save snippet in the db
-        super(SnippetForm, self).save(self, *args, **kwargs)
+        super().save(self, *args, **kwargs)
 
         # Add snippet to the user's session
         if not self.request.session.get('snippet_list', False):
