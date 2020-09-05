@@ -11,7 +11,15 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
-* None planned
+##### Geany e.V. General Assembly 2020
+Date: 27th September 2020 - 15:00 CEST
+Location: Remote (via Jitsi)
+Audience: association members
+Agenda:
+
+* Election of the association board
+* General report
+* Financial report
 
 #### Past meetings
 
