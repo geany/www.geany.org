@@ -17,6 +17,7 @@ from django.db import models
 
 class LatestVersion(models.Model):
 
+    name = models.CharField(max_length=50, unique=True)
     version = models.CharField(max_length=50, verbose_name='Latest Geany version')
     release_date = models.DateTimeField()
     github_link = models.CharField(
@@ -29,15 +30,9 @@ class LatestVersion(models.Model):
         verbose_name_plural = 'Latest Version'
 
     # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
-        """Save but replace the existing row instead of adding a new one"""
-        self.id = 1  # pylint: disable=invalid-name,attribute-defined-outside-init
-        super().save(*args, **kwargs)
-
-    # ----------------------------------------------------------------------
     def delete(self, using=None, keep_parents=False):
         """Never delete anything"""
 
     # ----------------------------------------------------------------------
     def __str__(self):
-        return 'Geany {}'.format(self.version)
+        return '{} {}'.format(self.name, self.version)

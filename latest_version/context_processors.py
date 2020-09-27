@@ -22,7 +22,13 @@ from latest_version.releases import ReleaseVersionsProvider
 # ----------------------------------------------------------------------
 @cache_function(CACHE_TIMEOUT_1HOUR, ignore_arguments=True)
 def latest_version(request):
-    geany_latest_version = LatestVersion.objects.get(id=1)
+    latest_versions = LatestVersion.objects.all()
+    latest_versions_by_name = {
+        latest_version.name: latest_version
+        for latest_version
+        in latest_versions}
+    geany_latest_version = latest_versions_by_name.get('Geany')
+    geany_plugins_latest_version = latest_versions_by_name.get('Geany-Plugins')
 
     # Geany
     release_versions_provider = ReleaseVersionsProvider(
@@ -32,10 +38,11 @@ def latest_version(request):
     # Geany-Plugins
     geany_plugins_release_versions_provider = ReleaseVersionsProvider(
         settings.LATEST_VERSION_PLUGINS_RELEASES_DIRECTORY,
-        fallback_version=geany_latest_version.version)
+        fallback_version=geany_plugins_latest_version.version)
     plugins_release_versions = geany_plugins_release_versions_provider.provide()
 
     return dict(
         geany_latest_version=geany_latest_version,
+        geany_plugins_latest_version=geany_plugins_latest_version,
         release_versions=release_versions,
         plugins_release_versions=plugins_release_versions)

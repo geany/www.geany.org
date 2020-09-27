@@ -22,6 +22,8 @@ Source (tar.bz2)  | [{{ plugins_release_versions.source_bzip2_version }}](https:
 Windows           | [{{ plugins_release_versions.windows_version }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version }}) | [{{ plugins_release_versions.windows_version }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
 Mac OSX           | (included in `{{ release_versions.macos_version }}` above) | - | -
 
+[Release notes for Geany-Plugins {{ geany_plugins_latest_version.version }}][7]
+
 For more details, see the [plugin page][5].
 
 
@@ -42,3 +44,4 @@ For older versions, please see https://download.geany.org/.
 [4]: /support/verify-gpg-signature/
 [5]: /support/plugins/
 [6]: https://download.geany.org/frlan-pubkey.txt
+[7]: https://raw.githubusercontent.com/geany/geany-plugins/{{ geany_plugins_latest_version.version }}/NEWS
