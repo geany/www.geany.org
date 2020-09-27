@@ -24,11 +24,18 @@ from latest_version.releases import ReleaseVersionsProvider
 def latest_version(request):
     geany_latest_version = LatestVersion.objects.get(id=1)
 
+    # Geany
     release_versions_provider = ReleaseVersionsProvider(
         settings.LATEST_VERSION_RELEASES_DIRECTORY,
         fallback_version=geany_latest_version.version)
     release_versions = release_versions_provider.provide()
+    # Geany-Plugins
+    geany_plugins_release_versions_provider = ReleaseVersionsProvider(
+        settings.LATEST_VERSION_PLUGINS_RELEASES_DIRECTORY,
+        fallback_version=geany_latest_version.version)
+    plugins_release_versions = geany_plugins_release_versions_provider.provide()
 
     return dict(
         geany_latest_version=geany_latest_version,
-        release_versions=release_versions)
+        release_versions=release_versions,
+        plugins_release_versions=plugins_release_versions)
