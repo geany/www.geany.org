@@ -16,6 +16,7 @@ from pathlib import Path
 import logging
 import re
 
+from django.conf import settings
 from packaging.version import parse as parse_version
 
 
@@ -25,21 +26,38 @@ RELEASE_TYPE_WINDOWS = 'windows_version'
 RELEASE_TYPE_MACOS = 'macos_version'
 
 RELEASE_TYPES = {
-    RELEASE_TYPE_SOURCE_GZIP: {
-        'pattern': re.compile(r'^geany-([0-9\.\-]+).tar.gz$'),
-        'fallback_filename': 'geany-{version}.tar.gz'
+    settings.LATEST_VERSION_RELEASES_DIRECTORY: {
+        RELEASE_TYPE_SOURCE_GZIP: {
+            'pattern': re.compile(r'^geany-([0-9\.\-]+).tar.gz$'),
+            'fallback_filename': 'geany-{version}.tar.gz'
+        },
+        RELEASE_TYPE_SOURCE_BZIP2: {
+            'pattern': re.compile(r'^geany-([0-9\.\-]+).tar.bz2$'),
+            'fallback_filename': 'geany-{version}.tar.bz2'
+        },
+        RELEASE_TYPE_WINDOWS: {
+            'pattern': re.compile(r'^geany-([0-9\.\-]+)_setup(-[0-9]+)?.exe$'),
+            'fallback_filename': 'geany-{version}_setup.exe'
+        },
+        RELEASE_TYPE_MACOS: {
+            'pattern': re.compile(r'^geany-([0-9\.\-]+)_osx(-[0-9]+)?.dmg$'),
+            'fallback_filename': 'geany-{version}_osx.dmg'
+        },
     },
-    RELEASE_TYPE_SOURCE_BZIP2: {
-        'pattern': re.compile(r'^geany-([0-9\.\-]+).tar.bz2$'),
-        'fallback_filename': 'geany-{version}.tar.bz2'
-    },
-    RELEASE_TYPE_WINDOWS: {
-        'pattern': re.compile(r'^geany-([0-9\.\-]+)_setup(-[0-9]+)?.exe$'),
-        'fallback_filename': 'geany-{version}_setup.exe'
-    },
-    RELEASE_TYPE_MACOS: {
-        'pattern': re.compile(r'^geany-([0-9\.\-]+)_osx(-[0-9]+)?.dmg$'),
-        'fallback_filename': 'geany-{version}_osx.dmg'
+
+    settings.LATEST_VERSION_PLUGINS_RELEASES_DIRECTORY: {
+        RELEASE_TYPE_SOURCE_GZIP: {
+            'pattern': re.compile(r'^geany-plugins-([0-9\.\-]+).tar.gz$'),
+            'fallback_filename': 'geany-plugins-{version}.tar.gz'
+        },
+        RELEASE_TYPE_SOURCE_BZIP2: {
+            'pattern': re.compile(r'^geany-plugins-([0-9\.\-]+).tar.bz2$'),
+            'fallback_filename': 'geany-plugins-{version}.tar.bz2'
+        },
+        RELEASE_TYPE_WINDOWS: {
+            'pattern': re.compile(r'^geany-plugins-([0-9\.\-]+)_setup(-[0-9]+)?.exe$'),
+            'fallback_filename': 'geany-plugins-{version}_setup.exe'
+        },
     },
 }
 
@@ -81,6 +99,9 @@ class ReleaseVersionsProvider:
             return
 
         path = Path(self._releases_directory)
+        if not path.exists():
+            return
+
         for entry in path.iterdir():
             relative_entry = entry.relative_to(self._releases_directory)
             filename = relative_entry.as_posix()
@@ -89,21 +110,19 @@ class ReleaseVersionsProvider:
     # ----------------------------------------------------------------------
     def _group_releases_by_type(self):
         self._release_files_by_version = dict()
-        for release_type in RELEASE_TYPES:
+        release_types = self._get_release_types()
+        for release_type in release_types:
             self._release_files_by_version[release_type] = list()
 
         for filename in self._release_files:
-            if RELEASE_TYPES[RELEASE_TYPE_SOURCE_GZIP]['pattern'].match(filename):
-                self._release_files_by_version[RELEASE_TYPE_SOURCE_GZIP].append(filename)
+            for release_type in release_types:
+                if release_types[release_type]['pattern'].match(filename):
+                    self._release_files_by_version[release_type].append(filename)
+                    break
 
-            elif RELEASE_TYPES[RELEASE_TYPE_SOURCE_BZIP2]['pattern'].match(filename):
-                self._release_files_by_version[RELEASE_TYPE_SOURCE_BZIP2].append(filename)
-
-            elif RELEASE_TYPES[RELEASE_TYPE_WINDOWS]['pattern'].match(filename):
-                self._release_files_by_version[RELEASE_TYPE_WINDOWS].append(filename)
-
-            elif RELEASE_TYPES[RELEASE_TYPE_MACOS]['pattern'].match(filename):
-                self._release_files_by_version[RELEASE_TYPE_MACOS].append(filename)
+    # ----------------------------------------------------------------------
+    def _get_release_types(self):
+        return RELEASE_TYPES.get(self._releases_directory, dict())
 
     # ----------------------------------------------------------------------
     def _factor_release_versions(self):
@@ -117,12 +136,13 @@ class ReleaseVersionsProvider:
     def _determine_latest_version(self, release_type):
         versions = self._release_files_by_version[release_type]
         sorted_versions = sorted(versions, key=parse_version)
+        release_types = self._get_release_types()
         try:
             latest_version = sorted_versions.pop()
             logger.debug(
                 'Latest version found for "{}": {}'.format(release_type, latest_version))
         except IndexError:
-            fallback_filename = RELEASE_TYPES[release_type]['fallback_filename']
+            fallback_filename = release_types[release_type]['fallback_filename']
             latest_version = fallback_filename.format(version=self._fallback_version)
             logger.debug(
                 'Latest version found for "{}": {} (fallback)'.format(
