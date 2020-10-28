@@ -1,6 +1,7 @@
 Django<3.0,>=2.2
 babel
 mysqlclient
+django-clearcache
 django-compressor
 django-extensions
 django-honeypot

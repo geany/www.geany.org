@@ -299,6 +299,7 @@ STATICFILES_FINDERS = (
 ################
 
 INSTALLED_APPS = (
+    "clearcache",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -424,6 +425,7 @@ ADMIN_MENU_ORDER = (
         "sites.Site",
         "redirects.Redirect",
         "conf.Setting",
+        (_("Clear Cache"), "clearcache_admin"),
     )),
     (_("Geany"), (
         "latest_version.LatestVersion",
