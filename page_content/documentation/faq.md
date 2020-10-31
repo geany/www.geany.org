@@ -30,8 +30,7 @@ There are a couple of ways to work around the issue:
     on each line (see https://www.geany.org/manual/dev/index.html for more details).
 
 
-Future versions of Geany (probably Geany 1.37) will fix the issue permanently.
-More details and current progress can be tracked in https://github.com/geany/geany/issues/2502.
+**This issue has been fixed in Geany 1.37.**
 
 
 ## Can Geany show me multiple files at the same time?
