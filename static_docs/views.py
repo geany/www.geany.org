@@ -24,7 +24,12 @@ from django.http import Http404
 from django.views.generic.base import TemplateView
 from mezzanine_pagedown.filters import plain as markdown_plain
 
-from geany.decorators import cache_function, CACHE_TIMEOUT_1HOUR, CACHE_TIMEOUT_24HOURS
+from geany.decorators import (
+    cache_function,
+    CACHE_KEY_STATIC_DOCS_RELEASE_NOTES,
+    CACHE_TIMEOUT_1HOUR,
+    CACHE_TIMEOUT_24HOURS,
+)
 from static_docs.github_client import GitHubApiClient
 
 
@@ -86,7 +91,7 @@ class ReleaseNotesView(StaticDocsView):
         return context
 
     # ----------------------------------------------------------------------
-    @cache_function(CACHE_TIMEOUT_24HOURS)
+    @cache_function(CACHE_TIMEOUT_24HOURS, key=CACHE_KEY_STATIC_DOCS_RELEASE_NOTES)
     def _get_release_notes(self):
         self._fetch_file_via_github_api('NEWS')
         return self._parse_news_file()

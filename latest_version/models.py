@@ -12,7 +12,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.core.cache import cache
 from django.db import models
+
+from geany.decorators import (
+    CACHE_KEY_LATEST_VERSION_LATEST_VERSION,
+    CACHE_KEY_STATIC_DOCS_RELEASE_NOTES,
+)
 
 
 class LatestVersion(models.Model):
@@ -32,6 +38,13 @@ class LatestVersion(models.Model):
     # ----------------------------------------------------------------------
     def delete(self, using=None, keep_parents=False):
         """Never delete anything"""
+
+    # ----------------------------------------------------------------------
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
+        super().save(*args, **kwargs)
+        # invalidate related cached data
+        cache.delete_many(
+            [CACHE_KEY_LATEST_VERSION_LATEST_VERSION, CACHE_KEY_STATIC_DOCS_RELEASE_NOTES])
 
     # ----------------------------------------------------------------------
     def __str__(self):

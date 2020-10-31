@@ -23,9 +23,12 @@ from django.core.cache import cache as _djcache
 CACHE_TIMEOUT_24HOURS = 3600 * 24
 CACHE_TIMEOUT_1HOUR = 3600
 
+CACHE_KEY_LATEST_VERSION_LATEST_VERSION = 'latest_version.latest_version'
+CACHE_KEY_STATIC_DOCS_RELEASE_NOTES = 'static_docs.release_notes'
+
 
 # ----------------------------------------------------------------------
-def cache_function(timeout=900, ignore_arguments=False):
+def cache_function(timeout=900, ignore_arguments=False, key=None):
     """
         Cache the result of a function call for the specified number of seconds,
         using Django's caching mechanism.
@@ -34,6 +37,9 @@ def cache_function(timeout=900, ignore_arguments=False):
         Note that the ordering of parameters is important. e.g.
         myFunction(x = 1, y = 2), myFunction(y = 2, x = 1), and myFunction(1,2)
         will each be cached separately.
+
+        If the keyword argument `key` is provided, automatic cache key generation is skipped
+        and the passed key is used instead (expected as string).
 
         Usage:
 
@@ -44,23 +50,25 @@ def cache_function(timeout=900, ignore_arguments=False):
     """
     def do_cache(function):
         def wrapped(*args, **kwargs):
-            key = '%s.%s' % ((function.__module__, function.__name__))
-            if args and not ignore_arguments:
-                cache_args = args
-                # don't include 'self' in arguments
-                arguments = inspect.getfullargspec(function)
-                if arguments and arguments.args[0] == 'self':
-                    cache_args = args[1:]
-                if cache_args:
-                    cache_args_repr = repr(cache_args).encode('utf-8')
-                    key = '%s.args%s' % (key, hexlify(cache_args_repr))
-            if kwargs and not ignore_arguments:
-                kwargs_repr = repr(kwargs).encode('utf-8')
-                key = '%s.kwargs%s' % (key, hexlify(kwargs_repr))
-            result = _djcache.get(key)
+            cache_key = key
+            if cache_key is None:
+                cache_key = '%s.%s' % ((function.__module__, function.__name__))
+                if args and not ignore_arguments:
+                    cache_args = args
+                    # don't include 'self' in arguments
+                    arguments = inspect.getfullargspec(function)
+                    if arguments and arguments.args[0] == 'self':
+                        cache_args = args[1:]
+                    if cache_args:
+                        cache_args_repr = repr(cache_args).encode('utf-8')
+                        cache_key = '%s.args%s' % (cache_key, hexlify(cache_args_repr))
+                if kwargs and not ignore_arguments:
+                    kwargs_repr = repr(kwargs).encode('utf-8')
+                    cache_key = '%s.kwargs%s' % (cache_key, hexlify(kwargs_repr))
+            result = _djcache.get(cache_key)
             if result is None:
                 result = function(*args, **kwargs)
-                _djcache.set(key, result, timeout)
+                _djcache.set(cache_key, result, timeout)
             return result
         return wrapped
     return do_cache

@@ -14,13 +14,17 @@
 
 from mezzanine.conf import settings
 
-from geany.decorators import cache_function, CACHE_TIMEOUT_1HOUR
+from geany.decorators import (
+    cache_function,
+    CACHE_KEY_LATEST_VERSION_LATEST_VERSION,
+    CACHE_TIMEOUT_1HOUR,
+)
 from latest_version.models import LatestVersion
 from latest_version.releases import ReleaseVersionsProvider
 
 
 # ----------------------------------------------------------------------
-@cache_function(CACHE_TIMEOUT_1HOUR, ignore_arguments=True)
+@cache_function(CACHE_TIMEOUT_1HOUR, key=CACHE_KEY_LATEST_VERSION_LATEST_VERSION)
 def latest_version(request):
     latest_versions = LatestVersion.objects.all()
     latest_versions_by_name = {
