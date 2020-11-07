@@ -15,8 +15,8 @@ More than financial support, the Geany project needs help with:
 
 If you want to donate money to the Geany project, it will be used to support further development of Geany, to pay running costs for hosting and domains and support presenting Geany on various [Open Source Conferences][5].
 
-Currently, there are two options to donate money: via bank transfer and Paypal.
-Bank transfer to the [Geany e.V.][8] account is the preferred way for donating money as the money is transferred directly without a third party involved and Paypal fees can be avoided.
+There are different options to donate, including bank transfer and Liberapay.
+Bank transfer to the [Geany e.V.][8] account is the preferred way for donating money as the money is transferred directly without a third party involved and additional fees can be avoided.
 
 Your options:
 
@@ -24,7 +24,8 @@ Your options:
     Account holder: Geany e.V.
     IBAN: DE94830944950003429687
     BIC: GENODEF1ETK
-  - [![Donate via Paypal][6] Donate via Paypal][7]
+  - [Donate via Liberapay][9]
+  - [Donate via Paypal][7]
 
 
   [1]: /contribute/translation/
@@ -32,6 +33,6 @@ Your options:
   [3]: /contribute/support/
   [4]: /contribute/development/
   [5]: /about/events/
-  [6]: /static/img/PayPal_mark_50x34.gif
-  [7]: /service/donate/
+  [7]: https://www.paypal.com/cgi-bin/webscr?item_name=Donation+to+Geany&cmd=_donations&lc=US&business=donate%40geany.org
   [8]: /association/
+  [9]: https://liberapay.com/Geany/donate
