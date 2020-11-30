@@ -156,8 +156,9 @@ this usually goes into the `Exec` line:
 
 	Exec=/bin/sh -c "LANGUAGE=en_IN /usr/bin/geany %F"
 
-As alternative, one can create a shell script (like in `~/.local/bin/geany`) to 
-override default geany binary. As example:
+As alternative, you can create a shell script in any directory in your `$PATH` to 
+override the default `geany` binary. As example, one can create a file at
+`~/.local/bin/geany` (remember to make it executable):
 
 	#!/bin/sh
 	export LANGUAGE=en_US
