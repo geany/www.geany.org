@@ -149,10 +149,20 @@ Simply start Geany like this:
 and of course, change "C" to your language code (see above) or set
 your locale specific environment variables accordingly.
 
-If your system supports launcher shortcuts (for example, `.desktop` files),
-then Geany's shortcut can be updated (created a new one) to add the `LANG`
-setting as shown above. In case of `.desktop` files, this usually goes into
-the `Exec` line.
+If your system supports launcher shortcuts then Geany's shortcut can be updated
+to add language setting. For example, in 
+[modern `.desktop` files](https://developer.gnome.org/desktop-entry-spec/#exec-variables),
+this usually goes into the `Exec` line:
+
+	Exec=/bin/sh -c "LANGUAGE=en_IN /usr/bin/geany %F"
+
+As alternative, you can create a shell script in any directory in your `$PATH` to 
+override the default `geany` binary. As example, one can create a file at
+`~/.local/bin/geany` (remember to make it executable):
+
+	#!/bin/sh
+	export LANGUAGE=en_US
+	exec /usr/bin/geany $@
 
 
 ## I get build errors after updating from Git, why?
