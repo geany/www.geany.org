@@ -3,6 +3,8 @@ Mailing Lists
 
 For announcements, general discussing, coordinating development and more, we use mailing lists (read about at [Wikipedia][1]).
 
+Available mailing lists:
+
 [TOC]
 
 *   _Note: You must subscribe to a list before you can send mail to it_
