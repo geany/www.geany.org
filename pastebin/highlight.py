@@ -19,7 +19,10 @@ from pygments.lexers import get_all_lexers, get_lexer_by_name
 from pygments.lexers.python import PythonLexer
 
 
-LEXER_LIST_ALL = sorted([(i[1][0], i[0]) for i in get_all_lexers()])
+LEXER_LIST_ALL = sorted([
+    (lexer[1][0], lexer[0])
+    for lexer in get_all_lexers()
+    if lexer[1]])
 LEXER_LIST = (
     ('nasm', 'Assembler'),
     ('bash', 'Bash'),
