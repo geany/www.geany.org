@@ -518,7 +518,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/srv/django/log/geany_web.log',
+            'filename': 'geany_web.log',
             'filters': ['request_id'],
             'formatter': 'verbose'
         },
