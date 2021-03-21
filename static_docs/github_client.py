@@ -72,8 +72,8 @@ class GitHubApiClient:
     # ----------------------------------------------------------------------
     def _factor_authorization_header(self):
         auth = '{}:x-oauth-basic'.format(self._auth_token)
-        auth = auth.encode('ascii')
-        basic_auth_value = 'Basic {}'.format(standard_b64encode(auth).decode())
+        auth_encoded = auth.encode('ascii')
+        basic_auth_value = 'Basic {}'.format(standard_b64encode(auth_encoded).decode())
         return {'Authorization': basic_auth_value}
 
     # ----------------------------------------------------------------------

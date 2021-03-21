@@ -140,6 +140,7 @@ ALLOWED_HOSTS = ('127.0.0.1',
                  'www.geany.org')
 INTERNAL_IPS = ("127.0.0.1", "10.0.44.3", "37.120.182.205", "2a03:4000:f:40f:99::205")
 
+SECRET_KEY = 'change-me'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
