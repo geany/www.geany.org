@@ -1,6 +1,10 @@
 Geany e.V. - the registered association for the Geany project
 =================================================
 
+**Contents**
+
+[TOC]
+
 ## About
 
 The association "Geany e.V." is registered in Stendal, Germany and is intended to represent the Geany project. The main goal is to provide a legal entity for the Geany project and to handle donated money.
@@ -75,13 +79,32 @@ The rules of order (Geschäftsordnung) are available at: [go.pdf](/media/uploads
 Unfortunately, currently the charter and rules of order documents are available only in German.
 
 
-## Contact
+## Imprint & Contact
 
-For any questions or requests, feel free to contact any or all of the board members.
+##### Represented by
 
-Enrico Tröger - enrico [dot] troeger [at] uvena.de
-Frank Lanitz - frank [at] lanitz [dot] info
-Silvio Knizek - silvio [dot] knizek [at] gmx [dot] de
+Geany e.V.
+c/o Enrico Tröger
+Vogelsanger Str. 169
+50823 Cologne
+Germany
+
+Email: association-board [at] geany [dot] org
+
+##### Board
+
+Enrico Tröger - chairman
+Frank Lanitz - treasurer
+Silvio Knizek - minutes secretary
+
+##### Association register entry
+
+Registering court: Amtsgericht Stendal (Germany)
+Registration number: 2477/16
+
+##### Contact
+
+For any questions or requests, feel free to contact the board members at association-board [at] geany [dot] org.
 
 For members communication, there is a mailing list at
 https://lists.geany.org/cgi-bin/mailman/listinfo/association-members.

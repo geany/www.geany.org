@@ -19,6 +19,7 @@ import os
 import warnings
 
 from django.utils.translation import ugettext_lazy as _
+from markdown.extensions.toc import TocExtension
 
 
 ######################
@@ -382,7 +383,9 @@ PAGEDOWN_MARKDOWN_EXTENSIONS = (
     # markdown extensions
     'nl2br',
     'tables',
-    'toc',
+    # create TOC entries only for heading level 2 to 4
+    # level 1 usually is the page header, we don't need levels deeper than 4
+    TocExtension(toc_depth='2-4'),
 )
 
 #########################
