@@ -1,6 +1,8 @@
 Frequently Asked Questions
 ====================
 
+[TOC]
+
 ## Can I make Geany behave like Emacs/Vim?
 
 As its default, Geany uses the standard GTK+ keybindings that most desktop users are
