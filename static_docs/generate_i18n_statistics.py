@@ -78,7 +78,6 @@ class TranslationStatisticsGenerator:
         self._source_tarball = source_tarball
         self._destination_path = destination_path
         self._target_filename = target_filename
-        self._temp_path = None
         self._source_path = None
         self._pot_stats = None
         self._message_catalogs = None
@@ -87,8 +86,13 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def generate(self):
+        with TemporaryDirectory() as temp_path:
+            self._generate(temp_path)
+
+    # ----------------------------------------------------------------------
+    def _generate(self, temp_path):
         self._create_destination_path_if_necessary()
-        self._extract_geany_source_tarball()
+        self._extract_geany_source_tarball(temp_path)
         self._update_pot_file()
         self._fetch_pot_stats()
         self._fetch_message_catalogs()
@@ -98,22 +102,20 @@ class TranslationStatisticsGenerator:
 
         self._factor_overall_statistics()
         self._write_overall_statistics()
-        self._remove_extracted_geany_source()
 
     # ----------------------------------------------------------------------
     def _create_destination_path_if_necessary(self):
         makedirs(self._destination_path, mode=0o755, exist_ok=True)
 
     # ----------------------------------------------------------------------
-    def _extract_geany_source_tarball(self):
-        self._temp_path = TemporaryDirectory()
-        self._source_path = join(self._temp_path.name, 'po')
+    def _extract_geany_source_tarball(self, temp_path):
+        self._source_path = join(temp_path, 'po')
 
         extract_command = [
             'tar',
             '--extract',
             '--strip-components', '1',
-            '--directory', self._temp_path.name,
+            '--directory', temp_path,
             '--file', self._source_tarball,
         ]
         self._execute_command(extract_command)
@@ -252,7 +254,3 @@ class TranslationStatisticsGenerator:
         output_filename = join(self._destination_path, self._target_filename)
         with open(output_filename, 'w') as output_file:
             dump(self._overall_statistics, output_file, cls=SimpleObjectToJSONEncoder)
-
-    # ----------------------------------------------------------------------
-    def _remove_extracted_geany_source(self):
-        self._temp_path.cleanup()
