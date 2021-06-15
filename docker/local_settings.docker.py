@@ -48,7 +48,6 @@ SERVER_EMAIL = 'root@localhost'
 DEFAULT_FROM_EMAIL = 'root@localhost'
 
 NIGHTLYBUILDS_BASE_DIR = os.path.join(MEDIA_ROOT, 'nightly_mirror')
-IRC_USER_LIST_FILE = '/data/irc_userlist'
 
 STATIC_DOCS_GEANY_SOURCE_TARBALL = '/tmp/geany_git.tar.gz'
 STATIC_DOCS_GEANY_DESTINATION_DIR = os.path.join(MEDIA_ROOT, 'i18n')

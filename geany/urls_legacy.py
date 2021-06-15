@@ -71,7 +71,8 @@ URL_MAPPING = {
     '/Support/Developers': '/contribute/development/',
     '/Support/Hacking': '/documentation/hacking/',
     '/Support/I18N': '/contribute/translation/',
-    '/Support/IRC': '/support/irc/',
+    '/Support/IRC': '/support/',
+    '/support/irc/': '/support/',
     '/Support/MailingList': '/support/mailing-lists/',
     '/Support/PluginWishlist/':
         'https://github.com/geany/geany-plugins/issues?q=is%%3Aissue+label%%3Afeature+',
