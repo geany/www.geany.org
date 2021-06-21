@@ -114,7 +114,6 @@ the settings to your needs:
     LATEST_VERSION_RELEASES_DIRECTORY = '/path/to/geany/releases/directory/or/just/empty'
     LATEST_VERSION_PLUGINS_RELEASES_DIRECTORY = '/path/to/plugins/releases/directory/or/just/empty'
     STATIC_DOCS_GEANY_SOURCE_TARBALL = '/path/to/geany/source/tarball/or/just/empty'
-    IRC_USER_LIST_FILE = '/path/to/irc/data/or/just/empty'
 
 
 ### Database settings

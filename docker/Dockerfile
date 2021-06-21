@@ -95,7 +95,7 @@ USER nobody:nogroup
 # copy in Python environment
 COPY --from=builder /venv /venv
 # copy helpers and configs
-COPY ./docker/entrypoint.sh ./docker/irc_userlist /data/
+COPY ./docker/entrypoint.sh /data/
 
 EXPOSE 8000
 CMD ["/bin/bash", "/data/entrypoint.sh"]

@@ -55,7 +55,6 @@ with non-static content.
   * documentation/todo.md: generated from Github upon request
   * download/nightly-builds.md: generated upon request
   * fake.md: dummy page for various non-CMS pages like pastebin.geany.org and more
-  * support/irc.md: dynamic content is added to the page upon request
 
 #### Supported Markdown Extensions
 

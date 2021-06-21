@@ -15,7 +15,6 @@
 import logging
 
 from django import template
-from django.conf import settings
 from mezzanine.template import Library
 
 
@@ -56,21 +55,6 @@ def do_evaluate(parser, token):  # pylint: disable=unused-argument
         raise template.TemplateSyntaxError(
             '{!r} tag requires a single argument'.format(token.contents.split()[1])) from exc
     return EvaluateNode(variable, target_var_name)
-
-
-# ----------------------------------------------------------------------
-@register.simple_tag
-def get_irc_userlist():
-    user_list = list()
-    try:
-        with open(settings.IRC_USER_LIST_FILE) as file_h:
-            user_list = file_h.readlines()
-    except IOError as exc:
-        logger.error('An error occurred reading IRC user list: {}'.format(exc), exc_info=True)
-
-    # remove newline characters
-    user_list = [username.strip() for username in user_list]
-    return sorted(user_list)
 
 
 # ----------------------------------------------------------------------
