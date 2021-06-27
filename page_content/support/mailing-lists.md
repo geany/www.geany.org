@@ -85,18 +85,6 @@ The archive of Geany-plugins-commits can be found at
 [https://lists.geany.org/pipermail/plugins-commits/](https://lists.geany.org/pipermail/plugins-commits/).
 
 
-### Geany-Plugins-Tracker
-
-Geany-Plugins-Tracker is a read only mailing list where all Sourceforge tracker notifications of
-the geany-plugins project are posted.
-
-To subscribe just send a blank mail to `plugins-commits-subscribe@lists.geany.org` or visit the
-[Geany-Plugins-Tracker list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/plugins-tracker).
-
-The archive of Geany-plugins-tracker can be found at
-[https://lists.geany.org/pipermail/plugins-tracker/](https://lists.geany.org/pipermail/plugins-tracker/).
-
-
 ### Github-Comments-Archive
 
 Github-Comments-Archive is a read only mailing list where all Github comments and other
