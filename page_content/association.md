@@ -15,7 +15,14 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
-None scheduled.
+##### Geany e.V. General Assembly 2021
+Date: 10th October 2021 - 15:00 CEST
+Location: Remote (via Jitsi)
+Audience: association members
+Agenda:
+
+* General report
+* Financial report
 
 #### Past meetings
 
