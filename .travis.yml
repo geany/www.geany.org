@@ -12,7 +12,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 os: linux
-dist: bionic
+dist: focal
 sudo: false
 language: python
 cache: pip
@@ -21,6 +21,7 @@ python:
   - "3.7"
   - "3.8"
   - "3.9"
+  - "3.10"
 
 install: pip install tox-travis
 script: tox
