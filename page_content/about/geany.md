@@ -35,10 +35,11 @@ The code is licensed under the terms of the [GNU General Public Licence][3].
 
 ## Contact
 
-To contact us for general questions or feedback, either use one of our [mailing lists][4] or the [Github issue tracker][5].
+To contact us for general questions or feedback, either use one of our [mailing lists][4], the Matrix channel [#geany:matrix.org][5] or the [Github issue tracker][5].
 
   [1]: /about/filetypes/
   [2]: /support/plugins/
   [3]: https://www.gnu.org/licenses/gpl-2.0.en.html
   [4]: /support/mailing-lists
-  [5]: https://github.com/geany/geany/issues
+  [5]: https://matrix.to/#/#geany:matrix.org
+  [6]: https://github.com/geany/geany/issues
