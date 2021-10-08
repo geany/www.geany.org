@@ -37,11 +37,7 @@ class GitHubApiClient:
     def get_file_contents(self, filename, user=None, repository=None):
         user = user or GITHUB_USER
         repository = repository or GITHUB_REPOSITORY
-        url = '{api_base_url}repos/{user}/{repository}/contents/{filename}'.format(
-            api_base_url=GITHUB_API_URL,
-            user=user,
-            repository=repository,
-            filename=filename)
+        url = f'{GITHUB_API_URL}repos/{user}/{repository}/contents/{filename}'
         response = self._request(url)
         response_json = response.json()
 
@@ -71,16 +67,17 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def _factor_authorization_header(self):
-        auth = '{}:x-oauth-basic'.format(self._auth_token)
+        auth = f'{self._auth_token}:x-oauth-basic'
         auth_encoded = auth.encode('ascii')
-        basic_auth_value = 'Basic {}'.format(standard_b64encode(auth_encoded).decode())
+        auth_base64 = standard_b64encode(auth_encoded).decode()
+        basic_auth_value = f'Basic {auth_base64}'
         return {'Authorization': basic_auth_value}
 
     # ----------------------------------------------------------------------
     def _log_rate_limit(self, response):
         rate_limit_remaining = int(response.headers['X-RateLimit-Remaining'])
         rate_limit = response.headers['X-RateLimit-Limit']
-        log_message = 'Github rate limits: {}/{}'.format(rate_limit_remaining, rate_limit)
+        log_message = f'Github rate limits: {rate_limit_remaining}/{rate_limit}'
         if rate_limit_remaining > 0:
             logger.info(log_message)
         else:
@@ -99,7 +96,8 @@ class GitHubApiClient:
         else:
             reason = response.reason
 
-        log_message = 'Requesting "{} {}" took {}s: {} ({})'.format(
+        log_message = 'Requesting "%s %s" took %0.3fs: %s (%s)'
+        log_message_args = (
             response.request.method,
             response.request.url,
             response.elapsed.total_seconds(),
@@ -107,11 +105,11 @@ class GitHubApiClient:
             reason)
 
         if response.status_code == 200:
-            logger.info(log_message)
+            logger.info(log_message, *log_message_args)
         elif response.status_code == 404 and status_404_expected:
-            logger.info(log_message)
+            logger.info(log_message, *log_message_args)
         else:
-            logger.warning(log_message)
+            logger.warning(log_message, *log_message_args)
 
     # ----------------------------------------------------------------------
     def _parse_fetch_file_response(self, response_json):
@@ -124,12 +122,7 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def get_release_by_tag(self, tag_name):
-        url = '{api_base_url}repos/{user}/{repository}/releases/tags/{tag_name}'.format(
-            api_base_url=GITHUB_API_URL,
-            user=GITHUB_USER,
-            repository=GITHUB_REPOSITORY,
-            tag_name=tag_name)
-
+        url = f'{GITHUB_API_URL}repos/{GITHUB_USER}/{GITHUB_REPOSITORY}/releases/tags/{tag_name}'
         response = self._request(url, status_404_expected=True)
         if response:
             response_json = response.json()
@@ -139,11 +132,7 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def get_latest_release(self):
-        url = '{api_base_url}repos/{user}/{repository}/releases/latest'.format(
-            api_base_url=GITHUB_API_URL,
-            user=GITHUB_USER,
-            repository=GITHUB_REPOSITORY)
-
+        url = f'{GITHUB_API_URL}repos/{GITHUB_USER}/{GITHUB_REPOSITORY}/releases/latest'
         response = self._request(url)
         response_json = response.json()
         return response_json

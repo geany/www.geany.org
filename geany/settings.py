@@ -257,7 +257,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 
 # Package/module name to import the root urlpatterns from for the project.
-ROOT_URLCONF = "%s.urls" % PROJECT_APP
+ROOT_URLCONF = f'{PROJECT_APP}.urls'
 
 TEMPLATES = [
     {
@@ -630,11 +630,12 @@ filename = os.path.join(PROJECT_APP_PATH, local_settings_file_name)  # pylint: d
 if os.path.exists(filename):
     from importlib.util import module_from_spec, spec_from_file_location
     import sys
-    module_name = '{}.local_settings'.format(PROJECT_APP)  # pylint: disable=invalid-name
+    module_name = f'{PROJECT_APP}.local_settings'  # pylint: disable=invalid-name
     spec = spec_from_file_location(module_name, filename)  # pylint: disable=invalid-name
     module = module_from_spec(spec)  # pylint: disable=invalid-name
     sys.modules[module_name] = module
-    exec(open(filename, 'rb').read())  # pylint: disable=exec-used
+    with open(filename, 'rb') as local_config:
+        exec(local_config.read())  # pylint: disable=exec-used
 
 
 ####################

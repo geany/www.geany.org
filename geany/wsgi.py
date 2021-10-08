@@ -14,7 +14,7 @@ from mezzanine.utils.conf import real_project_name
 
 
 os.environ.setdefault(
-    "DJANGO_SETTINGS_MODULE",
-    "{}.settings".format(real_project_name("geany")))
+    'DJANGO_SETTINGS_MODULE',
+    f'{real_project_name("geany")}.settings')
 
 application = get_wsgi_application()

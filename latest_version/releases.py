@@ -93,7 +93,7 @@ class ReleaseVersionsProvider:
 
     # ----------------------------------------------------------------------
     def _fetch_releases_from_filesystem(self):
-        self._release_files = list()
+        self._release_files = []
 
         if not self._releases_directory:
             return
@@ -109,10 +109,10 @@ class ReleaseVersionsProvider:
 
     # ----------------------------------------------------------------------
     def _group_releases_by_type(self):
-        self._release_files_by_version = dict()
+        self._release_files_by_version = {}
         release_types = self._get_release_types()
         for release_type in release_types:
-            self._release_files_by_version[release_type] = list()
+            self._release_files_by_version[release_type] = []
 
         for filename in self._release_files:
             for release_type in release_types:
@@ -122,7 +122,7 @@ class ReleaseVersionsProvider:
 
     # ----------------------------------------------------------------------
     def _get_release_types(self):
-        return RELEASE_TYPES.get(self._releases_directory, dict())
+        return RELEASE_TYPES.get(self._releases_directory, {})
 
     # ----------------------------------------------------------------------
     def _factor_release_versions(self):
@@ -139,14 +139,11 @@ class ReleaseVersionsProvider:
         release_types = self._get_release_types()
         try:
             latest_version = sorted_versions.pop()
-            logger.debug(
-                'Latest version found for "{}": {}'.format(release_type, latest_version))
+            logger.debug('Latest version found for "%s": %s', release_type, latest_version)
         except IndexError:
             fallback_filename = release_types[release_type]['fallback_filename']
             latest_version = fallback_filename.format(version=self._fallback_version)
             logger.debug(
-                'Latest version found for "{}": {} (fallback)'.format(
-                    release_type,
-                    latest_version))
+                'Latest version found for "%s": %s (fallback)', release_type, latest_version)
 
         return latest_version

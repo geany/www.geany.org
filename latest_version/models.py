@@ -48,4 +48,4 @@ class LatestVersion(models.Model):
 
     # ----------------------------------------------------------------------
     def __str__(self):
-        return '{} {}'.format(self.name, self.version)
+        return f'{self.name} {self.version}'

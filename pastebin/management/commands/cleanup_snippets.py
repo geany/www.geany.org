@@ -35,10 +35,10 @@ class Command(BaseCommand):
     # ----------------------------------------------------------------------
     def handle(self, *args, **options):
         deleteable_snippets = Snippet.objects.filter(expires__lte=timezone.now())
-        sys.stdout.write('{} snippets gets deleted:\n'.format(deleteable_snippets.count()))
+        sys.stdout.write(f'{deleteable_snippets.count()} snippets gets deleted:\n')
         for deleteable_snippet in deleteable_snippets:
             sys.stdout.write(
-                u'- {} ({})\n'.format(deleteable_snippet.secret_id, deleteable_snippet.expires))
+                f'- {deleteable_snippet.secret_id} ({deleteable_snippet.expires})\n')
         if options.get('dry_run'):
             sys.stdout.write('Dry run - Doing nothing! *crossingfingers*\n')
         else:

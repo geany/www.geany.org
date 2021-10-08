@@ -52,7 +52,7 @@ def cache_function(timeout=900, ignore_arguments=False, key=None):
         def wrapped(*args, **kwargs):
             cache_key = key
             if cache_key is None:
-                cache_key = '%s.%s' % ((function.__module__, function.__name__))
+                cache_key = f'{function.__module__}.{function.__name__}'
                 if args and not ignore_arguments:
                     cache_args = args
                     # don't include 'self' in arguments
@@ -61,10 +61,10 @@ def cache_function(timeout=900, ignore_arguments=False, key=None):
                         cache_args = args[1:]
                     if cache_args:
                         cache_args_repr = repr(cache_args).encode('utf-8')
-                        cache_key = '%s.args%s' % (cache_key, hexlify(cache_args_repr))
+                        cache_key = f'{cache_key}.args{hexlify(cache_args_repr)}'
                 if kwargs and not ignore_arguments:
                     kwargs_repr = repr(kwargs).encode('utf-8')
-                    cache_key = '%s.kwargs%s' % (cache_key, hexlify(kwargs_repr))
+                    cache_key = f'{cache_key}.kwargs{hexlify(kwargs_repr)}'
             result = _djcache.get(cache_key)
             if result is None:
                 result = function(*args, **kwargs)

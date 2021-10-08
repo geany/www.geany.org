@@ -189,13 +189,13 @@ def _add_url_mappings(mapping, urlpatterns_):
             old_url = old_url[1:]
 
         url_pattern = url(
-            r'^{}$'.format(old_url),
+            fr'^{old_url}$',
             RedirectView.as_view(url=new_url, permanent=True))
         urlpatterns_.append(url_pattern)
         # add pattern variant with trailing slash
         if old_url[-1] != '/':
             url_pattern = url(
-                r'^{}/$'.format(old_url),
+                fr'^{old_url}/$',
                 RedirectView.as_view(url=new_url, permanent=True))
             urlpatterns_.append(url_pattern)
 

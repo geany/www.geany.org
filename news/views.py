@@ -59,7 +59,7 @@ class NewsDetailView(NewsPostPublishedMixin, View):
         try:
             newspost = NewsPost.objects.get(slug=newspost_slug)
         except NewsPost.DoesNotExist:
-            error_message = 'News post item for "{}" could not be found'.format(newspost_slug)
+            error_message = f'News post item for "{newspost_slug}" could not be found'
             result = dict(error=error_message)
         else:
             # adapt to dict

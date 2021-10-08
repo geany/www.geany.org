@@ -53,7 +53,7 @@ class ReleaseDto:
 
     # ----------------------------------------------------------------------
     def __repr__(self):
-        return 'Geany %s (%s)' % (self.version, self.release_date)
+        return f'Geany {self.version} ({self.release_date})'
 
 
 class StaticDocsView(TemplateView):
@@ -98,7 +98,7 @@ class ReleaseNotesView(StaticDocsView):
 
     # ----------------------------------------------------------------------
     def _parse_news_file(self):
-        releases = list()
+        releases = []
         current_release = None
         current_release_notes = None
         for line in self._file_contents.splitlines():
@@ -116,13 +116,13 @@ class ReleaseNotesView(StaticDocsView):
                 current_release.version = version
                 current_release.release_date = date
                 releases.append(current_release)
-                current_release_notes = list()
+                current_release_notes = []
             else:
                 line = line.lstrip()  # remove any indentation
                 if line and not line.startswith('*'):
                     # we got a section: make it bold and add an additional new line
                     # to make Markdown recognise the following lines as list
-                    current_release_notes.append('**{}**\n'.format(line))
+                    current_release_notes.append(f'**{line}**\n')
                 else:
                     current_release_notes.append(line)
 
@@ -197,7 +197,7 @@ class ReleaseNotesView(StaticDocsView):
     # ----------------------------------------------------------------------
     def _convert_version_to_tag_name(self, version):
         if version.count('.') == 1:
-            return '{}.0'.format(version)
+            return f'{version}.0'
 
         return version
 
@@ -247,7 +247,7 @@ class I18NStatisticsView(TemplateView):
         filename = os.path.join(
             settings.STATIC_DOCS_GEANY_DESTINATION_DIR,
             settings.STATIC_DOCS_GEANY_I18N_STATISTICS_FILENAME)
-        with open(filename) as input_file:
+        with open(filename, encoding='utf-8') as input_file:
             return json.load(input_file)
 
 
@@ -284,7 +284,7 @@ class ThemesView(StaticDocsView):
 
         # theme index has been changed remotely?
         if theme_index_md5_hash != cached_theme_index_md5_hash or theme_index is None:
-            logger.debug('Refresh theme index from Github (MD5: {})'.format(theme_index_md5_hash))
+            logger.debug('Refresh theme index from Github (MD5: %s)', theme_index_md5_hash)
             # query whole theme index
             theme_index = self._query_parse_themes_index()
             # cache it for later

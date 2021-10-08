@@ -22,6 +22,6 @@ class Command(BaseCommand):
 
     # ----------------------------------------------------------------------
     def handle(self, *args, **options):
-        with open('pastebin/static/css/pygments.css', 'w') as css_file:
+        with open('pastebin/static/css/pygments.css', 'w', encoding='utf-8') as css_file:
             # You can change style and the html class here:
             css_file.write(HtmlFormatter(style='colorful').get_style_defs('.highlight'))

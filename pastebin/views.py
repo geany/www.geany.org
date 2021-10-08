@@ -52,7 +52,7 @@ def _get_snippet_list(no_content=False):
         snippet_list = list(queryset[:max_snippets])
         cache.set(cache_key, snippet_list, CACHE_TIMEOUT_24HOURS)
     except ValueError:
-        snippet_list = list()
+        snippet_list = []
     return snippet_list
 
 
@@ -203,7 +203,7 @@ class SnippetAPIView(View):
 
         site = self._get_site(request)
         absolute_url = snippet.get_absolute_url()
-        result = 'https://{}{}'.format(site.domain, absolute_url)
+        result = f'https://{site.domain}{absolute_url}'
         return HttpResponse(result, content_type='text/plain')
 
     # ----------------------------------------------------------------------

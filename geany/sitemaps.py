@@ -95,7 +95,7 @@ class StaticSitemap(sitemaps.Sitemap):
     def __init__(self, domain, patterns, exclude_views=None):
         self._domain = domain
         self._patterns = patterns
-        self._exclude_views = exclude_views or list()
+        self._exclude_views = exclude_views or []
         self._site = None
         self._url_mapping = {}
         self._get_site()
@@ -131,7 +131,7 @@ class StaticSitemap(sitemaps.Sitemap):
 
     # ----------------------------------------------------------------------
     def get_dynamic_items(self):
-        return list()
+        return []
 
     # ----------------------------------------------------------------------
     def changefreq(self, obj):  # pylint: disable=unused-argument
@@ -151,7 +151,7 @@ class SitemapRegistry:
 
     # ----------------------------------------------------------------------
     def __init__(self):
-        self._sitemap_generators = list()
+        self._sitemap_generators = []
         self._static_items = None
         self._site = None
 
@@ -179,7 +179,7 @@ class SitemapRegistry:
 
     # ----------------------------------------------------------------------
     def _get_items(self, item_generator_name):
-        items = list()
+        items = []
         for generator_class, url_patterns, site_domain, exclude_views in self._sitemap_generators:
             site_domain = self._get_site_domain_or_default(site_domain)
             generator = generator_class(

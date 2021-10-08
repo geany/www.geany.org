@@ -42,7 +42,7 @@ class NewsPostAdmin(admin.ModelAdmin):
         for newspost in queryset:
             self._toggle_newspost_published_status(newspost)
             rows_updated += 1
-        self.message_user(request, "{} News posts were successfully changed.".format(rows_updated))
+        self.message_user(request, f'{rows_updated} News posts were successfully changed.')
 
     # ----------------------------------------------------------------------
     def _toggle_newspost_published_status(self, newspost):
@@ -52,7 +52,7 @@ class NewsPostAdmin(admin.ModelAdmin):
             newspost.status = CONTENT_STATUS_PUBLISHED
         newspost.save()
 
-    _toggle_many_published.short_description = "Toggle the published status of selected News posts"
+    _toggle_many_published.short_description = 'Toggle the published status of selected News posts'
 
 
 admin.site.register(NewsPost, NewsPostAdmin)

@@ -134,7 +134,7 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def _factor_pot_filename(self):
-        return join(self._destination_path, '{}.pot'.format(self._domain))
+        return join(self._destination_path, f'{self._domain}.pot')
 
     # ----------------------------------------------------------------------
     def _execute_command(self, command):
@@ -150,11 +150,11 @@ class TranslationStatisticsGenerator:
             output_utf8 = output.decode('utf-8')
             return output_utf8
         except CalledProcessError as exc:
+            command_line = ' '.join(command)
+            error_message = exc.output.decode('utf-8')
             raise ValueError(
-                'Command: "{}" exited with code {}: {}'.format(
-                    ' '.join(command),
-                    exc.returncode,
-                    exc.output.decode('utf-8'))) from exc
+                f'Command: "{command_line}" exited with code {exc.returncode}: {error_message}'
+            ) from exc
 
     # ----------------------------------------------------------------------
     def _fetch_pot_stats(self):
@@ -172,7 +172,7 @@ class TranslationStatisticsGenerator:
             fuzzy = match.group('fuzzy')
             untranslated = match.group('untranslated')
         else:
-            raise ValueError('Unable to parse msgfmt output: {}'.format(output))
+            raise ValueError(f'Unable to parse msgfmt output: {output}')
 
         return TranslationStatistics(
             translated=int(translated) if translated is not None else 0,
@@ -181,7 +181,7 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def _fetch_message_catalogs(self):
-        self._message_catalogs = list()
+        self._message_catalogs = []
         for po_filename in listdir(self._source_path):
             basename, extension = splitext(po_filename)
             if extension == '.po':
@@ -198,7 +198,7 @@ class TranslationStatisticsGenerator:
     # ----------------------------------------------------------------------
     def _read_last_translator(self, filename):
         filename = join(self._source_path, filename)
-        with open(filename) as file_:
+        with open(filename, encoding='utf-8') as file_:
             for line in file_:
                 if line.startswith('"Last-Translator:'):
                     match = LAST_TRANSLATOR_REGEXP.match(line)
@@ -252,5 +252,5 @@ class TranslationStatisticsGenerator:
     # ----------------------------------------------------------------------
     def _write_overall_statistics(self):
         output_filename = join(self._destination_path, self._target_filename)
-        with open(output_filename, 'w') as output_file:
+        with open(output_filename, 'w', encoding='utf-8') as output_file:
             dump(self._overall_statistics, output_file, cls=SimpleObjectToJSONEncoder)

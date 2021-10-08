@@ -38,7 +38,7 @@ class EvaluateNode(template.Node):
             rendered_content = content_template.render(context)
             context[self._target_var_name] = rendered_content
         except (template.VariableDoesNotExist, template.TemplateSyntaxError) as exc:
-            return 'Error rendering: {}'.format(exc)
+            return f'Error rendering: {exc}'
 
         return ''
 
@@ -52,8 +52,9 @@ def do_evaluate(parser, token):  # pylint: disable=unused-argument
     try:
         _, variable, _, target_var_name = token.split_contents()
     except ValueError as exc:
+        token_name = token.contents.split()[1]
         raise template.TemplateSyntaxError(
-            '{!r} tag requires a single argument'.format(token.contents.split()[1])) from exc
+            f'{token_name!r} tag requires a single argument') from exc
     return EvaluateNode(variable, target_var_name)
 
 
@@ -63,6 +64,6 @@ def add_css(field, css):
     # read existing CSS classes
     css_classes = field.field.widget.attrs.get('class', '')
     # add new ones
-    css_classes = '{} {}'.format(css_classes, css)
+    css_classes = f'{css_classes} {css}'
     # render the widget
     return field.as_widget(attrs={'class': css_classes})

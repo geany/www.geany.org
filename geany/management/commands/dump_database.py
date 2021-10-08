@@ -47,7 +47,7 @@ class Command(BaseCommand):
     # ----------------------------------------------------------------------
     def _remove_sensitive_information_from_dump(self):
         # remove potential sensitive information
-        with open('database.json') as data_input:
+        with open('database.json', encoding='utf-8') as data_input:
             data = load(data_input)
             for record in data:
                 model = record['model']
@@ -82,7 +82,7 @@ class Command(BaseCommand):
             data.append(user)
 
         # write data back to the database file
-        with open('database.json', 'w') as output:
+        with open('database.json', 'w', encoding='utf-8') as output:
             dump(data, output, indent=2)
 
     # ----------------------------------------------------------------------
@@ -116,10 +116,10 @@ class Command(BaseCommand):
 
         # merge the nightly build dump files
         filenames = (database_nightlybuilds_filename, database_nightlybuild_targets_filename)
-        records = list()
-        with open('database_nightlybuilds.json', 'w') as output:
+        records = []
+        with open('database_nightlybuilds.json', 'w', encoding='utf-8') as output:
             for filename in filenames:
-                with open(filename) as infile:
+                with open(filename, encoding='utf-8') as infile:
                     data = load(infile)
                     records.extend(data)
 

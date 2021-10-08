@@ -96,7 +96,7 @@ class CreateSnippetApiController:
         additional_fields = provided_fields.difference(self.valid_fields)
         if additional_fields:
             raise SnippetValidationError(
-                'Invalid fields provided (%s)' % ','.join(additional_fields))
+                f'Invalid fields provided ({",".join(additional_fields)})')
 
     # ----------------------------------------------------------------------
     def _validate_against_snippet_form(self):
@@ -109,7 +109,7 @@ class CreateSnippetApiController:
         # validate
         if not snippet_form.is_valid():
             errors = '\n'.join(
-                ['%s: %s' % (k, v.as_text()) for k, v in snippet_form.errors.items()])
+                [f'{k}: {v.as_text()}' for k, v in snippet_form.errors.items()])
             raise SnippetValidationError(errors)
         self._snippet_form = snippet_form
 

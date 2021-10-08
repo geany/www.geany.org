@@ -83,13 +83,13 @@ class Snippet(models.Model):
 
         # show a fuzzy but useful approximation of the time delta
         if delta.days:
-            return '%d days ago' % (delta.days)
+            return f'{delta.days} days ago'
         elif delta_hours:
-            return '%d hours ago' % (delta_hours)
+            return f'{delta_hours} hours ago'
         elif delta_minutes:
-            return '%d minutes ago' % (delta_minutes)
+            return f'{delta_minutes} minutes ago'
         else:
-            return '%d seconds ago' % (delta.seconds)
+            return f'{delta.seconds} seconds ago'
 
     # ----------------------------------------------------------------------
     def get_linecount(self):
@@ -123,7 +123,7 @@ class Snippet(models.Model):
 
     # ----------------------------------------------------------------------
     def __str__(self):
-        return '{}'.format(self.secret_id)
+        return f'{self.secret_id}'
 
 
 class SpamwordManager(models.Manager):
@@ -141,4 +141,4 @@ class Spamword(models.Model):
 
     # ----------------------------------------------------------------------
     def __str__(self):
-        return '{}'.format(self.word)
+        return f'{self.word}'

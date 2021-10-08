@@ -36,7 +36,7 @@ class NightlyBuildTarget(models.Model):
 
     # ----------------------------------------------------------------------
     def __str__(self):
-        return '{} {}'.format(self.name, self.arch)
+        return f'{self.name} {self.arch}'
 
 
 class NightlyBuild(models.Model):
@@ -71,4 +71,4 @@ class NightlyBuild(models.Model):
 
     # ----------------------------------------------------------------------
     def __str__(self):
-        return '{} {}'.format(self.build_date, self.nightly_build_target)
+        return f'{self.build_date} {self.nightly_build_target}'
