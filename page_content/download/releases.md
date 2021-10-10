@@ -7,7 +7,7 @@ Source (tar.bz2)  | [{{ release_versions.source_bzip2_version }}](https://downlo
 Windows 64bit           | [{{ release_versions.windows_version }}](https://download.geany.org/{{ release_versions.windows_version }}) | [{{ release_versions.windows_version }}.sig](https://download.geany.org/{{ release_versions.windows_version }}.sig) ([Instructions][4]) | [eht16-pubkey.txt][2]
 Mac OSX           | [{{ release_versions.macos_version }}](https://download.geany.org/{{ release_versions.macos_version }}) | - | -
 
-For Windows 32bit, you can use version is 1.37.1 or earlier, see [Older versions]()
+For Windows 32bit, you can use version is 1.37.1 or earlier, see [Older versions](https://github.com/VictorelPetrovich/www.geany.org/blob/VictorelPetrovich-Releases-win32-note/page_content/download/releases.md#older-versions)
 
 [Release notes for Geany {{ geany_latest_version.version }}][3]
 
