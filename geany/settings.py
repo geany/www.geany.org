@@ -381,6 +381,7 @@ PAGEDOWN_MARKDOWN_EXTENSIONS = (
     'pymdownx.tasklist',
     'pymdownx.superfences',
     # markdown extensions
+    'footnotes',
     'nl2br',
     'tables',
     # create TOC entries only for heading level 2 to 4
