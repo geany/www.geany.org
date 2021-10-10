@@ -1,9 +1,9 @@
 Verifying GPG signatures of Geany and Geany-Plugins releases
 ==========
 
-You can use the `gpg` utility. On GNU/Linux distributions, if you don't have it, you can get it with `sudo apt install gpg`. On other OS-es, see https://gnupg.org/download/index.html and https://gnupg.org/download/integrity_check.html. 
+You can use the `gpg` utility. On GNU/Linux distributions, if you don't have it, you can get it with `sudo apt install gpg`. On other other operating systems, see https://gnupg.org/download/index.html and https://gnupg.org/download/integrity_check.html. 
 
-Here is how to use `gpg` on Linux and related: 
+#### Here is how to use `gpg` on Linux-like distributions: 
 
 First, you need to import the public GPG key used to sign the packages. You can download the used public key from: https://download.geany.org/colombanw-pubkey.txt
 
