@@ -1,7 +1,7 @@
 Supported Filetypes
 ==========
 
-Geany supports a variety of many different filestypes. Here is (not necessarily complete) list:
+Geany supports a variety of many different filestypes. Here is a (not necessarily complete) list:
 
   - Abaqus
   - Abc
@@ -44,6 +44,7 @@ Geany supports a variety of many different filestypes. Here is (not necessarily 
   - Java
   - Javascript
   - JSON
+  - Julia
   - Kotlin
   - LaTeX
   - Lisp
@@ -51,6 +52,7 @@ Geany supports a variety of many different filestypes. Here is (not necessarily 
   - Make
   - Markdown
   - Matlab/Octave
+  - Meson
   - Nim
   - NSIS
   - Objective-C
@@ -66,6 +68,7 @@ Geany supports a variety of many different filestypes. Here is (not necessarily 
   - Rust
   - Scala
   - Sh
+  - Smalltalk
   - SQL
   - Swift
   - Tcl
