@@ -24,6 +24,7 @@ RELEASE_TYPE_SOURCE_GZIP = 'source_gzip_version'
 RELEASE_TYPE_SOURCE_BZIP2 = 'source_bzip2_version'
 RELEASE_TYPE_WINDOWS = 'windows_version'
 RELEASE_TYPE_MACOS = 'macos_version'
+RELEASE_TYPE_MACOS_ARM64 = 'macos_version_arm64'
 
 RELEASE_TYPES = {
     settings.LATEST_VERSION_RELEASES_DIRECTORY: {
@@ -42,6 +43,10 @@ RELEASE_TYPES = {
         RELEASE_TYPE_MACOS: {
             'pattern': re.compile(r'^geany-([0-9\.\-]+)_osx(-[0-9]+)?.dmg$'),
             'fallback_filename': 'geany-{version}_osx.dmg'
+        },
+        RELEASE_TYPE_MACOS_ARM64: {
+            'pattern': re.compile(r'^geany-([0-9\.\-]+)_osx_arm64(-[0-9]+)?.dmg$'),
+            'fallback_filename': 'geany-{version}_osx_arm64.dmg'
         },
     },
 
@@ -71,6 +76,7 @@ class ReleaseVersions:
     source_bzip2_version = None
     windows_version = None
     macos_version = None
+    macos_version_arm64 = None
 
 
 class ReleaseVersionsProvider:
