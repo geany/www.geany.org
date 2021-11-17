@@ -18,7 +18,7 @@ Geany is a small and lightweight Integrated Development Environment. It was deve
   -  Simple project management
   -  Plugin interface (see [Plugins][2])
 
-Geany is known to run under Linux, FreeBSD, NetBSD, OpenBSD, MacOS X, AIX v5.3, Solaris Express and Windows. More generally, it should run on every platform, which is supported by the GTK libraries. Only the Windows port of Geany is missing some features.
+Geany is known to run under Linux, FreeBSD, NetBSD, OpenBSD, macOS, AIX v5.3, Solaris Express and Windows. More generally, it should run on every platform, which is supported by the GTK libraries. Only the Windows port of Geany is missing some features.
 
 The code is licensed under the terms of the [GNU General Public Licence][3].
 
@@ -30,7 +30,7 @@ The code is licensed under the terms of the [GNU General Public Licence][3].
   - Enrico Tröger (developer)
   - Frank Lanitz (translation maintainer)
   - Lex Trotman (regular contributor, support guru)
-  - Jiří Techet (regular contributor, MacOS expert)
+  - Jiří Techet (regular contributor, macOS expert)
   - and many other contributors, translators and patch writers
 
 ## Contact
