@@ -152,13 +152,13 @@ and of course, change "C" to your language code (see above) or set
 your locale specific environment variables accordingly.
 
 If your system supports launcher shortcuts then Geany's shortcut can be updated
-to add language setting. For example, in 
+to add language setting. For example, in
 [modern `.desktop` files](https://developer.gnome.org/desktop-entry-spec/#exec-variables),
 this usually goes into the `Exec` line:
 
 	Exec=/bin/sh -c "LANGUAGE=en_IN /usr/bin/geany %F"
 
-As alternative, you can create a shell script in any directory in your `$PATH` to 
+As alternative, you can create a shell script in any directory in your `$PATH` to
 override the default `geany` binary. As example, one can create a file at
 `~/.local/bin/geany` (remember to make it executable):
 
@@ -200,6 +200,46 @@ because documents in your current session may have different overridden
 indent settings - i.e. you might want one document indented with tabs whilst
 another is open with spaces indentation. See the [manual][8] for details.
 
+
+## How to change the GTK theme?
+
+The GTK theme defines the look and feel of Geany.
+Many different themes, including dark ones, are available on the net, for example from https://www.gnome-look.org/.
+
+Note that changing the GTK theme will not affect the syntax highlighting color scheme within Geany.
+To change this, see [Color Themes](/download/themes/).
+
+### On Windows
+
+To change the GTK theme, perform the following steps:
+
+- find and download a GTK theme
+- unpack its contents into the directory `c:\Users/<YOUR_USERNAME>\AppData\Local\themes\` (create if it does not exist yet)
+- create the directory `c:\Users/<YOUR_USERNAME>\AppData\Local\gtk-3.0\` if it does not already exist
+- create a file `settings.ini` in this directory with the following contents:
+  ```
+  [Settings]
+  gtk-theme-name=Prof-Gnome
+  ```
+- adjust the `gtk-theme-name` setting to match the folder name of the unpacked GTK theme
+
+Themes you may like:
+
+- "Prof-Gnome" from Geany https://github.com/geany/geany-osx/tree/master/Prof-Gnome/gtk-3.0 (used in Geany for macOS)
+- "Windows 10" https://github.com/B00merang-Project/Windows-10
+- "Windows 10 Dark" https://github.com/B00merang-Project/Windows-10-Dark
+- "Chicago95" https://github.com/grassmunk/Chicago95
+
+### On macOS
+
+Geany releases for macOS have the "Prof-Gnome" theme pre-installed and depending on the macOS theme used, the light or dark variant is used automatically.
+
+If desired, the theme can be changed by replacing the folder contents of `Geany.app/Contents/Resources/share/themes/Prof-Gnome` in the Geany.app bundle. Note that the folder name `Prof-Gnome` must be kept and only the contents should be replaced.
+
+### On Linux/Unix systems
+
+Geany will follow the GTK theme set by the normal desktop tools so changing the GTK theme on Linux and Unix distributions is done differently depending on the desktop environment you use.
+Please refer to the documentation of your desktop environment (Xfce, KDE, Gnome, ...).
 
 ## How do you pronounce Geany?
 

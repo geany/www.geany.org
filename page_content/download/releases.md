@@ -9,6 +9,7 @@ macOS                 | [{{ release_versions.macos_version }}](https://download.
 
 [Release notes for Geany {{ geany_latest_version.version }}][3]
 
+For instructions on installing GTK themes on Windows and macOS see the [corresponding FAQ entry](/documentation/faq/#how-to-change-the-gtk-theme).
 
 ## Geany-Plugins Releases
 
