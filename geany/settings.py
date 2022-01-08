@@ -139,7 +139,7 @@ USE_X_FORWARDED_HOST = True
 ALLOWED_HOSTS = ('127.0.0.1',
                  'geany.org',
                  'www.geany.org')
-INTERNAL_IPS = ("127.0.0.1", "10.0.44.3", "37.120.182.205", "2a03:4000:f:40f:99::205")
+INTERNAL_IPS = ('127.0.0.1', '10.0.44.3')
 
 SECRET_KEY = 'change-me'
 
@@ -330,6 +330,10 @@ INSTALLED_APPS = (
     "urlshortener.apps.UrlShortenerAppConfig",
 
     # 3rd party
+    "compressor",
+    "django_extensions",
+    "filebrowser_safe",
+    "grappelli_safe",
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
@@ -363,11 +367,6 @@ MIDDLEWARE = (
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
 )
 
-# Store these package names here as they may change in the future since
-# at the moment we are using custom forks of them.
-PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
-PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
-
 # pagedown / markdown
 RICHTEXT_WIDGET_CLASS = 'mezzanine_pagedown.widgets.PageDownWidget'
 RICHTEXT_FILTERS = ['mezzanine_pagedown.filters.custom']
@@ -387,19 +386,6 @@ PAGEDOWN_MARKDOWN_EXTENSIONS = (
     # create TOC entries only for heading level 2 to 4
     # level 1 usually is the page header, we don't need levels deeper than 4
     TocExtension(toc_depth='2-4'),
-)
-
-#########################
-# OPTIONAL APPLICATIONS #
-#########################
-
-# These will be added to ``INSTALLED_APPS``, only if available.
-OPTIONAL_APPS = (
-    "debug_toolbar",
-    "django_extensions",
-    "compressor",
-    PACKAGE_NAME_FILEBROWSER,
-    PACKAGE_NAME_GRAPPELLI,
 )
 
 #########################
@@ -436,9 +422,6 @@ ADMIN_MENU_ORDER = (
         "latest_version.LatestVersion",
     )),
     (_("Users"), ("auth.User", "auth.Group",)))  # pylint: disable=hard-coded-auth-user
-
-# django-debug-toolbar
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # caching & sessions
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
