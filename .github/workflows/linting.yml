@@ -22,7 +22,7 @@ on:
       - master
 
 jobs:
-  build:
+  Lint:
     name: Python ${{ matrix.python }}
     runs-on: ubuntu-20.04
     strategy:
@@ -51,3 +51,24 @@ jobs:
 
       - name: Lint
         run: tox -e py
+
+  Safety:
+    name: Safety check of dependencies
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --assume-yes --no-install-recommends \
+            default-libmysqlclient-dev \
+            libmemcached-dev
+          pip install --upgrade pip setuptools
+
+      - name: Install Tox
+        run: pip install tox
+
+      - name: Safety Check
+        run: tox -e safety
