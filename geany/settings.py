@@ -295,6 +295,10 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+# Store these package names here as they may change in the future since
+# at the moment we are using custom forks of them.
+PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
+PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
 ################
 # APPLICATIONS #
@@ -332,12 +336,12 @@ INSTALLED_APPS = (
     # 3rd party
     "compressor",
     "django_extensions",
-    "filebrowser_safe",
-    "grappelli_safe",
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
     "shortener",
+    PACKAGE_NAME_FILEBROWSER,
+    PACKAGE_NAME_GRAPPELLI,
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
