@@ -60,6 +60,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     min-height: 40px;
 }
 
+/* add offset to anchor links to take the fixed navbar height into account */
+:target { scroll-margin-top: 60px; }
+
 .carousel {
     margin-bottom: 10px;
 }
