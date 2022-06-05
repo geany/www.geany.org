@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,13 +11,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import absolute_import, unicode_literals
-
 import logging
 import os
 import warnings
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from markdown.extensions.toc import TocExtension
 
 
@@ -219,6 +216,8 @@ DATABASES = {
 }
 DATABASE_ROUTERS = ['nightlybuilds.database_routers.NightlyBuildsRouter']
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 
 #########
 # PATHS #
@@ -280,9 +279,6 @@ TEMPLATES = [
                 'latest_version.context_processors.latest_version',
                 'mezzanine.pages.context_processors.page',
             ],
-            'builtins': [
-                'mezzanine.template.loader_tags',
-            ],
         },
     },
 ]
@@ -322,7 +318,6 @@ INSTALLED_APPS = (
     "mezzanine.pages",
     "mezzanine.forms",
     "mezzanine.galleries",
-    "mezzanine.twitter",
 
     # we
     "geany.apps.GeanyAppConfig",
@@ -339,7 +334,7 @@ INSTALLED_APPS = (
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
-    "shortener",
+    #"shortener",  # disabled until it is fixed for Django 4.0 or we remove it completely
     PACKAGE_NAME_FILEBROWSER,
     PACKAGE_NAME_GRAPPELLI,
 )
@@ -600,7 +595,7 @@ warnings.filterwarnings(
     message='^mezzanine_pagedown.filters.custom needs to ensure that any untrusted inputs.*',
     category=FutureWarning,
     module='mezzanine.core.templatetags.mezzanine_tags',
-    lineno=487)
+    lineno=495)
 
 ##################
 # LOCAL SETTINGS #

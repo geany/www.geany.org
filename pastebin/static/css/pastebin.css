@@ -31,33 +31,8 @@ form.new-snippet-form {
     font-weight: 200;
 }
 
-.new-snippet-form ul#id_expire_options {
-    margin-left: 5px;
-    margin-bottom: 0px;
-    width: auto;
-    border: none;
-    background-color: inherit; /* overwrite the color set by .form-control */
-    box-shadow: inherit; /* overwrite the shadow set by .form-control */
-}
-
-.new-snippet-form ul#id_expire_options li {
-    list-style: none;
-}
-
-.new-snippet-form ul#id_expire_options li input{
-    display: inline;
-}
-
-.new-snippet-form ul#id_expire_options li label {
-    float: left;
-    text-align: center;
-    margin-right: 10px;
-    padding-right: 15px;
-    width: auto;
-}
-
-.new-snippet-form ul#id_expire_options li input[type="radio"] {
-    margin: 0px;
+.new-snippet-form .form-group div input[type="radio"] {
+  margin-top: 0;
 }
 
 .new-snippet-form .form-group input[type="text"],

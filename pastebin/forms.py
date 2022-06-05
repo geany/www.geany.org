@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +15,7 @@ from datetime import timedelta
 
 from django import forms
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from pastebin.highlight import LEXER_DEFAULT, LEXER_LIST
 from pastebin.models import Snippet, Spamword
@@ -36,6 +35,11 @@ EXPIRE_CHOICES = (
 EXPIRE_DEFAULT = 3600 * 24 * 30
 
 
+class ExpiryOptionsWidget(forms.RadioSelect):
+    template_name = 'pastebin/widgets/radio.html'
+    option_inherits_attrs = False
+
+
 class SnippetForm(forms.ModelForm):
 
     lexer = forms.ChoiceField(
@@ -48,7 +52,7 @@ class SnippetForm(forms.ModelForm):
         choices=EXPIRE_CHOICES,
         initial=EXPIRE_DEFAULT,
         label=_('Expires'),
-        widget=forms.RadioSelect,
+        widget=ExpiryOptionsWidget,
     )
 
     # ----------------------------------------------------------------------

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +15,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.models import CONTENT_STATUS_CHOICES, CONTENT_STATUS_PUBLISHED
 from mezzanine.utils.models import get_user_model_name

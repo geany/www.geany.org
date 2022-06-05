@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import url
+from django.urls import re_path
 from django.views.generic.base import RedirectView
 
 
@@ -188,13 +187,13 @@ def _add_url_mappings(mapping, urlpatterns_):
         if old_url.startswith('/'):
             old_url = old_url[1:]
 
-        url_pattern = url(
+        url_pattern = re_path(
             fr'^{old_url}$',
             RedirectView.as_view(url=new_url, permanent=True))
         urlpatterns_.append(url_pattern)
         # add pattern variant with trailing slash
         if old_url[-1] != '/':
-            url_pattern = url(
+            url_pattern = re_path(
                 fr'^{old_url}/$',
                 RedirectView.as_view(url=new_url, permanent=True))
             urlpatterns_.append(url_pattern)

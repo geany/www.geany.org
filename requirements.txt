@@ -1,4 +1,4 @@
-Django<3.0,>=2.2
+Mezzanine==5.*
 babel
 mysqlclient
 django-clearcache
@@ -7,6 +7,7 @@ django-extensions
 django-honeypot
 django-link-shortener
 django-log-request-id
+mezzanine-pagedown
 mezzanine-sync-pages
 packaging
 pygments
@@ -19,13 +20,3 @@ uwsgi
 
 # for development
 django-debug-toolbar
-
-# Mezzanine from GIT
-# https://github.com/stephenmcd/mezzanine/pull/1956
-git+https://github.com/fermorltd/filebrowser-safe.git@2.2-compat#egg=filebrowser-safe
-git+https://github.com/fermorltd/grappelli-safe.git@2.2-compat#egg=grappelli-safe
-git+https://github.com/fermorltd/mezzanine.git@2.2-compat#egg=mezzanine
-
-# mezzanine-pagedown from GIT with Django >= 2.1 fix
-# https://github.com/akhayyat/mezzanine-pagedown/pull/1
-git+https://github.com/eht16/mezzanine-pagedown.git@django-2.1#egg=mezzanine-pagedown

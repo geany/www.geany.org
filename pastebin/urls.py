@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import url
+from django.urls import path, re_path
 from django.views.decorators.cache import never_cache
 from django.views.generic.base import TemplateView
 
@@ -27,28 +26,28 @@ from pastebin.views import (
 
 
 urlpatterns = (  # pylint: disable=invalid-name
-    url(
-        r'^help/$',
+    path(
+        'help/',
         TemplateView.as_view(template_name='pastebin/help.html'),
         name='snippet_help'),
-    url(
-        r'^help/api/$',
+    path(
+        'help/api/',
         TemplateView.as_view(template_name='pastebin/api.html'),
         name='snippet_help_api'),
 
-    url(r'^api/$', never_cache(SnippetAPIView.as_view()), name='snippet_api'),
+    path('api/', never_cache(SnippetAPIView.as_view()), name='snippet_api'),
 
-    url(r'^$', never_cache(SnippetNewView.as_view()), name='snippet_new'),
-    url(r'^latest/$', never_cache(LatestSnippetsView.as_view()), name='snippet_list'),
-    url(
+    path('', never_cache(SnippetNewView.as_view()), name='snippet_new'),
+    path('latest/', never_cache(LatestSnippetsView.as_view()), name='snippet_list'),
+    re_path(
         r'^(?P<snippet_id>[a-zA-Z0-9]+)/$',
         SnippetDetailView.as_view(),
         name='snippet_details'),
-    url(
+    re_path(
         r'^(?P<snippet_id>[a-zA-Z0-9]+)/delete/$',
         SnippetDeleteView.as_view(),
         name='snippet_delete'),
-    url(
+    re_path(
         r'^(?P<snippet_id>[a-zA-Z0-9]+)/raw/$',
         SnippetDetailRawView.as_view(),
         name='snippet_details_raw'),
