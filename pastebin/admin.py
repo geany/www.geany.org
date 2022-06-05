@@ -13,14 +13,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib import admin
+from django.template.defaultfilters import truncatewords
 
 from pastebin.models import Snippet, Spamword
 
 
 class SnippetAdmin(admin.ModelAdmin):
-    list_display = ('published', 'expires', 'author', 'title')
+    list_display = ('published', 'author', 'title', 'get_content_preview')
     date_hierarchy = 'published'
-    list_filter = ('published',)
+    list_filter = ('published', 'lexer')
+
+    def get_content_preview(self, obj):
+        return truncatewords(obj.content, 15)
+
+    get_content_preview.allow_tags = True
+    get_content_preview.short_description = 'Content'
 
 
 admin.site.register(Snippet, SnippetAdmin)
