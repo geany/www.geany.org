@@ -39,6 +39,10 @@ form.new-snippet-form {
 .new-snippet-form .form-group select {
     max-width: 40em;
 }
+
+.new-snippet-form-no-padding-left {
+    padding-left: 0;
+}
 /*
  * Snippet form
  */

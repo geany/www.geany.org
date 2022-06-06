@@ -13,6 +13,7 @@
 
 from datetime import timedelta
 
+from captcha.fields import CaptchaField, CaptchaTextInput
 from django import forms
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -40,6 +41,10 @@ class ExpiryOptionsWidget(forms.RadioSelect):
     option_inherits_attrs = False
 
 
+class CaptchaTextInputWidget(CaptchaTextInput):
+    template_name = 'pastebin/widgets/captcha_field.html'
+
+
 class SnippetForm(forms.ModelForm):
 
     lexer = forms.ChoiceField(
@@ -55,10 +60,14 @@ class SnippetForm(forms.ModelForm):
         widget=ExpiryOptionsWidget,
     )
 
+    captcha = CaptchaField(widget=CaptchaTextInputWidget(attrs={
+        'placeholder': 'Please solve the challenge'}))
+
     # ----------------------------------------------------------------------
     def __init__(self, request, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
         self.request = request
+        self.fields['captcha'].label = 'Verification'
         # set author
         self.fields['author'].initial = self.request.session.get('author', '')
 

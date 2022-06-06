@@ -330,6 +330,7 @@ INSTALLED_APPS = (
 
     # 3rd party
     "compressor",
+    "captcha",     # for pastebin
     "django_extensions",
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
@@ -435,6 +436,9 @@ COMPRESS_OFFLINE = True
 
 # django-honeypot
 HONEYPOT_FIELD_NAME = 'website'
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
+CAPTCHA_MATH_CHALLENGE_OPERATOR = '*'
 
 NIGHTLYBUILDS_BASE_DIR = '/path/to/nightly/builds'
 
