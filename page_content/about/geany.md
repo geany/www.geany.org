@@ -35,7 +35,7 @@ The code is licensed under the terms of the [GNU General Public Licence][3].
 
 ## Contact
 
-To contact us for general questions or feedback, either use one of our [mailing lists][4], the Matrix channel [#geany:matrix.org][5] or the [Github issue tracker][5].
+To contact us for general questions or feedback, either use one of our [mailing lists][4], the Matrix channel [#geany:matrix.org][5] or the [Github issue tracker][6].
 
   [1]: /about/filetypes/
   [2]: /support/plugins/
