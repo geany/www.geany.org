@@ -15,7 +15,16 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
-* None scheduled.
+##### Geany e.V. General Assembly 2022
+Date: 19th November 2022  - 15:00 CET
+Location: Hoepnerstraße, Leipzig, Germany
+Audience: association members
+Agenda:
+
+- Election of the association board
+- General report
+- Financial report
+- Voting about changing the charter to allow online meetings
 
 #### Past meetings
 
