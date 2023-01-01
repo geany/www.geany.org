@@ -56,7 +56,7 @@ class NakedHtmlFormatter(HtmlFormatter):
     """Do not wrap the code in <div> or <code> tags (Pygments default)"""
 
     # ----------------------------------------------------------------------
-    def wrap(self, source, outfile):
+    def wrap(self, source):
         return self._wrap_code(source)
 
     # ----------------------------------------------------------------------

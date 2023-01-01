@@ -134,12 +134,12 @@ class StaticSitemap(sitemaps.Sitemap):
         return []
 
     # ----------------------------------------------------------------------
-    def changefreq(self, obj):  # pylint: disable=unused-argument
+    def changefreq(self, item):  # pylint: disable=unused-argument
         return 'monthly'
 
     # ----------------------------------------------------------------------
-    def location(self, obj):  # pylint: disable=unused-argument
-        return self._url_mapping[obj.name]
+    def location(self, item):
+        return self._url_mapping[item.name]
 
     # ----------------------------------------------------------------------
     def get_urls(self, page=1, site=None, protocol=None):

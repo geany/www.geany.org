@@ -335,7 +335,7 @@ INSTALLED_APPS = (
     "honeypot",     # for pastebin
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
-    #"shortener",  # disabled until it is fixed for Django 4.0 or we remove it completely
+    # "shortener",  # disabled until it is fixed for Django 4.0 or we remove it completely
     PACKAGE_NAME_FILEBROWSER,
     PACKAGE_NAME_GRAPPELLI,
 )
