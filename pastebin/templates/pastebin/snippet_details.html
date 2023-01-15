@@ -16,10 +16,6 @@
 <div class="snippet-options">
     <abbr title="Time to life">TTL:</abbr> {{ snippet.expires|timeuntil_or_forever }}
     &mdash;
-    {% if snippet.pk|in_list:request.session.snippet_list %}
-    <a onclick="return confirm('Really delete this snippet?')" href="{% url 'snippet_delete' snippet.secret_id %}">Delete</a>
-    &mdash;
-    {% endif %}
     {% if snippet.parent_id %}
         (Copy of <a href="{{ snippet.parent.get_absolute_url }}">snippet #{{ snippet.parent.id }}</a>)
         &mdash;
@@ -31,14 +27,13 @@
 <p>on <span class="date">{{ snippet.published|date:"Y/m/d G:i:s" }} (UTC)</span> by
                          {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %}
                          as {{ snippet.lexer|title }}</p>
-
 <div class="tabbable">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab1" data-toggle="tab">Markup</a></li>
-        <li><a href="#tab2" data-toggle="tab">Plain</a></li>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#markup" data-toggle="tab" aria-controls="markup" role="tab">Markup</a></li>
+        <li role="presentation"><a href="#plain" data-toggle="tab" aria-controls="plain" role="tab">Plain</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab1">
+        <div class="tab-pane active" role="tabpanel" id="markup">
             <div class="snippet">
                 <ol>
                     {% for line in snippet|highlight %}
@@ -49,7 +44,7 @@
                 </ol>
             </div>
         </div>
-        <div class="tab-pane" id="tab2">
+        <div class="tab-pane" role="tabpanel" id="plain">
             <div class="snippet-plain">
                 <textarea class="snippet-plain">{{ snippet.content }}</textarea>
             </div>

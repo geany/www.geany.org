@@ -8,9 +8,6 @@
 {% endblock %}
 
 {% block top_menu %}
-{% url 'snippet_new' as url_snippet_new %}
-{% url 'snippet_help' as url_help %}
-{% url 'snippet_help_api' as url_api %}
 {% url 'snippet_list' as url_snippet_list %}
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,15 +24,6 @@
 
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav" id="navbar">
-                <li class="{% if request.path == url_snippet_new %} active{% endif %}">
-                    <a href="{{ url_snippet_new }}">New snippet</a>
-                </li>
-                <li class="{% if request.path == url_help %} active{% endif %}">
-                    <a href="{{ url_help }}">Help</a>
-                </li>
-                <li class="{% if request.path == url_api %} active{% endif %}">
-                    <a href="{{ url_api }}">API</a>
-                </li>
                 <li class="{% if request.path == url_snippet_list %} active{% endif %}">
                     <a href="{{ url_snippet_list }}">Recent snippets</a>
                 </li>

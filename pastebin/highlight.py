@@ -61,8 +61,11 @@ class NakedHtmlFormatter(HtmlFormatter):
 
     # ----------------------------------------------------------------------
     def _wrap_code(self, inner):
-        for code, text in inner:
-            yield code, text
+        yield from inner
+
+    # ----------------------------------------------------------------------
+    def _wrap_div(self, inner):
+        yield from inner
 
 
 # ----------------------------------------------------------------------

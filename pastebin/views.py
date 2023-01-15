@@ -15,29 +15,28 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render
 from django.template.response import TemplateResponse
-from django.urls import reverse
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView, View
-from honeypot.decorators import check_honeypot
 
 from geany.decorators import CACHE_TIMEOUT_24HOURS
 from pastebin.api.create import CreateSnippetApiController, SnippetValidationError
-from pastebin.forms import SnippetForm
 from pastebin.models import CACHE_KEY_SNIPPET_LIST_FULL, CACHE_KEY_SNIPPET_LIST_NO_CONTENT, Snippet
 
 
 # ----------------------------------------------------------------------
 def _get_snippet_list(no_content=False):
+    base_queryset = Snippet.objects.filter(published__lte=timezone.now())
     if no_content:
-        queryset = Snippet.objects.defer('content', 'content_highlighted')
+        queryset = base_queryset.defer('content', 'content_highlighted')
         cache_key = CACHE_KEY_SNIPPET_LIST_NO_CONTENT
     else:
-        queryset = Snippet.objects.all()
+        queryset = base_queryset.all()
         cache_key = CACHE_KEY_SNIPPET_LIST_FULL
 
     # snippet list in cache?
@@ -55,35 +54,6 @@ def _get_snippet_list(no_content=False):
     return snippet_list
 
 
-class SnippetNewView(View):
-    template_name = 'pastebin/snippet_new.html'
-
-    # ----------------------------------------------------------------------
-    @method_decorator(check_honeypot)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    # ----------------------------------------------------------------------
-    def get(self, request):
-        snippet_form = SnippetForm(request=request)
-        return self._render_response(request, snippet_form)
-
-    # ----------------------------------------------------------------------
-    def _render_response(self, request, snippet_form):
-        snippet_list = _get_snippet_list(no_content=True)
-        template_context = dict(snippet_form=snippet_form, snippet_list=snippet_list)
-        return render(request, self.template_name, template_context)
-
-    # ----------------------------------------------------------------------
-    def post(self, request):
-        snippet_form = SnippetForm(data=request.POST, request=request)
-        if snippet_form.is_valid():
-            request, new_snippet = snippet_form.save()
-            return HttpResponseRedirect(new_snippet.get_absolute_url())
-
-        return self._render_response(request, snippet_form)
-
-
 class SnippetNotFoundError(Exception):
     pass
 
@@ -92,7 +62,6 @@ class SnippetDetailView(View):
     template_name = 'pastebin/snippet_details.html'
 
     # ----------------------------------------------------------------------
-    @method_decorator(check_honeypot)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -106,13 +75,9 @@ class SnippetDetailView(View):
             context = dict(message=exc)
             return TemplateResponse(request, 'errors/404.html', context=context, status=404)
 
-        new_snippet_initial = dict(content=snippet.content, lexer=snippet.lexer)
-        snippet_form = SnippetForm(initial=new_snippet_initial, request=request)
-
         snippet_list_ = _get_snippet_list(no_content=True)
         template_context = {
             'snippet_list': snippet_list_,
-            'snippet_form': snippet_form,
             'snippet': snippet,
             'lines': range(snippet.get_linecount()),
         }
@@ -122,7 +87,7 @@ class SnippetDetailView(View):
     # ----------------------------------------------------------------------
     def _fetch_snippet(self, snippet_id):
         try:
-            snippet = Snippet.objects.get(secret_id=snippet_id)
+            snippet = Snippet.objects.get(secret_id=snippet_id, published__lte=timezone.now())
         except MultipleObjectsReturned as exc:
             raise SnippetNotFoundError(
                 _('Multiple snippets exist for this slug. This should never happen.')
@@ -144,32 +109,6 @@ class SnippetDetailRawView(SnippetDetailView):
         # set content type
         response['Content-Type'] = 'text/plain;charset=UTF-8'
         return response
-
-
-class SnippetDeleteView(View):
-
-    # ----------------------------------------------------------------------
-    def get(self, request, snippet_id):
-        snippet = get_object_or_404(Snippet, secret_id=snippet_id)
-        try:
-            snippet_list_ = request.session['snippet_list']
-        except KeyError:
-            # 403 response with custom message
-            return TemplateResponse(
-                request,
-                'errors/403.html',
-                context=dict(message=_('You have no recent snippet list, cookie error?')),
-                status=403)
-        if snippet.pk not in snippet_list_:
-            # 403 response with custom message
-            return TemplateResponse(
-                request,
-                'errors/403.html',
-                context=dict(message=_('That is not your snippet!')),
-                status=403)
-
-        snippet.delete()
-        return HttpResponseRedirect(reverse('snippet_new'))
 
 
 class LatestSnippetsView(TemplateView):

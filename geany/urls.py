@@ -61,7 +61,6 @@ urlpatterns += (
 
     # Pastebin
     path('p/', include('pastebin.urls')),
-    path('captcha/', include('captcha.urls')),
 
     # URL Shortener
     # path('s/', include('urlshortener.urls')),  # disabled until it is fixed for Django 4.0

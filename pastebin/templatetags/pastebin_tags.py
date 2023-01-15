@@ -27,12 +27,6 @@ register = Library()
 
 # ----------------------------------------------------------------------
 @register.filter
-def in_list(value, arg):
-    return value in arg
-
-
-# ----------------------------------------------------------------------
-@register.filter
 def timeuntil_or_forever(snippet_expire):
     ttl = snippet_expire - now()
     if ttl.days > NINETY_YEARS_IN_DAYS:

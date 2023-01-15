@@ -102,7 +102,7 @@ class CreateSnippetApiController:
     def _validate_against_snippet_form(self):
         self._preprocess_data()
 
-        snippet_form = SnippetForm(request=self._request, data=self._data)
+        snippet_form = SnippetForm(data=self._data)
         # SnippetForm allows only a subset of lexer choices except the user enables all lexers
         # in her session but since we don't have a session here, we allow all unconditionally
         snippet_form.fields['lexer'].choices = LEXER_LIST_ALL
@@ -115,7 +115,6 @@ class CreateSnippetApiController:
 
     # ----------------------------------------------------------------------
     def _preprocess_data(self):
-        # compatibility with SnippetForm
         self._data['expire_options'] = self._data.get('expires', 3600)
         # try to map lexer from a Geany filetype name to a Pygments lexer name
         # fallback to 'text' as default, also use that default in case no lexer was given at all

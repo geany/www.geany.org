@@ -13,7 +13,6 @@
 
 from datetime import timedelta
 
-from captcha.fields import CaptchaField, CaptchaTextInput
 from django import forms
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -36,15 +35,6 @@ EXPIRE_CHOICES = (
 EXPIRE_DEFAULT = 3600 * 24 * 30
 
 
-class ExpiryOptionsWidget(forms.RadioSelect):
-    template_name = 'pastebin/widgets/radio.html'
-    option_inherits_attrs = False
-
-
-class CaptchaTextInputWidget(CaptchaTextInput):
-    template_name = 'pastebin/widgets/captcha_field.html'
-
-
 class SnippetForm(forms.ModelForm):
 
     lexer = forms.ChoiceField(
@@ -57,19 +47,15 @@ class SnippetForm(forms.ModelForm):
         choices=EXPIRE_CHOICES,
         initial=EXPIRE_DEFAULT,
         label=_('Expires'),
-        widget=ExpiryOptionsWidget,
     )
 
-    captcha = CaptchaField(widget=CaptchaTextInputWidget(attrs={
-        'placeholder': 'Please solve the challenge'}))
-
-    # ----------------------------------------------------------------------
-    def __init__(self, request, *args, **kwargs):
-        forms.ModelForm.__init__(self, *args, **kwargs)
-        self.request = request
-        self.fields['captcha'].label = 'Verification'
-        # set author
-        self.fields['author'].initial = self.request.session.get('author', '')
+    class Meta:
+        model = Snippet
+        fields = (
+            'content',
+            'title',
+            'author',
+            'lexer',)
 
     # ----------------------------------------------------------------------
     def _clean_field(self, field_name):
@@ -92,35 +78,3 @@ class SnippetForm(forms.ModelForm):
     # ----------------------------------------------------------------------
     def clean_title(self):
         return self._clean_field('title')
-
-    # ----------------------------------------------------------------------
-    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
-        # Set parent snippet
-        parent = kwargs.pop('parent', None)
-        if parent:
-            self.instance.parent = parent
-
-        # Add expire datestamp
-        self.instance.expires = timezone.now() + \
-            timedelta(seconds=int(self.cleaned_data['expire_options']))
-
-        # Save snippet in the db
-        super().save(self, *args, **kwargs)
-
-        # Add snippet to the user's session
-        if not self.request.session.get('snippet_list', False):
-            self.request.session['snippet_list'] = []
-        self.request.session['snippet_list'].append(self.instance.pk)
-
-        # Remember author
-        self.request.session['author'] = self.instance.author
-
-        return self.request, self.instance
-
-    class Meta:
-        model = Snippet
-        fields = (
-            'content',
-            'title',
-            'author',
-            'lexer',)

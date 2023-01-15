@@ -4,10 +4,8 @@ mysqlclient
 django-clearcache
 django-compressor
 django-extensions
-django-honeypot
 django-link-shortener
 django-log-request-id
-django-simple-captcha
 mezzanine-pagedown
 mezzanine-sync-pages
 packaging

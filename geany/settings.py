@@ -330,9 +330,7 @@ INSTALLED_APPS = (
 
     # 3rd party
     "compressor",
-    "captcha",     # for pastebin
     "django_extensions",
-    "honeypot",     # for pastebin
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
     # "shortener",  # disabled until it is fixed for Django 4.0 or we remove it completely
@@ -433,12 +431,6 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter']
 COMPRESS_OFFLINE = True
-
-# django-honeypot
-HONEYPOT_FIELD_NAME = 'website'
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
-CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
-CAPTCHA_MATH_CHALLENGE_OPERATOR = '*'
 
 NIGHTLYBUILDS_BASE_DIR = '/path/to/nightly/builds'
 
