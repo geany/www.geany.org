@@ -11,10 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import timedelta
-
 from django import forms
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from pastebin.highlight import LEXER_DEFAULT, LEXER_LIST

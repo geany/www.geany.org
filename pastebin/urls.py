@@ -13,7 +13,6 @@
 
 from django.urls import path, re_path
 from django.views.decorators.cache import never_cache
-from django.views.generic.base import TemplateView
 
 from pastebin.views import (
     LatestSnippetsView,

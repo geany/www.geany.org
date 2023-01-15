@@ -62,10 +62,6 @@ class SnippetDetailView(View):
     template_name = 'pastebin/snippet_details.html'
 
     # ----------------------------------------------------------------------
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    # ----------------------------------------------------------------------
     def get(self, request, snippet_id):
         # load snippet
         try:
