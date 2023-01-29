@@ -233,22 +233,6 @@
   },
   {
     "model": "contenttypes.contenttype",
-    "pk": 30,
-    "fields": {
-      "model": "query",
-      "app_label": "twitter"
-    }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 31,
-    "fields": {
-      "model": "tweet",
-      "app_label": "twitter"
-    }
-  },
-  {
-    "model": "contenttypes.contenttype",
     "pk": 32,
     "fields": {
       "model": "snippet",
@@ -501,33 +485,6 @@
   },
   {
     "model": "conf.setting",
-    "pk": 26,
-    "fields": {
-      "site": 1,
-      "value": "search",
-      "name": "TWITTER_DEFAULT_QUERY_TYPE"
-    }
-  },
-  {
-    "model": "conf.setting",
-    "pk": 27,
-    "fields": {
-      "site": 1,
-      "value": "5",
-      "name": "TWITTER_DEFAULT_NUM_TWEETS"
-    }
-  },
-  {
-    "model": "conf.setting",
-    "pk": 28,
-    "fields": {
-      "site": 1,
-      "value": "#geany",
-      "name": "TWITTER_DEFAULT_QUERY"
-    }
-  },
-  {
-    "model": "conf.setting",
     "pk": 29,
     "fields": {
       "site": 1,
@@ -542,42 +499,6 @@
       "site": 1,
       "value": "True",
       "name": "RATINGS_ACCOUNT_REQUIRED"
-    }
-  },
-  {
-    "model": "conf.setting",
-    "pk": 57,
-    "fields": {
-      "site": 1,
-      "value": "",
-      "name": "TWITTER_CONSUMER_SECRET"
-    }
-  },
-  {
-    "model": "conf.setting",
-    "pk": 58,
-    "fields": {
-      "site": 1,
-      "value": "",
-      "name": "TWITTER_ACCESS_TOKEN_KEY"
-    }
-  },
-  {
-    "model": "conf.setting",
-    "pk": 59,
-    "fields": {
-      "site": 1,
-      "value": "",
-      "name": "TWITTER_CONSUMER_KEY"
-    }
-  },
-  {
-    "model": "conf.setting",
-    "pk": 60,
-    "fields": {
-      "site": 1,
-      "value": "",
-      "name": "TWITTER_ACCESS_TOKEN_SECRET"
     }
   },
   {
@@ -1004,32 +925,6 @@
       "description": "Geany is a small and lightweight Integrated Development Environment",
       "parent": null,
       "in_menus": "1"
-    }
-  },
-  {
-    "model": "pages.page",
-    "pk": 19,
-    "fields": {
-      "_meta_title": null,
-      "short_url": null,
-      "_order": 1,
-      "content_model": "richtextpage",
-      "title": "IRC",
-      "created": "2019-02-24T22:25:22Z",
-      "keywords_string": "",
-      "titles": "Support / IRC",
-      "status": 2,
-      "site": 1,
-      "in_sitemap": true,
-      "gen_description": true,
-      "login_required": false,
-      "slug": "support/irc",
-      "publish_date": "2019-02-24T22:25:22Z",
-      "updated": "2019-05-31T13:30:48Z",
-      "expiry_date": null,
-      "description": "IRC chat\nIf you have a problem, a question or anything else to talk about, join our IRC channel irc://chat.freenode.net/geany|#geany on chat.freenode.net.",
-      "parent": 17,
-      "in_menus": "1,2,3"
     }
   },
   {
@@ -1854,13 +1749,6 @@
   },
   {
     "model": "pages.richtextpage",
-    "pk": 19,
-    "fields": {
-      "content": "IRC chat\n==========\n\nIf you have a problem, a question or anything else to talk about, join our IRC channel irc://chat.freenode.net/geany|#geany on chat.freenode.net.\n\n**Due to spam, as of 2018-08-01, you need to be registered and identified** with Freenode's account service to speak in geany-affiliated channels.\n\nFollow freenode's instructions: <https://freenode.net/kb/answer/registration>.\n\nIRC channel logs: https://irc.geany.org/logs/.\n\nIRC channel stats: https://irc.geany.org/stats/.\n"
-    }
-  },
-  {
-    "model": "pages.richtextpage",
     "pk": 23,
     "fields": {
       "content": "Mailing Lists\n==========\n\nFor announcements, general discussing, coordinating development and more, we use mailing lists (read about at [Wikipedia][1]).\n\n[TOC]\n\n*   _Note: You must subscribe to a list before you can send mail to it_\n\n\n### Geany Users\n\nThe Geany Users mailing list is for all questions and problems about Geany.\nFor bug reports, please see [Bugs](https://www.geany.org/Support/Bugs).\n\nTo subscribe just send a blank mail to `users-subscribe@lists.geany.org` or visit the\n[Geany-Users list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/users).\n\nArchives are available from:\n\n  - [https://lists.geany.org/pipermail/users/](https://lists.geany.org/pipermail/users/)\n  - [https://www.mail-archive.com/users@lists.geany.org/](https://www.mail-archive.com/users@lists.geany.org/) (searchable)\n\n\n### Geany-I18n\n\nThe Geany-I18n list is for all translation related issues. Any active translator of Geany should subscribe to this list.\n\nTo subscribe just send a blank mail to `i18n-subscribe@lists.geany.org` or visit the\n[Geany-I18n list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/i18n).\n\nArchives are available from:\n\n  - [https://lists.geany.org/pipermail/i18n](https://lists.geany.org/pipermail/i18n)\n  - [https://www.mail-archive.com/i18n@lists.geany.org/](https://www.mail-archive.com/i18n@lists.geany.org/) (searchable)\n\n\n### Geany-Devel\n\nThe Geany-Devel list is for discussing development of Geany and Plugins.\n\nTo subscribe just send a blank mail to `devel-subscribe@lists.geany.org` or visit the\n[Geany-Devel list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/devel).\n\nArchives are available from:\n\n  - [https://lists.geany.org/pipermail/devel](https://lists.geany.org/pipermail/devel)\n  - [https://www.mail-archive.com/devel@lists.geany.org/](https://www.mail-archive.com/devel@lists.geany.org/) (searchable)\n\n\n### Geany-Commits\n\nThis is the GIT commit mailing list for Geany.\nIt is a read only mailing list where any GIT commits related to Geany are posted.\n\nTo subscribe just send a blank mail to `commits-subscribe@lists.geany.org` or visit the\n[Geany commits list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/commits).\n\nThe archive of Geany-Commits can be found at\n[https://lists.geany.org/pipermail/commits/](https://lists.geany.org/pipermail/commits/).\n\n\n### Geany-Newsletter-Commits\n\nThis is the commit mailing list for the Geany Newsletter GIT repository.\nIt is a read only mailing list where any GIT commits related to Geany's Newsletter are posted.\n\nTo subscribe just send a blank mail to `newsletter-commits-subscribe@lists.geany.org` or visit the\n[Geany Newsletter commits list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/newsletter-commits).\n\nThe archive of Geany-newsletter-commits can be found at\n[https://lists.geany.org/pipermail/newsletter-commits/](https://lists.geany.org/pipermail/newsletter-commits/).\n\n\n### Geany-Plugins-Commits\n\nGeany-Plugins-Commits is a read only mailing list where any subversion commit of the geany-plugins project is posted.\n\nTo subscribe just send a blank mail to `plugins-commits-subscribe@lists.geany.org` or visit the\n[Geany-Plugins-Commits list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/plugins-commits).\n\nThe archive of Geany-plugins-commits can be found at\n[https://lists.geany.org/pipermail/plugins-commits/](https://lists.geany.org/pipermail/plugins-commits/).\n\n\n### Geany-Plugins-Tracker\n\nGeany-Plugins-Tracker is a read only mailing list where all Sourceforge tracker notifications of\nthe geany-plugins project are posted.\n\nTo subscribe just send a blank mail to `plugins-commits-subscribe@lists.geany.org` or visit the\n[Geany-Plugins-Tracker list information site](https://lists.geany.org/cgi-bin/mailman/listinfo/plugins-tracker).\n\nThe archive of Geany-plugins-tracker can be found at\n[https://lists.geany.org/pipermail/plugins-tracker/](https://lists.geany.org/pipermail/plugins-tracker/).\n\n\n### Github-Comments-Archive\n\nGithub-Comments-Archive is a read only mailing list where all Github comments and other\nnotifications are archived of all repositories of the Geany Github organization.\nThis is because comments in Github pull requests/commits are sometimes removed when commit are squashed or similar.\n\nIt's probably not very useful to subscribe to this list but the archives can be found at\n[https://lists.geany.org/pipermail/github-comments](https://lists.geany.org/pipermail/github-comments).\n\nList page: [https://lists.geany.org/cgi-bin/mailman/listinfo/github-comments](https://lists.geany.org/cgi-bin/mailman/listinfo/github-comments)\n\n\n  [1]: https://en.wikipedia.org/wiki/Electronic_mailing_list\n"
@@ -2114,37 +2002,21 @@
     }
   },
   {
-    "model": "twitter.query",
-    "pk": 1,
-    "fields": {
-      "interested": false,
-      "type": "search",
-      "value": "geany"
-    }
-  },
-  {
-    "model": "twitter.query",
-    "pk": 2,
-    "fields": {
-      "interested": false,
-      "type": "search",
-      "value": "django mezzanine"
-    }
-  },
-  {
-    "model": "twitter.query",
-    "pk": 3,
-    "fields": {
-      "interested": true,
-      "type": "search",
-      "value": "#geany"
-    }
-  },
-  {
     "model": "latest_version.latestversion",
     "pk": 1,
     "fields": {
       "version": "1.35",
+      "name": "Geany",
+      "release_date": "2019-04-28T16:36:53Z",
+      "github_link": "/commits/1.35.0"
+    }
+  },
+  {
+    "model": "latest_version.latestversion",
+    "pk": 2,
+    "fields": {
+      "version": "1.35",
+      "name": "Geany-Plugins",
       "release_date": "2019-04-28T16:36:53Z",
       "github_link": "/commits/1.35.0"
     }
@@ -2957,60 +2829,6 @@
   },
   {
     "model": "auth.permission",
-    "pk": 89,
-    "fields": {
-      "content_type": 30,
-      "codename": "add_query",
-      "name": "Can add Twitter query"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 90,
-    "fields": {
-      "content_type": 30,
-      "codename": "change_query",
-      "name": "Can change Twitter query"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 91,
-    "fields": {
-      "content_type": 30,
-      "codename": "delete_query",
-      "name": "Can delete Twitter query"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 92,
-    "fields": {
-      "content_type": 31,
-      "codename": "add_tweet",
-      "name": "Can add Tweet"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 93,
-    "fields": {
-      "content_type": 31,
-      "codename": "change_tweet",
-      "name": "Can change Tweet"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 94,
-    "fields": {
-      "content_type": 31,
-      "codename": "delete_tweet",
-      "name": "Can delete Tweet"
-    }
-  },
-  {
-    "model": "auth.permission",
     "pk": 95,
     "fields": {
       "content_type": 32,
@@ -3448,24 +3266,6 @@
       "content_type": 26,
       "codename": "view_gallery",
       "name": "Can view Gallery"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 156,
-    "fields": {
-      "content_type": 30,
-      "codename": "view_query",
-      "name": "Can view Twitter query"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 157,
-    "fields": {
-      "content_type": 31,
-      "codename": "view_tweet",
-      "name": "Can view Tweet"
     }
   },
   {

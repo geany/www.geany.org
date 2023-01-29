@@ -23,7 +23,7 @@
 # docker run --rm -it --user "$(id --user):$(id --group)" --mount "type=bind,src=$(pwd),dst=/app" -p 8000:8000 --name geany_dev geany_dev:latest
 
 # Intermediate build container
-FROM debian:stretch-slim AS builder
+FROM debian:bullseye-slim AS builder
 
 ENV LANG=C.UTF-8 \
     DEBIAN_FRONTEND=noninteractive \
@@ -32,7 +32,6 @@ ENV LANG=C.UTF-8 \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_FORMAT="columns" \
-    PIP_NO_BINARY=":all:" \
     PIP_CACHE_DIR="/tmp/pip" \
     PIP_TIMEOUT=60
 
@@ -59,12 +58,12 @@ USER nobody:nogroup
 COPY requirements.txt /data/
 # Install Python deps
 RUN python3 -m venv --copies /venv && \
-    /venv/bin/pip install -U pip setuptools && \
+    /venv/bin/pip install -U pip setuptools wheel && \
     /venv/bin/pip install -r /data/requirements.txt
 
 
 # App container
-FROM debian:stretch-slim AS app
+FROM debian:bullseye-slim AS app
 
 ENV LANG=C.UTF-8 \
     DEBIAN_FRONTEND=noninteractive \
@@ -80,7 +79,7 @@ RUN apt-get update && \
         ca-certificates \
         intltool \
         libjpeg62-turbo \
-        libmariadbclient18 \
+        default-mysql-client \
         libmemcached11 \
         libssl1.1 \
         python3 \
