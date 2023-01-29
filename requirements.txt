@@ -1,4 +1,4 @@
-Mezzanine==5.*
+Mezzanine==6.*
 babel
 mysqlclient
 django-clearcache

@@ -122,8 +122,10 @@ class ReleaseVersionsProvider:
 
         for filename in self._release_files:
             for release_type in release_types:
-                if release_types[release_type]['pattern'].match(filename):
-                    self._release_files_by_version[release_type].append(filename)
+                match = release_types[release_type]['pattern'].match(filename)
+                if match:
+                    version = ''.join([part for part in match.groups() if part])
+                    self._release_files_by_version[release_type].append((filename, version))
                     break
 
     # ----------------------------------------------------------------------
@@ -141,15 +143,22 @@ class ReleaseVersionsProvider:
     # ----------------------------------------------------------------------
     def _determine_latest_version(self, release_type):
         versions = self._release_files_by_version[release_type]
-        sorted_versions = sorted(versions, key=parse_version)
+        sorted_versions = sorted(versions, key=self._parse_version)
         release_types = self._get_release_types()
         try:
             latest_version = sorted_versions.pop()
-            logger.debug('Latest version found for "%s": %s', release_type, latest_version)
+            latest_version_filename, _ = latest_version
+            logger.debug('Latest version found for "%s": %s', release_type, latest_version_filename)
         except IndexError:
             fallback_filename = release_types[release_type]['fallback_filename']
-            latest_version = fallback_filename.format(version=self._fallback_version)
+            latest_version_filename = fallback_filename.format(version=self._fallback_version)
             logger.debug(
-                'Latest version found for "%s": %s (fallback)', release_type, latest_version)
+                'Latest version found for "%s": %s (fallback)',
+                release_type, latest_version_filename)
 
-        return latest_version
+        return latest_version_filename
+
+    # ----------------------------------------------------------------------
+    def _parse_version(self, version):
+        _, version_number = version
+        return parse_version(version_number)
