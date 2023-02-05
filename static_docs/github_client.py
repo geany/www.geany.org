@@ -46,7 +46,7 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def _request(self, url, status_404_expected=False):
-        request_args = dict(timeout=HTTP_REQUEST_TIMEOUT, stream=False)
+        request_args = {'timeout': HTTP_REQUEST_TIMEOUT, 'stream': False}
         if self._auth_token is not None:
             authorization_header = self._factor_authorization_header()
             request_args['headers'] = authorization_header

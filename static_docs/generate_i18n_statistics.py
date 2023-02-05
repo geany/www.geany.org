@@ -138,9 +138,10 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def _execute_command(self, command):
-        environment = dict(
-            srcdir=self._source_path,
-            LANG='C')
+        environment = {
+            'srcdir': self._source_path,
+            'LANG': 'C'
+        }
         try:
             output = check_output(
                 command,
@@ -242,9 +243,10 @@ class TranslationStatisticsGenerator:
 
     # ----------------------------------------------------------------------
     def _factor_overall_statistics(self):
-        self._overall_statistics = dict(
-            total_statistics=self._pot_stats,
-            catalog_statistics=self._message_catalogs)
+        self._overall_statistics = {
+            'total_statistics': self._pot_stats,
+            'catalog_statistics': self._message_catalogs
+        }
 
         # add timestamp
         self._overall_statistics['generated_timestamp'] = time()

@@ -45,8 +45,9 @@ def latest_version(request):
         fallback_version=geany_plugins_latest_version.version)
     plugins_release_versions = geany_plugins_release_versions_provider.provide()
 
-    return dict(
-        geany_latest_version=geany_latest_version,
-        geany_plugins_latest_version=geany_plugins_latest_version,
-        release_versions=release_versions,
-        plugins_release_versions=plugins_release_versions)
+    return {
+        'geany_latest_version': geany_latest_version,
+        'geany_plugins_latest_version': geany_plugins_latest_version,
+        'release_versions': release_versions,
+        'plugins_release_versions': plugins_release_versions,
+    }

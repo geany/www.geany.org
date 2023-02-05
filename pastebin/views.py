@@ -68,7 +68,7 @@ class SnippetDetailView(View):
             snippet = self._fetch_snippet(snippet_id)
         except SnippetNotFoundError as exc:
             # 404 response with custom message
-            context = dict(message=exc)
+            context = {'message': exc}
             return TemplateResponse(request, 'errors/404.html', context=context, status=404)
 
         snippet_list_ = _get_snippet_list(no_content=True)
@@ -92,8 +92,8 @@ class SnippetDetailView(View):
             raise SnippetNotFoundError(
                 _('This snippet does not exist anymore. Probably its lifetime is expired.')
             ) from exc
-        else:
-            return snippet
+
+        return snippet
 
 
 class SnippetDetailRawView(SnippetDetailView):

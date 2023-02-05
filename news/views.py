@@ -60,17 +60,18 @@ class NewsDetailView(NewsPostPublishedMixin, View):
             newspost = NewsPost.objects.get(slug=newspost_slug)
         except NewsPost.DoesNotExist:
             error_message = f'News post item for "{newspost_slug}" could not be found'
-            result = dict(error=error_message)
+            result = {'error': error_message}
         else:
             # adapt to dict
             user_name = newspost.user.get_full_name()
             publish_date = date(newspost.publish_date, 'F dS, Y')
             content = safe(richtext_filters(newspost.content))
-            result = dict(
-                error=None,
-                title=newspost.title,
-                content=content,
-                user=user_name,
-                publish_date=publish_date)
+            result = {
+                'error': None,
+                'title': newspost.title,
+                'content': content,
+                'user': user_name,
+                'publish_date': publish_date,
+            }
 
         return JsonResponse(result, safe=True)
