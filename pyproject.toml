@@ -80,3 +80,51 @@ inline-quotes = "single"
 [tool.ruff.pylint]
 allow-magic-value-types = ["bytes", "int", "str"]
 max-args = 7
+
+###
+### PyLint
+###
+[tool.pylint.main]
+ignore = ".git"
+ignore-patterns = [
+    "local_settings.py",
+    "local_settings.docker.py",
+]
+persistent = false
+load-plugins=[
+    "pylint_django",
+    "pylint.extensions.bad_builtin",
+    "pylint.extensions.check_elif",
+    "pylint.extensions.comparetozero",
+    "pylint.extensions.emptystring",
+    "pylint.extensions.mccabe",
+    "pylint.extensions.overlapping_exceptions",
+    "pylint.extensions.redefined_variable_type",
+]
+
+[tool.pylint."messages control"]
+disable = [
+  "empty-docstring",
+  "logging-format-interpolation",
+  "missing-docstring",
+  "no-else-return",
+]
+
+[tool.pylint.reports]
+output-format = "parseable"
+reports = false
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.variables]
+dummy-variables-rgx = "_|dummy"
+
+[tool.pylint.design]
+min-public-methods = 0
+max-attributes = 10
+max-args = 7
+max-parents = 9
+
+[tool.pylint.exceptions]
+overgeneral-exceptions = []
