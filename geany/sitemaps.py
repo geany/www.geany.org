@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -181,9 +180,9 @@ class SitemapRegistry:
     def _get_items(self, item_generator_name):
         items = []
         for generator_class, url_patterns, site_domain, exclude_views in self._sitemap_generators:
-            site_domain = self._get_site_domain_or_default(site_domain)
+            site_domain_final = self._get_site_domain_or_default(site_domain)
             generator = generator_class(
-                site_domain,
+                site_domain_final,
                 url_patterns,
                 exclude_views=exclude_views)
             item_generator = getattr(generator, item_generator_name)

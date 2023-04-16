@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,11 +11,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import datetime
 import json
 import logging
 import os.path
 import re
+from datetime import datetime, timezone
 
 from django.conf import settings
 from django.core.cache import cache
@@ -25,10 +24,10 @@ from django.views.generic.base import TemplateView
 from mezzanine_pagedown.filters import plain as markdown_plain
 
 from geany.decorators import (
-    cache_function,
     CACHE_KEY_STATIC_DOCS_RELEASE_NOTES,
     CACHE_TIMEOUT_1HOUR,
     CACHE_TIMEOUT_24HOURS,
+    cache_function,
 )
 from static_docs.github_client import GitHubApiClient
 
@@ -118,7 +117,7 @@ class ReleaseNotesView(StaticDocsView):
                 releases.append(current_release)
                 current_release_notes = []
             else:
-                line = line.lstrip()  # remove any indentation
+                line = line.lstrip()  # noqa: PLW2901 - remove any indentation
                 if line and not line.startswith('*'):
                     # we got a section: make it bold and add an additional new line
                     # to make Markdown recognise the following lines as list
@@ -165,7 +164,7 @@ class ReleaseNotesView(StaticDocsView):
                         release = rel
                         break
                 else:
-                    raise Http404()
+                    raise Http404
 
         # convert the selected release (the one we want to display) to Markdown
         release.release_notes = markdown_plain(release.release_notes)
@@ -185,7 +184,8 @@ class ReleaseNotesView(StaticDocsView):
             return None
 
         # adapt date
-        release_datetime = datetime.strptime(github_release['published_at'], '%Y-%m-%dT%H:%M:%SZ')
+        release_datetime = datetime.strptime(github_release['published_at'], '%Y-%m-%dT%H:%M:%SZ')\
+            .astimezone(tz=timezone.utc)
         release_date = release_datetime.strftime('%B %d, %Y')
 
         release = ReleaseDto()
@@ -207,7 +207,7 @@ class ToDoView(StaticDocsView):
     Grab the TODO file from GIT master via Github API, parse it and send it back to the template
     """
 
-    template_name = "pages/documentation/todo.html"
+    template_name = 'pages/documentation/todo.html'
 
     # ----------------------------------------------------------------------
     def get_context_data(self, **kwargs):
@@ -229,15 +229,15 @@ class ToDoView(StaticDocsView):
 
 class I18NStatisticsView(TemplateView):
 
-    template_name = "pages/i18n.html"
+    template_name = 'pages/i18n.html'
 
     # ----------------------------------------------------------------------
     def get_context_data(self, **kwargs):
         i18n_statistics = self._get_i18n_statistics()
         context = super().get_context_data(**kwargs)
         context['i18n_statistics'] = i18n_statistics
-        context['generated_datetime'] = datetime.utcfromtimestamp(
-            i18n_statistics['generated_timestamp'])
+        context['generated_datetime'] = datetime.fromtimestamp(
+            i18n_statistics['generated_timestamp'], tz=timezone.utc)
         context['static_docs_geany_destination_url'] = settings.STATIC_DOCS_GEANY_DESTINATION_URL
         return context
 
@@ -256,7 +256,7 @@ class ThemesView(StaticDocsView):
     Fetch the Geany-Themes index from https://github.com/geany/geany-themes/tree/master/index
     """
 
-    template_name = "pages/download/themes.html"
+    template_name = 'pages/download/themes.html'
 
     # ----------------------------------------------------------------------
     def get_context_data(self, **kwargs):

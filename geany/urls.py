@@ -11,6 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import mezzanine_pagedown.urls
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
@@ -19,7 +20,6 @@ from django.views.generic.base import TemplateView
 from django.views.i18n import set_language
 from django.views.static import serve as static_serve
 from mezzanine.conf import settings
-import mezzanine_pagedown.urls
 
 from geany import urls_legacy
 from geany.sitemaps import GeanyMainSitemap
@@ -28,7 +28,7 @@ from nightlybuilds.views import NightlyBuildsView
 
 # pylint: disable=invalid-name
 
-sitemaps = {"sitemaps": {"all": GeanyMainSitemap}}
+sitemaps = {'sitemaps': {'all': GeanyMainSitemap}}
 
 
 admin.autodiscover()
@@ -37,7 +37,7 @@ urlpatterns = i18n_patterns(
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
     path('admin/clearcache/', include('clearcache.urls')),
-    path("admin/", include(admin.site.urls)),
+    path('admin/', include(admin.site.urls)),
 )
 
 if settings.USE_MODELTRANSLATION:
@@ -63,7 +63,8 @@ urlpatterns += (
     path('p/', include('pastebin.urls')),
 
     # URL Shortener
-    # path('s/', include('urlshortener.urls')),  # disabled until it is fixed for Django 4.0
+    # disabled until it is fixed for Django 4.0
+    # path('s/', include('urlshortener.urls')),  # noqa: ERA001
 
     # /news/ News
     path('news/', include('news.urls')),

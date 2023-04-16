@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -59,6 +58,10 @@ class NightlyBuild(models.Model):
         db_table = 'nightly_build'
 
     # ----------------------------------------------------------------------
+    def __str__(self):
+        return f'{self.build_date} {self.nightly_build_target}'
+
+    # ----------------------------------------------------------------------
     def get_status(self):
         return not self.status
 
@@ -68,7 +71,3 @@ class NightlyBuild(models.Model):
             return 'Built successfully'
 
         return 'Build failed, see the logs for details'
-
-    # ----------------------------------------------------------------------
-    def __str__(self):
-        return f'{self.build_date} {self.nightly_build_target}'

@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -95,8 +94,8 @@ class CreateSnippetApiController:
         provided_fields = set(self._data.keys())
         additional_fields = provided_fields.difference(self.valid_fields)
         if additional_fields:
-            raise SnippetValidationError(
-                f'Invalid fields provided ({",".join(additional_fields)})')
+            msg = f'Invalid fields provided ({",".join(additional_fields)})'
+            raise SnippetValidationError(msg)
 
     # ----------------------------------------------------------------------
     def _validate_against_snippet_form(self):

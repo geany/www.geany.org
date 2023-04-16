@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from base64 import standard_b64decode, standard_b64encode
 import logging
+from base64 import standard_b64decode, standard_b64encode
 
 import requests
 
@@ -46,13 +45,13 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def _request(self, url, status_404_expected=False):
-        request_args = {'timeout': HTTP_REQUEST_TIMEOUT, 'stream': False}
+        request_args = {'stream': False}
         if self._auth_token is not None:
             authorization_header = self._factor_authorization_header()
             request_args['headers'] = authorization_header
 
         try:
-            with requests.get(url, **request_args) as response:
+            with requests.get(url, timeout=HTTP_REQUEST_TIMEOUT, **request_args) as response:
                 self._log_request(response, status_404_expected)
                 self._log_rate_limit(response)
                 # error out on 4xx and 5xx status codes
@@ -60,8 +59,8 @@ class GitHubApiClient:
         except requests.exceptions.HTTPError as exc:
             if exc.response.status_code == 404 and status_404_expected:
                 return None
-            else:
-                raise
+
+            raise
 
         return response
 

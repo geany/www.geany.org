@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -36,8 +35,8 @@ class LatestVersion(models.Model):
         verbose_name_plural = 'Latest Version'
 
     # ----------------------------------------------------------------------
-    def delete(self, using=None, keep_parents=False):
-        """Never delete anything"""
+    def __str__(self):
+        return f'{self.name} {self.version}'
 
     # ----------------------------------------------------------------------
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
@@ -47,5 +46,5 @@ class LatestVersion(models.Model):
             [CACHE_KEY_LATEST_VERSION_LATEST_VERSION, CACHE_KEY_STATIC_DOCS_RELEASE_NOTES])
 
     # ----------------------------------------------------------------------
-    def __str__(self):
-        return f'{self.name} {self.version}'
+    def delete(self, using=None, keep_parents=False):
+        """Never delete anything"""

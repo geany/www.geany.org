@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -41,10 +40,7 @@ def timeuntil_or_forever(snippet_expire):
 @register.filter
 def highlight(snippet, line_count=None):
     highlighted = pygmentize(snippet.content, snippet.lexer)
-    if highlighted:
-        lines = highlighted.splitlines()
-    else:
-        lines = snippet.content.splitlines()
+    lines = highlighted.splitlines() if highlighted else snippet.content.splitlines()
 
     if line_count:
         lines = lines[:line_count]

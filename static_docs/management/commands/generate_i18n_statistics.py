@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +18,7 @@ from static_docs.generate_i18n_statistics import TranslationStatisticsGenerator
 
 
 class Command(BaseCommand):
-    help = "Generate a JSON file with I18N statistics after updating PO files"
+    help = 'Generate a JSON file with I18N statistics after updating PO files'  # noqa: A003
 
     # ----------------------------------------------------------------------
     def handle(self, *args, **options):

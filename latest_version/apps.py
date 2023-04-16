@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -17,12 +16,12 @@ from django.apps import AppConfig
 
 class LatestVersionAppConfig(AppConfig):
     name = 'latest_version'
-    verbose_name = "LatestVersion"
+    verbose_name = 'LatestVersion'
 
     # ----------------------------------------------------------------------
     def ready(self):
         # register our urlpatterns to the global sitemap generator
         # pylint: disable=import-outside-toplevel
-        from geany.sitemaps import sitemap_registry, StaticSitemap
+        from geany.sitemaps import StaticSitemap, sitemap_registry
         from latest_version.urls import urlpatterns
         sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['latest_version_legacy'])

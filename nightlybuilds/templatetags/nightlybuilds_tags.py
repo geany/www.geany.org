@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -26,10 +25,7 @@ BASE_DIR = settings.NIGHTLYBUILDS_BASE_DIR
 # ----------------------------------------------------------------------
 @register.simple_tag
 def get_build_log(nightly_build, log_type):
-    if log_type == 'Stdout':
-        log = nightly_build.log_stdout
-    else:
-        log = nightly_build.log_stderr
+    log = nightly_build.log_stdout if log_type == 'Stdout' else nightly_build.log_stderr
 
     if log:
         logfile_path = os.path.join(BASE_DIR, nightly_build.nightly_build_target.folder, log)

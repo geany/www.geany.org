@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -17,7 +16,7 @@ from pygments.formatters.html import HtmlFormatter
 
 
 class Command(BaseCommand):
-    help = "Regenerate CSS for snippet sxntax highlighting py Pygments"
+    help = 'Regenerate CSS for snippet sxntax highlighting py Pygments'  # noqa: A003
     requires_system_checks = False
 
     # ----------------------------------------------------------------------

@@ -84,6 +84,10 @@ class NewsPost(models.Model):
         verbose_name_plural = _('News')
 
     # ----------------------------------------------------------------------
+    def __str__(self):
+        return self.title
+
+    # ----------------------------------------------------------------------
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if not self.slug:
             self.slug = slugify(self.title)
@@ -92,7 +96,3 @@ class NewsPost(models.Model):
     # ----------------------------------------------------------------------
     def get_absolute_url(self):
         return reverse('news_detail', kwargs={'newspost_slug': self.slug})
-
-    # ----------------------------------------------------------------------
-    def __str__(self):
-        return self.title

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -21,8 +20,7 @@ from pastebin.models import Snippet
 
 
 class Command(BaseCommand):
-
-    help = 'Purges snippets that are expired'
+    help = 'Purges snippets that are expired'  # noqa: A003
 
     # ----------------------------------------------------------------------
     def add_arguments(self, parser):
@@ -30,7 +28,7 @@ class Command(BaseCommand):
             '--dry-run', '-d',
             action='store_true',
             dest='dry_run',
-            help='Don\'t do anything.')
+            help="Don't do anything.")
 
     # ----------------------------------------------------------------------
     def handle(self, *args, **options):

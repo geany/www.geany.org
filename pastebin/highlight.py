@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -74,7 +73,8 @@ def pygmentize(code_string, lexer_name=LEXER_DEFAULT):
         if lexer_name:
             lexer = get_lexer_by_name(lexer_name)
         else:
-            raise Exception('Unknown lexer')
+            msg = 'Unknown lexer'
+            raise ValueError(msg)  # noqa: TRY301
     except Exception:
         lexer = PythonLexer()
 

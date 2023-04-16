@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +22,7 @@ from nightlybuilds.models import NightlyBuild
 
 
 class Command(BaseCommand):
-    help = "Dump the database (excluding users, sessions and logs)"
+    help = 'Dump the database (excluding users, sessions and logs)'  # noqa: A003
 
     # ----------------------------------------------------------------------
     def handle(self, *args, **options):
@@ -33,7 +32,7 @@ class Command(BaseCommand):
 
     # ----------------------------------------------------------------------
     def _dump_main_database(self):
-        print('Dump main database')
+        self.stdout.write('Dump main database')
         call_command(
             'dumpdata',
             '--exclude', 'auth.user',
@@ -97,7 +96,7 @@ class Command(BaseCommand):
 
         database_nightlybuilds_filename = 'tmp_database_nightlybuilds.json'
         database_nightlybuild_targets_filename = 'tmp_database_nightlybuild_targets.json'
-        print('Dump nightlybuilds.NightlyBuild')
+        self.stdout.write('Dump nightlybuilds.NightlyBuild')
         call_command(
             'dumpdata',
             '--database', 'nightlybuilds',
@@ -106,7 +105,7 @@ class Command(BaseCommand):
             '--output', database_nightlybuilds_filename,
             'nightlybuilds.NightlyBuild')
 
-        print('Dump nightlybuilds.NightlyBuildTarget')
+        self.stdout.write('Dump nightlybuilds.NightlyBuildTarget')
         call_command(
             'dumpdata',
             '--database', 'nightlybuilds',

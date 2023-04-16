@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -21,8 +20,8 @@ register = template.Library()
 
 
 # ----------------------------------------------------------------------
-@register.inclusion_tag("news/list_embedded.html", takes_context=True)
+@register.inclusion_tag('news/list_embedded.html', takes_context=True)
 def get_recent_news(context):
     user = context.request.user
-    context["recent_news_posts"] = NewsPost.objects.recently_published(count=4, for_user=user)
+    context['recent_news_posts'] = NewsPost.objects.recently_published(count=4, for_user=user)
     return context
