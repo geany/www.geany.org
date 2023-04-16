@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -20,12 +19,12 @@ from news.models import NewsPost
 
 class NewsPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'user', 'status', 'publish_date')
-    list_editable = ("status",)
+    list_editable = ('status',)
     list_filter = ('publish_date', 'status')
     date_hierarchy = 'publish_date'
     exclude = ('slug', 'user', 'entry_date')
     actions = ['_toggle_many_published']
-    radio_fields = {"status": admin.HORIZONTAL}
+    radio_fields = {'status': admin.HORIZONTAL}
 
     # ----------------------------------------------------------------------
     def save_model(self, request, obj, form, change):

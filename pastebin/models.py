@@ -11,10 +11,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import timedelta
 import random
 import re
 import time
+from datetime import timedelta
 
 from django.core.cache import cache
 from django.db import models
@@ -32,7 +32,8 @@ CACHE_KEY_SNIPPET_LIST_FULL = 'snippet_list_full'
 
 # ----------------------------------------------------------------------
 def generate_secret_id(length=5):
-    return ''.join([random.choice(CHARS) for i in range(length)])  # pylint: disable=unused-variable
+    randon_chars = random.choice(CHARS)  # noqa: S311
+    return ''.join([randon_chars for i in range(length)])  # pylint: disable=unused-variable
 
 
 class Snippet(models.Model):
@@ -55,48 +56,8 @@ class Snippet(models.Model):
         ordering = ('-published',)
 
     # ----------------------------------------------------------------------
-    def age(self):
-        age = time.mktime(self.published.timetuple())
-        return self._readable_delta(age)
-
-    # ----------------------------------------------------------------------
-    def _readable_delta(self, from_seconds, until_seconds=None):
-        '''Returns a nice readable delta.
-
-        readable_delta(1, 2)           # 1 second ago
-        readable_delta(1000, 2000)     # 16 minutes ago
-        readable_delta(1000, 9000)     # 2 hours, 133 minutes ago
-        readable_delta(1000, 987650)   # 11 days ago
-        readable_delta(1000)           # 15049 days ago (relative to now)
-        '''
-
-        if not until_seconds:
-            until_seconds = time.time()
-
-        seconds = until_seconds - from_seconds
-        delta = timedelta(seconds=seconds)
-
-        # deltas store time as seconds and days, we have to get hours and minutes ourselves
-        delta_minutes = delta.seconds // 60
-        delta_hours = delta_minutes // 60
-
-        # show a fuzzy but useful approximation of the time delta
-        if delta.days:
-            return f'{delta.days} days ago'
-        elif delta_hours:
-            return f'{delta_hours} hours ago'
-        elif delta_minutes:
-            return f'{delta_minutes} minutes ago'
-        else:
-            return f'{delta.seconds} seconds ago'
-
-    # ----------------------------------------------------------------------
-    def get_linecount(self):
-        return len(self.content.splitlines())
-
-    # ----------------------------------------------------------------------
-    def content_splitted(self):
-        return self.content_highlighted.splitlines()
+    def __str__(self):
+        return f'{self.secret_id}'
 
     # ----------------------------------------------------------------------
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
@@ -111,18 +72,58 @@ class Snippet(models.Model):
         cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
 
     # ----------------------------------------------------------------------
-    def delete(self, *args, **kwargs):  # pylint: disable=signature-differs
-        super().delete(*args, **kwargs)
-        # invalidate cache
-        cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
-
-    # ----------------------------------------------------------------------
     def get_absolute_url(self):
         return reverse('snippet_details', kwargs={'snippet_id': self.secret_id})
 
     # ----------------------------------------------------------------------
-    def __str__(self):
-        return f'{self.secret_id}'
+    def age(self):
+        age = time.mktime(self.published.timetuple())
+        return self._readable_delta(age)
+
+    # ----------------------------------------------------------------------
+    def _readable_delta(self, from_seconds, until_seconds=None):
+        """Returns a nice readable delta.
+
+        readable_delta(1, 2)           # 1 second ago
+        readable_delta(1000, 2000)     # 16 minutes ago
+        readable_delta(1000, 9000)     # 2 hours, 133 minutes ago
+        readable_delta(1000, 987650)   # 11 days ago
+        readable_delta(1000)           # 15049 days ago (relative to now)
+        """
+
+        if not until_seconds:
+            until_seconds = time.time()
+
+        seconds = until_seconds - from_seconds
+        delta = timedelta(seconds=seconds)
+
+        # deltas store time as seconds and days, we have to get hours and minutes ourselves
+        delta_minutes = delta.seconds // 60
+        delta_hours = delta_minutes // 60
+
+        # show a fuzzy but useful approximation of the time delta
+        if delta.days:
+            return f'{delta.days} days ago'
+        if delta_hours:
+            return f'{delta_hours} hours ago'
+        if delta_minutes:
+            return f'{delta_minutes} minutes ago'
+
+        return f'{delta.seconds} seconds ago'
+
+    # ----------------------------------------------------------------------
+    def get_linecount(self):
+        return len(self.content.splitlines())
+
+    # ----------------------------------------------------------------------
+    def content_splitted(self):
+        return self.content_highlighted.splitlines()
+
+    # ----------------------------------------------------------------------
+    def delete(self, *args, **kwargs):  # pylint: disable=signature-differs
+        super().delete(*args, **kwargs)
+        # invalidate cache
+        cache.delete_many([CACHE_KEY_SNIPPET_LIST_NO_CONTENT, CACHE_KEY_SNIPPET_LIST_FULL])
 
 
 class SpamwordManager(models.Manager):
@@ -130,7 +131,7 @@ class SpamwordManager(models.Manager):
     # ----------------------------------------------------------------------
     def get_regex(self):
         return re.compile(
-            r'|'.join((i[1] for i in self.values_list())),
+            r'|'.join(i[1] for i in self.values_list()),
             re.MULTILINE)
 
 

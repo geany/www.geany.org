@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -17,12 +16,12 @@ from django.apps import AppConfig
 
 class PastebinAppConfig(AppConfig):
     name = 'pastebin'
-    verbose_name = "Pastebin"
+    verbose_name = 'Pastebin'
 
     # ----------------------------------------------------------------------
     def ready(self):
         # Sitemap framework
         # pylint: disable=import-outside-toplevel
-        from geany.sitemaps import sitemap_registry, StaticSitemap
+        from geany.sitemaps import StaticSitemap, sitemap_registry
         from pastebin.urls import urlpatterns
         sitemap_registry.add(StaticSitemap, urlpatterns, exclude_views=['snippet_api'])

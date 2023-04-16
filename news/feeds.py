@@ -1,4 +1,3 @@
-# coding: utf-8
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -23,12 +22,12 @@ from news.models import NewsPost
 
 class LatestNewsPostsFeed(Feed):
 
-    title = "Geany project news"
-    description = "News feed for the Geany project"
+    title = 'Geany project news'
+    description = 'News feed for the Geany project'
 
     # ----------------------------------------------------------------------
     def link(self):
-        return reverse("news_list")
+        return reverse('news_list')
 
     # ----------------------------------------------------------------------
     def items(self):
@@ -41,7 +40,7 @@ class LatestNewsPostsFeed(Feed):
     # ----------------------------------------------------------------------
     def item_description(self, item):
         description = richtext_filters(item.content)
-        absolute_urls_name = "mezzanine.utils.html.absolute_urls"
+        absolute_urls_name = 'mezzanine.utils.html.absolute_urls'
         if absolute_urls_name not in settings.RICHTEXT_FILTERS:
             description = absolute_urls(description)
         return description

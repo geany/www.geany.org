@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -15,9 +14,9 @@
 from mezzanine.conf import settings
 
 from geany.decorators import (
-    cache_function,
     CACHE_KEY_LATEST_VERSION_LATEST_VERSION,
     CACHE_TIMEOUT_1HOUR,
+    cache_function,
 )
 from latest_version.models import LatestVersion
 from latest_version.releases import ReleaseVersionsProvider

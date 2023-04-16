@@ -1,0 +1,130 @@
+###
+### Ruff
+###
+[tool.ruff]
+line-length = 100
+select = [
+    "A", # flake8-builtins
+    "B", # flake8-bugbear
+    "BLE", # flake8-blind-except
+    "C4", # flake8-comprehensions
+    "C90", # mccabe
+    "DJ", # flake8-django
+    "DTZ", # flake8-datetimez
+    "E", # pycodestyle errors
+    "EM", # flake8-errmsg
+    "ERA", # eradicate
+    "EXE", # flake8-executable
+    "F", # Pyflakes
+    "FBT", # flake8-boolean-trap
+    "G", # flake8-logging-format
+    "I", # isort
+    "ICN", # flake8-import-conventions
+    "INP", # flake8-no-pep420
+    "INT", # flake8-gettext
+    "ISC", # flake8-implicit-str-concat
+    "N", # pep8-naming
+    "NPY", # NumPy-specific rules
+    "PD", # pandas-vet
+    "PGH", # pygrep-hooks
+    "PIE", # flake8-pie
+    "PL", # Pylint
+    "PT", # flake8-pytest-style
+    "PYI", # flake8-pyi
+    "Q", # flake8-quotes
+    "RET", # flake8-return
+    "RSE", # flake8-raise
+    "RUF", # Ruff-specific rules
+    "S", # flake8-bandit
+    "SIM", # flake8-simplify
+    "SLF", # flake8-self
+    "T10", # flake8-debugger
+    "T20", # flake8-print
+    "TCH", # flake8-type-checking
+    "TID", # flake8-tidy-imports
+    "TRY", # tryceratops
+    "UP", # pyupgrade
+    "W", # pycodestyle warnings
+    "YTT", # flake8-2020
+]
+
+ignore = [
+    'DJ001', # Django model text-based fields shouldn't be nullable
+    'FBT002', # Boolean default value in function definition
+    'BLE001', # Do not catch blind exception: `Exception
+    'RET504', # Unnecessary variable assignment before `return` statement
+    'SIM114', # Combine `if` branches using logical `or` operator
+
+]
+
+fixable = ["I", "Q000"]
+unfixable = []
+
+exclude = [
+    ".eggs",
+    ".git",
+    ".ruff_cache",
+    ".tox",
+    "__pypackages__",
+    "_build",
+    "venv",
+    "migrations"
+]
+
+[tool.ruff.isort]
+lines-after-imports = 2
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.pylint]
+allow-magic-value-types = ["bytes", "int", "str"]
+max-args = 7
+
+###
+### PyLint
+###
+[tool.pylint.main]
+ignore = ".git"
+ignore-patterns = [
+    "local_settings.py",
+    "local_settings.docker.py",
+]
+persistent = false
+load-plugins=[
+    "pylint_django",
+    "pylint.extensions.bad_builtin",
+    "pylint.extensions.check_elif",
+    "pylint.extensions.comparetozero",
+    "pylint.extensions.emptystring",
+    "pylint.extensions.mccabe",
+    "pylint.extensions.overlapping_exceptions",
+    "pylint.extensions.redefined_variable_type",
+]
+
+[tool.pylint."messages control"]
+disable = [
+  "empty-docstring",
+  "logging-format-interpolation",
+  "missing-docstring",
+  "no-else-return",
+]
+
+[tool.pylint.reports]
+output-format = "parseable"
+reports = false
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.variables]
+dummy-variables-rgx = "_|dummy"
+
+[tool.pylint.design]
+min-public-methods = 0
+max-attributes = 10
+max-args = 7
+max-parents = 9
+
+[tool.pylint.exceptions]
+overgeneral-exceptions = []

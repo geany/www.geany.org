@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -53,8 +52,8 @@ def do_evaluate(parser, token):  # pylint: disable=unused-argument
         _, variable, _, target_var_name = token.split_contents()
     except ValueError as exc:
         token_name = token.contents.split()[1]
-        raise template.TemplateSyntaxError(
-            f'{token_name!r} tag requires a single argument') from exc
+        msg = f'{token_name!r} tag requires a single argument'
+        raise template.TemplateSyntaxError(msg) from exc
     return EvaluateNode(variable, target_var_name)
 
 

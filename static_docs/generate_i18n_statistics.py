@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # LICENCE: This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,13 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from json import dump, JSONEncoder
+import re
+from json import JSONEncoder, dump
 from os import listdir, makedirs
 from os.path import join, splitext
-from subprocess import CalledProcessError, check_output, STDOUT
+from subprocess import STDOUT, CalledProcessError, check_output
 from tempfile import TemporaryDirectory
 from time import time
-import re
 
 from babel import Locale, UnknownLocaleError
 
@@ -96,7 +95,7 @@ class TranslationStatisticsGenerator:
         self._update_pot_file()
         self._fetch_pot_stats()
         self._fetch_message_catalogs()
-        for self._message_catalog in self._message_catalogs:
+        for self._message_catalog in self._message_catalogs:  # noqa: B020
             self._update_message_catalog()
             self._fetch_message_catalog_stats()
 
@@ -149,13 +148,13 @@ class TranslationStatisticsGenerator:
                 cwd=self._destination_path,
                 stderr=STDOUT)
             output_utf8 = output.decode('utf-8')
-            return output_utf8
         except CalledProcessError as exc:
             command_line = ' '.join(command)
             error_message = exc.output.decode('utf-8')
-            raise ValueError(
-                f'Command: "{command_line}" exited with code {exc.returncode}: {error_message}'
-            ) from exc
+            msg = f'Command: "{command_line}" exited with code {exc.returncode}: {error_message}'
+            raise ValueError(msg) from exc
+
+        return output_utf8
 
     # ----------------------------------------------------------------------
     def _fetch_pot_stats(self):
@@ -173,7 +172,8 @@ class TranslationStatisticsGenerator:
             fuzzy = match.group('fuzzy')
             untranslated = match.group('untranslated')
         else:
-            raise ValueError(f'Unable to parse msgfmt output: {output}')
+            msg = f'Unable to parse msgfmt output: {output}'
+            raise ValueError(msg)
 
         return TranslationStatistics(
             translated=int(translated) if translated is not None else 0,

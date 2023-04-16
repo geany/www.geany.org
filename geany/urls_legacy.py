@@ -185,7 +185,7 @@ URL_MAPPING_CATCH_ALL = {
 def _add_url_mappings(mapping, urlpatterns_):
     for old_url, new_url in mapping.items():
         if old_url.startswith('/'):
-            old_url = old_url[1:]
+            old_url = old_url[1:]  # noqa: PLW2901
 
         url_pattern = re_path(
             fr'^{old_url}$',

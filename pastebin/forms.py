@@ -60,7 +60,8 @@ class SnippetForm(forms.ModelForm):
         if value:
             regex = Spamword.objects.get_regex()
             if regex.findall(value.lower()):
-                raise forms.ValidationError('This snippet was identified as SPAM.')
+                msg = 'This snippet was identified as SPAM.'
+                raise forms.ValidationError(msg)
 
         return value
 

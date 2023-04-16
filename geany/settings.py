@@ -19,6 +19,8 @@ from django.utils.translation import gettext_lazy as _
 from markdown.extensions.toc import TocExtension
 
 
+# ruff: noqa: ERA001
+
 ######################
 # MEZZANINE SETTINGS #
 ######################
@@ -109,7 +111,7 @@ from markdown.extensions.toc import TocExtension
 # ('/admin', '/example') would force all URLs beginning with
 # /admin or /example to run over SSL. Defaults to:
 #
-SSL_FORCE_URL_PREFIXES = ("/admin", "/account")
+SSL_FORCE_URL_PREFIXES = ('/admin', '/account')
 
 # Django security settings
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -138,7 +140,7 @@ ALLOWED_HOSTS = ('127.0.0.1',
                  'www.geany.org')
 INTERNAL_IPS = ('127.0.0.1', '10.0.44.3')
 
-SECRET_KEY = 'change-me'
+SECRET_KEY = 'change-me'  # noqa: S105
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -154,7 +156,7 @@ USE_TZ = True
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = 'en'
 
 # Supported languages
 LANGUAGES = (
@@ -175,7 +177,7 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = False
 
-AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
+AUTHENTICATION_BACKENDS = ('mezzanine.core.auth_backends.MezzanineBackend',)
 
 # The numeric mode to set newly-uploaded files to. The value should be
 # a mode you'd pass directly to os.chmod.
@@ -193,24 +195,24 @@ DEFAULT_FROM_EMAIL = 'webmaster@geany.org'
 #############
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "dbname",
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "127.0.0.1",
-        "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_ALL_TABLES'; SET storage_engine=INNODB"
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dbname',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_ALL_TABLES'; SET storage_engine=INNODB"
         },
     },
     'nightlybuilds': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dbname',
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "127.0.0.1",
-        "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_ALL_TABLES';"
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_ALL_TABLES';"
         },
     }
 }
@@ -238,22 +240,22 @@ CACHE_MIDDLEWARE_ALIAS = 'default'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = "/static/"
+STATIC_URL = '/static/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip('/'))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = "/media/"
+MEDIA_URL = '/media/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip('/').split('/'))
 
 # Package/module name to import the root urlpatterns from for the project.
 ROOT_URLCONF = f'{PROJECT_APP}.urls'
@@ -263,7 +265,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
         'DIRS': [
-            os.path.join(PROJECT_APP_PATH, "templates"),
+            os.path.join(PROJECT_APP_PATH, 'templates'),
         ],
         'OPTIONS': {
             'context_processors': [
@@ -286,53 +288,53 @@ TEMPLATES = [
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
 
 # Store these package names here as they may change in the future since
 # at the moment we are using custom forks of them.
-PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
-PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
+PACKAGE_NAME_FILEBROWSER = 'filebrowser_safe'
+PACKAGE_NAME_GRAPPELLI = 'grappelli_safe'
 
 ################
 # APPLICATIONS #
 ################
 
 INSTALLED_APPS = (
-    "clearcache",
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.messages",
-    "django.contrib.redirects",
-    "django.contrib.sessions",
-    "django.contrib.sites",
-    "django.contrib.sitemaps",
-    "django.contrib.staticfiles",
-    "mezzanine.boot",
-    "mezzanine.conf",
-    "mezzanine.core",
-    "mezzanine.generic",
-    "mezzanine.pages",
-    "mezzanine.forms",
-    "mezzanine.galleries",
+    'clearcache',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.messages',
+    'django.contrib.redirects',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'django.contrib.staticfiles',
+    'mezzanine.boot',
+    'mezzanine.conf',
+    'mezzanine.core',
+    'mezzanine.generic',
+    'mezzanine.pages',
+    'mezzanine.forms',
+    'mezzanine.galleries',
 
     # we
-    "geany.apps.GeanyAppConfig",
-    "news.apps.NewsAppConfig",
-    "latest_version.apps.LatestVersionAppConfig",
-    "static_docs.apps.StaticDocsAppConfig",
-    "pastebin.apps.PastebinAppConfig",
-    "nightlybuilds.apps.NightlyBuildsAppConfig",
-    "urlshortener.apps.UrlShortenerAppConfig",
+    'geany.apps.GeanyAppConfig',
+    'news.apps.NewsAppConfig',
+    'latest_version.apps.LatestVersionAppConfig',
+    'static_docs.apps.StaticDocsAppConfig',
+    'pastebin.apps.PastebinAppConfig',
+    'nightlybuilds.apps.NightlyBuildsAppConfig',
+    'urlshortener.apps.UrlShortenerAppConfig',
 
     # 3rd party
-    "compressor",
-    "django_extensions",
-    "mezzanine_pagedown",
-    "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
+    'compressor',
+    'django_extensions',
+    'mezzanine_pagedown',
+    'mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig',
     # "shortener",  # disabled until it is fixed for Django 4.0 or we remove it completely
     PACKAGE_NAME_FILEBROWSER,
     PACKAGE_NAME_GRAPPELLI,
@@ -342,27 +344,27 @@ INSTALLED_APPS = (
 # these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
 MIDDLEWARE = (
-    "log_request_id.middleware.RequestIDMiddleware",
-    "mezzanine.core.middleware.UpdateCacheMiddleware",
+    'log_request_id.middleware.RequestIDMiddleware',
+    'mezzanine.core.middleware.UpdateCacheMiddleware',
 
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     # Uncomment if using internationalisation or localisation
     # "django.middleware.locale.LocaleMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "mezzanine.core.request.CurrentRequestMiddleware",
-    "mezzanine.core.middleware.RedirectFallbackMiddleware",
-    "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
-    "mezzanine.core.middleware.SitePermissionMiddleware",
+    'mezzanine.core.request.CurrentRequestMiddleware',
+    'mezzanine.core.middleware.RedirectFallbackMiddleware',
+    'mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware',
+    'mezzanine.core.middleware.SitePermissionMiddleware',
     # Uncomment the following if using any of the SSL settings:
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
-    "mezzanine.pages.middleware.PageMiddleware",
-    "mezzanine.core.middleware.FetchFromCacheMiddleware",
+    'mezzanine.pages.middleware.PageMiddleware',
+    'mezzanine.core.middleware.FetchFromCacheMiddleware',
 )
 
 # pagedown / markdown
@@ -396,33 +398,33 @@ INLINE_EDITING_ENABLED = False
 
 # dashboard
 DASHBOARD_TAGS = (
-    ("mezzanine_tags.app_list",),
-    ("mezzanine_tags.recent_actions",),
-    ("comment_tags.recent_comments",),
+    ('mezzanine_tags.app_list',),
+    ('mezzanine_tags.recent_actions',),
+    ('comment_tags.recent_comments',),
 )
 
 ADMIN_MENU_ORDER = (
-    (_("Content"), (
-        "pages.Page",
-        "news.NewsPost",
-        "generic.ThreadedComment",
-        "mezzanine_blocks.Block",
-        "mezzanine_blocks.RichBlock",
-        "mezzanine_sync_pages.MezzanineSyncPages",
-        (_("Media Library"), "fb_browse"),)),
-    (_("Site"), (
-        "sites.Site",
-        "redirects.Redirect",
-        "conf.Setting",
-        (_("Clear Cache"), "clearcache_admin"),
+    (_('Content'), (
+        'pages.Page',
+        'news.NewsPost',
+        'generic.ThreadedComment',
+        'mezzanine_blocks.Block',
+        'mezzanine_blocks.RichBlock',
+        'mezzanine_sync_pages.MezzanineSyncPages',
+        (_('Media Library'), 'fb_browse'),)),
+    (_('Site'), (
+        'sites.Site',
+        'redirects.Redirect',
+        'conf.Setting',
+        (_('Clear Cache'), 'clearcache_admin'),
     )),
-    (_("Geany"), (
-        "latest_version.LatestVersion",
+    (_('Geany'), (
+        'latest_version.LatestVersion',
     )),
-    (_("Users"), ("auth.User", "auth.Group",)))  # pylint: disable=hard-coded-auth-user
+    (_('Users'), ('auth.User', 'auth.Group',)))  # pylint: disable=hard-coded-auth-user
 
 # caching & sessions
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_SECURE = True
 
@@ -457,7 +459,7 @@ def skip_404_not_found(record):
     return True
 
 
-logging.captureWarnings(True)  # log warnings using the logging subsystem
+logging.captureWarnings(capture=True)  # log warnings using the logging subsystem
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -602,14 +604,15 @@ warnings.filterwarnings(
 local_settings_file_name = os.environ.get('LOCAL_SETTINGS_PY', 'local_settings.py')
 filename = os.path.join(PROJECT_APP_PATH, local_settings_file_name)  # pylint: disable=invalid-name
 if os.path.exists(filename):
-    from importlib.util import module_from_spec, spec_from_file_location
     import sys
+    from importlib.util import module_from_spec, spec_from_file_location
+
     module_name = f'{PROJECT_APP}.local_settings'  # pylint: disable=invalid-name
     spec = spec_from_file_location(module_name, filename)  # pylint: disable=invalid-name
     module = module_from_spec(spec)  # pylint: disable=invalid-name
     sys.modules[module_name] = module
     with open(filename, 'rb') as local_config:
-        exec(local_config.read())  # pylint: disable=exec-used
+        exec(local_config.read())  # noqa: S102 pylint: disable=exec-used
 
 
 ####################
