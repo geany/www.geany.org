@@ -70,6 +70,15 @@ There is a portable version of Geany by Oliver Krystal to carry on your USB stic
 https://portableapps.com/apps/development/geany_portable
 
 
+## AppImage
+
+An AppImage for Geany can be found on:
+
+https://github.com/ecmu/geany.AppImage
+
+Download the "Geany-\*.AppImage" file, make it executable (e.g. with `chmod +x Geany-*.AppImage`) and execute it.
+
+
 ## Find your package
 
 See https://pkgs.org/download/geany for even more available packages.
