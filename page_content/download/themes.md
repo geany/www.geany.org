@@ -7,4 +7,4 @@ To use one the themes below, download the configuration file and save it to the 
 
 For more information and detailed configuration instructions, see https://github.com/geany/geany-themes.
 
-
+To change the general look and feel of Geany, you need to change the GTK theme. See the [corresponding FAQ entry](/documentation/faq/#how-to-change-the-gtk-theme) for details.
