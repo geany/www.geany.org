@@ -75,13 +75,15 @@ class GitHubApiClient:
 
     # ----------------------------------------------------------------------
     def _log_rate_limit(self, response):
-        rate_limit_remaining = int(response.headers['X-RateLimit-Remaining'])
-        rate_limit = response.headers['X-RateLimit-Limit']
-        log_message = f'Github rate limits: {rate_limit_remaining}/{rate_limit}'
-        if rate_limit_remaining > 0:
-            logger.info(log_message)
-        else:
-            logger.warning(log_message)
+        rate_limit_remaining = response.headers.get('X-RateLimit-Remaining')
+        if rate_limit_remaining:
+            rate_limit_remaining = int(rate_limit_remaining)
+            rate_limit = response.headers['X-RateLimit-Limit']
+            log_message = f'Github rate limits: {rate_limit_remaining}/{rate_limit}'
+            if rate_limit_remaining > 0:
+                logger.info(log_message)
+            else:
+                logger.warning(log_message)
 
     # ----------------------------------------------------------------------
     def _log_request(self, response, status_404_expected):
@@ -118,6 +120,11 @@ class GitHubApiClient:
             # standard_b64decode returns a byte string but we want a unicode string
             content_utf8 = standard_b64decode(content)
             return content_utf8.decode('utf-8')
+        elif response_json['encoding'] == 'none' and not content:
+            # the API did not return the file content, so download it explicitly
+            file_content = self._request(response_json['download_url'])
+            return file_content.text
+
         return content
 
     # ----------------------------------------------------------------------
