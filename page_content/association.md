@@ -15,7 +15,15 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
-* None scheduled.
+##### Geany e.V. General Assembly 2023
+Date: 26th November 2023  - 15:00 CET
+Location: Jitsi (ask the association board for details)
+Audience: association members
+Agenda:
+
+- General report
+- Financial report
+
 
 #### Past meetings
 
