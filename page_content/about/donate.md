@@ -17,6 +17,7 @@ If you want to donate money to the Geany project, it will be used to support fur
 
 There are different options to donate, including bank transfer and Liberapay.
 Bank transfer to the [Geany e.V.][8] account is the preferred way for donating money as the money is transferred directly without a third party involved and additional fees can be avoided.
+Please note bank transfers are only possible if your bank participates in [SEPA][10], usually this applies to banks in most European countries.
 
 Your options:
 
@@ -36,3 +37,4 @@ Your options:
   [7]: https://www.paypal.com/cgi-bin/webscr?item_name=Donation+to+Geany&cmd=_donations&lc=US&business=donate%40geany.org
   [8]: /association/
   [9]: https://liberapay.com/Geany/donate
+  [1ß]: https://en.wikipedia.org/wiki/Single_Euro_Payments_Area
