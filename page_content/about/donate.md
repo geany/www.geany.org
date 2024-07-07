@@ -37,4 +37,4 @@ Your options:
   [7]: https://www.paypal.com/cgi-bin/webscr?item_name=Donation+to+Geany&cmd=_donations&lc=US&business=donate%40geany.org
   [8]: /association/
   [9]: https://liberapay.com/Geany/donate
-  [1ß]: https://en.wikipedia.org/wiki/Single_Euro_Payments_Area
+  [10]: https://en.wikipedia.org/wiki/Single_Euro_Payments_Area
