@@ -222,7 +222,7 @@ You can use the official installer to install Geany and copy its files to a port
 - if you want to change the GTK theme for another look and feel, see [How to change the GTK theme?][12] below and use the directory `config` for creating the `gtk-3.0` and `themes` directories
 - to install Geany-Plugins proceed like above with the Geany-Plugins installer
 
-There is also a third party package for a portable Geany version, see [Geany Portable for Windows (portableapps.com)][13]. Please keep in my mind this package is not maintained by the Geany team and therefore you must make yourself sure that you can trust it.
+There is also a third party package for a portable Geany version, see [Geany Portable for Windows (portableapps.com)][13]. Please keep in mind this package is not maintained by the Geany team and it is each user's own decision of its trustworthiness.
 
 ## How to change the GTK theme?
 
