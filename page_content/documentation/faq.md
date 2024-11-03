@@ -205,7 +205,7 @@ another is open with spaces indentation. See the [manual][8] for details.
 
 You can use the official installer to install Geany and copy its files to a portable device:
 
-- install Geany from the official installer to the any path on a local disk
+- install Geany from the official installer to any path on a local disk
 - copy the whole directory to the portable device
 - then uninstall Geany from your local system
 - create a new file in the installation directory and name it `GeanyPortable.bat` (or any other name you like)
