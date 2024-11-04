@@ -201,6 +201,29 @@ indent settings - i.e. you might want one document indented with tabs whilst
 another is open with spaces indentation. See the [manual][8] for details.
 
 
+## How to install a portable version of Geany on Windows (e.g. for USB drives)?
+
+You can use the official installer to install Geany and copy its files to a portable device:
+
+- install Geany from the official installer to any path on a local disk
+- copy the whole directory to the portable device
+- then uninstall Geany from your local system
+- create a new file in the installation directory and name it `GeanyPortable.bat` (or any other name you like)
+- copy the following contents into the file:
+  ```
+  @ECHO OFF
+
+  SET XDG_CONFIG_HOME=./config
+  REM Optionally set the language you prefer, a list of available translations can be found on https://www.geany.org/contribute/translation/statistics/
+  SET LANG=en
+
+  start /b bin\geany.exe --config=./config/geany
+  ```
+- if you want to change the GTK theme for another look and feel, see [How to change the GTK theme?][12] below and use the directory `config` for creating the `gtk-3.0` and `themes` directories
+- to install Geany-Plugins proceed like above with the Geany-Plugins installer
+
+There is also a third party package for a portable Geany version, see [Geany Portable for Windows (portableapps.com)][13]. Please keep in mind this package is not maintained by the Geany team and it is each user's own decision of its trustworthiness.
+
 ## How to change the GTK theme?
 
 The GTK theme defines the look and feel of Geany.
@@ -265,3 +288,5 @@ If that doesn't answer your question, the quickest and best way is to ask on the
 [9]: /support/mailing-lists/
 [10]: https://plugins.geany.org/geanylua/geanylua-index.html
 [11]: https://plugins.geany.org/geanypy.html
+[12]: #how-to-change-the-gtk-theme
+[13]: /download/third-party/#geany-portable-for-windows-portableappscom
