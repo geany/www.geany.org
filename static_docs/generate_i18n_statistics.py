@@ -30,6 +30,7 @@ LAST_TRANSLATOR_REGEXP = re.compile(r'^"Last-Translator: (?P<name>[\w -]+)\s*<?.
 # fallback language names for locales not (yet) supported by Babel
 KNOWN_LANGUAGE_NAMES = {
     'ie': 'Interlingue',
+    'ltg': 'Latgalian',
 }
 
 
