@@ -28,7 +28,7 @@ Get the code
 
 Perform a usual clone of the www.geany.org repository from Github:
 
-    git clone git://github.com/geany/www.geany.org
+    git clone https://github.com/geany/www.geany.org
 
 
 Local setup using virtualenv

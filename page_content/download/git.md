@@ -7,7 +7,7 @@ You can use it to test the latest source code, even between releases.
 To check out Geany make sure you have the git package installed on your system.
 Then checkout either the [GitHub repository][1]:
 
-	git clone git://github.com/geany/geany.git geany
+	git clone https://github.com/geany/geany.git geany
 
 or the [geany.org mirror][2]:
 
