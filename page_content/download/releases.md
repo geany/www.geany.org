@@ -39,6 +39,7 @@ For older versions, please see https://download.geany.org/.
 - Note: Tarballs before 1.25 used another GPG Key: https://download.geany.org/colombanw-pubkey-pre-1.25.txt
 - Note: Tarballs before 0.21 used another GPG Key: https://download.geany.org/ntrel-pubkey.txt
 - Note: Tarballs before 0.20 used another GPG Key: https://download.geany.org/eht16-pubkey_old.txt
+- Note: Geany-Plugins downloads before 2.1 used another GPG Key: https://download.geany.org/frlan-pubkey-pre-2.1.txt
 - Note: Geany-Plugins downloads use the following GPG Key: https://download.geany.org/frlan-pubkey.txt
 
 [1]: https://download.geany.org/colombanw-pubkey.txt
