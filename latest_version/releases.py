@@ -70,7 +70,7 @@ RELEASE_TYPES = {
         },
         RELEASE_TYPE_WINDOWS_UNSIGNED: {
             'pattern': re.compile(r'^geany-plugins-([0-9\.\-]+)_setup(-[0-9]+)?_unsigned.exe$'),
-            'fallback_filename': 'geany-plugins-{version}_setup._unsignedexe'
+            'fallback_filename': 'geany-plugins-{version}_setup_unsigned.exe'
         },
     },
 }
