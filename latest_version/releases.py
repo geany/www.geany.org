@@ -23,6 +23,7 @@ from packaging.version import parse as parse_version
 RELEASE_TYPE_SOURCE_GZIP = 'source_gzip_version'
 RELEASE_TYPE_SOURCE_BZIP2 = 'source_bzip2_version'
 RELEASE_TYPE_WINDOWS = 'windows_version'
+RELEASE_TYPE_WINDOWS_UNSIGNED = 'windows_version_unsigned'
 RELEASE_TYPE_MACOS = 'macos_version'
 RELEASE_TYPE_MACOS_ARM64 = 'macos_version_arm64'
 
@@ -39,6 +40,10 @@ RELEASE_TYPES = {
         RELEASE_TYPE_WINDOWS: {
             'pattern': re.compile(r'^geany-([0-9\.\-]+)_setup(-[0-9]+)?.exe$'),
             'fallback_filename': 'geany-{version}_setup.exe'
+        },
+        RELEASE_TYPE_WINDOWS_UNSIGNED: {
+            'pattern': re.compile(r'^geany-([0-9\.\-]+)_setup(-[0-9]+)?_unsigned.exe$'),
+            'fallback_filename': 'geany-{version}_setup_unsigned.exe'
         },
         RELEASE_TYPE_MACOS: {
             'pattern': re.compile(r'^geany-([0-9\.\-]+)_osx(-[0-9]+)?.dmg$'),
@@ -62,6 +67,10 @@ RELEASE_TYPES = {
         RELEASE_TYPE_WINDOWS: {
             'pattern': re.compile(r'^geany-plugins-([0-9\.\-]+)_setup(-[0-9]+)?.exe$'),
             'fallback_filename': 'geany-plugins-{version}_setup.exe'
+        },
+        RELEASE_TYPE_WINDOWS_UNSIGNED: {
+            'pattern': re.compile(r'^geany-plugins-([0-9\.\-]+)_setup(-[0-9]+)?_unsigned.exe$'),
+            'fallback_filename': 'geany-plugins-{version}_setup._unsignedexe'
         },
     },
 }

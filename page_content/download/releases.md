@@ -1,11 +1,12 @@
 ## Geany Releases
 
-Distribution          | File          | GPG Signature | GPG Key
---------------------- | ------------- | ------------- | -------------
-Source (tar.gz)       | [{{ release_versions.source_gzip_version }}](https://download.geany.org/{{ release_versions.source_gzip_version }}) | [{{ release_versions.source_gzip_version }}.sig](https://download.geany.org/{{ release_versions.source_gzip_version }}.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
-Source (tar.bz2)      | [{{ release_versions.source_bzip2_version }}](https://download.geany.org/{{ release_versions.source_bzip2_version }}) | [{{ release_versions.source_bzip2_version }}.sig](https://download.geany.org/{{ release_versions.source_bzip2_version }}.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
-Windows (64-bit[^1])  | [{{ release_versions.windows_version }}](https://download.geany.org/{{ release_versions.windows_version }}) | [{{ release_versions.windows_version }}.sig](https://download.geany.org/{{ release_versions.windows_version }}.sig) ([Instructions][4]) | [eht16-pubkey.txt][2]
-macOS                 | [{{ release_versions.macos_version }}](https://download.geany.org/{{ release_versions.macos_version }})<br>[{{ release_versions.macos_version_arm64 }}](https://download.geany.org/{{ release_versions.macos_version_arm64 }}) | - | -
+Distribution                    | File          | GPG Signature | GPG Key
+------------------------------- | ------------- | ------------- | -------------
+Source (tar.gz)                 | [{{ release_versions.source_gzip_version }}](https://download.geany.org/{{ release_versions.source_gzip_version }}) | [{{ release_versions.source_gzip_version }}.sig](https://download.geany.org/{{ release_versions.source_gzip_version }}.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
+Source (tar.bz2)                | [{{ release_versions.source_bzip2_version }}](https://download.geany.org/{{ release_versions.source_bzip2_version }}) | [{{ release_versions.source_bzip2_version }}.sig](https://download.geany.org/{{ release_versions.source_bzip2_version }}.sig) ([Instructions][4]) | [colombanw-pubkey.txt][1]
+Windows (64-bit[^1])            | [{{ release_versions.windows_version }}](https://download.geany.org/{{ release_versions.windows_version }}) | [{{ release_versions.windows_version }}.sig](https://download.geany.org/{{ release_versions.windows_version }}.sig) ([Instructions][4]) | [eht16-pubkey.txt][2]
+Windows (64-bit[^1], unsigned)  | [{{ release_versions.windows_version_unsigned }}](https://download.geany.org/{{ release_versions.windows_version_unsigned }}) | [{{ release_versions.windows_version_unsigned }}.sig](https://download.geany.org/{{ release_versions.windows_version_unsigned }}.sig) ([Instructions][4]) | [eht16-pubkey.txt][2]
+macOS                           | [{{ release_versions.macos_version }}](https://download.geany.org/{{ release_versions.macos_version }})<br>[{{ release_versions.macos_version_arm64 }}](https://download.geany.org/{{ release_versions.macos_version_arm64 }}) | - | -
 
 [Release notes for Geany {{ geany_latest_version.version }}][3]
 
@@ -16,12 +17,13 @@ For instructions on installing GTK themes on Windows and macOS see the [correspo
 Geany has a few plugins included (Classbuilder, Export, Filebrowser, HTML Characters, Save Actions and Split Window)
 but many more plugins are available in the [Geany-Plugins][5] project:
 
-Distribution          | File          | GPG Signature | GPG Key
---------------------- | ------------- | ------------- | -------------
-Source (tar.gz)       | [{{ plugins_release_versions.source_gzip_version }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_gzip_version }}) | [{{ plugins_release_versions.source_gzip_version }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_gzip_version }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
-Source (tar.bz2)      | [{{ plugins_release_versions.source_bzip2_version }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_bzip2_version }}) | [{{ plugins_release_versions.source_bzip2_version }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_bzip2_version }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
-Windows (64-bit[^1])  | [{{ plugins_release_versions.windows_version }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version }}) | [{{ plugins_release_versions.windows_version }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
-macOS                 | (included in `{{ release_versions.macos_version }}` above) | - | -
+Distribution                    | File          | GPG Signature | GPG Key
+------------------------------- | ------------- | ------------- | -------------
+Source (tar.gz)                 | [{{ plugins_release_versions.source_gzip_version }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_gzip_version }}) | [{{ plugins_release_versions.source_gzip_version }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_gzip_version }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
+Source (tar.bz2)                | [{{ plugins_release_versions.source_bzip2_version }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_bzip2_version }}) | [{{ plugins_release_versions.source_bzip2_version }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.source_bzip2_version }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
+Windows (64-bit[^1])            | [{{ plugins_release_versions.windows_version }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version }}) | [{{ plugins_release_versions.windows_version }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
+Windows (64-bit[^1], unsigned)  | [{{ plugins_release_versions.windows_version_unsigned }}](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version_unsigned }}) | [{{ plugins_release_versions.windows_version_unsigned }}.sig](https://plugins.geany.org/geany-plugins/{{ plugins_release_versions.windows_version_unsigned }}.sig) ([Instructions][4]) | [frlan-pubkey.txt][6]
+macOS                           | (included in `{{ release_versions.macos_version }}` above) | - | -
 
 [Release notes for Geany-Plugins {{ geany_plugins_latest_version.version }}][7]
 
