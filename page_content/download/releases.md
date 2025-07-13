@@ -29,6 +29,10 @@ macOS                           | (included in `{{ release_versions.macos_versio
 
 For more details, see the [plugin page][5].
 
+## Code Signing Policy
+- Free code signing for the Windows binaries provided by [SignPath.io](https://signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
+- This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it
+- Approver: [Giuseppe Penone](https://github.com/giuspen)
 
 ## Older versions
 
