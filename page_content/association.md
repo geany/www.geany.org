@@ -15,7 +15,14 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
-*None currently announced*
+##### Geany e.V. General Assembly 2025
+Date: 15th November 2025  - 15:00 CET
+Location: Hoepnerstraße, Leipzig, Germany and Jitsi (ask the association board for details)
+Audience: association members
+Agenda:
+
+- General report
+- Financial report
 
 #### Past meetings
 
