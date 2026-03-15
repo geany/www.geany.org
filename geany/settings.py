@@ -301,7 +301,6 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 ################
 
 INSTALLED_APPS = (
-    "clearcache",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -330,6 +329,7 @@ INSTALLED_APPS = (
 
     # 3rd party
     "compressor",
+    "dj_cache_panel",
     "django_extensions",
     "mezzanine_pagedown",
     "mezzanine_sync_pages.apps.MezzanineSyncPagesAppConfig",
@@ -414,7 +414,7 @@ ADMIN_MENU_ORDER = (
         "sites.Site",
         "redirects.Redirect",
         "conf.Setting",
-        (_("Clear Cache"), "clearcache_admin"),
+        (_("Clear Cache"), "dj_cache_panel.CachePanelPlaceholder"),
     )),
     (_("Geany"), (
         "latest_version.LatestVersion",

@@ -36,7 +36,7 @@ admin.autodiscover()
 urlpatterns = i18n_patterns(
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
-    path('admin/clearcache/', include('clearcache.urls')),
+    path('admin/dj-cache-panel/', include('dj_cache_panel.urls')),
     path("admin/", include(admin.site.urls)),
 )
 

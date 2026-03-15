@@ -1,21 +1,21 @@
 Mezzanine==6.*
 babel
 mysqlclient
-django-clearcache
+dj-cache-panel
 django-compressor
 django-extensions
 django-link-shortener
 django-log-request-id
+hiredis
 mezzanine-pagedown
 mezzanine-sync-pages
 packaging
 pygments
-pylibmc
 python-logstash-async
 pymdown-extensions
 pytz
+redis
 uwsgi
-
 
 # for development
 django-debug-toolbar
