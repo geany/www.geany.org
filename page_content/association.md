@@ -15,7 +15,15 @@ There are no plans to direct the development of Geany itself from the associatio
 
 #### Upcoming meetings
 
-*None currently announced*
+##### Geany e.V. General Assembly 2026
+Date: 21st November 2026  - 15:00 CET
+Location: Hoepnerstraße, Leipzig, Germany and Jitsi (ask the association board for details)
+Audience: association members
+Agenda:
+
+- General report
+- Financial report
+- Election of the association board
 
 #### Past meetings
 
